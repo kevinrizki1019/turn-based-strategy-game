@@ -1,10 +1,10 @@
 /* Nama file: bangunan.h */
 /* Copyright: Kelompok 11 K-1 IF2110 2019/2020 */
 
+#include "bangunan.h"
+
 #ifndef __TABBANGUNAN_H__
 #define __TABBANGUNAN_H__
-
-#include "bangunan.h"
 
 // Banyaknya bangunan, angka disesuain sama spek
 #define IdxMax 29 
