@@ -1,0 +1,88 @@
+GARIS BESAR PROGRAM
+1. Buat Struktur Data
+
+1.1 ADT POINT dasar, pake yg dari point.h aja
+
+1.2 ADT Array Implisit
+1.2.1 Pake Array of Bangunan
+1.2.2 Bangunan adalah tipe bentukan dengan atribut menyesuaikan
+
+1.3 ADT Matriks
+1.3.1 Dipake buat representasi graph berarah yg menyatakan relasi bangunan i dan bangunan j saling terhubung
+
+Catatan: Dari data array dan matriks ini peta bisa dicetak
+
+1.4 ADT Mesin Karakter dan Mesin Kata
+1.4.1 Baca informasi peta dari file eksternal, pake ADT peta
+1.2.2 Baca command dari inteaksi user terhadap program, taro di ADT Stack
+1.2.3 Baca state dari game
+
+
+1. Inisiasi permainan
+1.1 Baca file pake mesin karakter dan mesi kata
+1.1.1 Taro info N dan M untuk ADT Peta
+1.1.2 Taro info B untuk ADT Array Implisit
+
+file : permainan.c
+ADT Permainan
+<
+tinggi (N) : integer
+lebar (M) : integer
+BanyakBangunan (B) : integer
+DaftarBangunan : TabBangunan
+PETABangunan : MATRIKS of integer (n+1 * m+1)
+(
+integer: -1 batas
+0 kosong
+id bangunan kalo ada
+dicek id nya dalam tab bangunan ini punya siapa
+)
+Keterhubungan : MATRIKS of char
+Giliran : char
+>
+
+Stack of Permainan
+
+Prosedur/fungsi:
+Nambahin/menghapus skill ke queue
+Dorong/mengeluarkan state permainan dari stack
+
+ADT Queue of Skill
+type SKill <
+idSkill : integer
+>
+
+file: bangunan.c
+Type Bangunan
+<
+ID : integer, // indeks array
+StatusPemilik : char,
+JumlahPasukan : integer,
+Type : character (C, T, F, V)
+Level : integer,
+Posisi : POINT,
+AddPasukan (A) : integer,
+MaksimumPasukan (M) : integer,
+Pertahanan (P) : boolean (yes/no),
+MinimumPasukan (U) : integer
+>
+
+ADT ArrayImplisit 
+Type TabBangunan
+<
+Array [1..Max] of Bangunan
+NEff : integer
+>
+
+Primitif Dasar Bangunan:
+CreateBangunan(input/output B : Bangunan, input tipe : character, posisi : POINT)
+
+BacaBangunan()
+
+ADT List
+
+Pertanyaan
+1. Kalo UNDO itu nyampe mana
+2. Nyimpen daftar kepemilikan bangunan di file yang akan di simpan (sementara: disimpen di setiap baris bangunan di tambahin kpemilikan)
+3. MOVE itu mindahin ke bangunan milik kita doang atau semua yg terhubung punya lawan
+4. ADT Graph variasi multilist
