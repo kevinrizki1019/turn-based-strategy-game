@@ -70,8 +70,7 @@ MinimumPasukan (U) : integer
 ADT ArrayImplisit 
 Type TabBangunan
 <
-Array [1..Max] of Bangunan
-NEff : integer
+Array [IdxMin..NMax] of Bangunan // IdxMin = 1, NMax = 30
 >
 
 Primitif Dasar Bangunan:
