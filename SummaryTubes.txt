@@ -83,6 +83,20 @@ ADT List
 
 Pertanyaan
 1. Kalo UNDO itu nyampe mana
-2. Nyimpen daftar kepemilikan bangunan di file yang akan di simpan (sementara: disimpen di setiap baris bangunan di tambahin kpemilikan)
-3. MOVE itu mindahin ke bangunan milik kita doang atau semua yg terhubung punya lawan
-4. ADT Graph variasi multilist
+- UNDO itu nyampe awal dia main aja
+
+X2. Nyimpen daftar kepemilikan bangunan di file yang akan di simpan (sementara: disimpen di setiap baris bangunan di tambahin kpemilikan)
+
+3. MOVE itu mindahin ke bangunan milik kita doang atau semua yg terhubung punya lawan, cuman dicontoh kenapa bangunan target kiriman bukan daftar bangunan milik kita?
+
+4. ADT Graph variasi multilist (Belum diajarin, minta gambarannya)
+- Adjacent matrix, adjacent list, insidensi matriks, insidensi list, 
+
+5. Di awal game jumlah pasukan du senya bangunan ada berapa? U? Itu berlaku untuk semua bangunan di peta atau cuman yg dimiliki player doang? Lalu kalo bangunan gak dimiliki siapapun pasukan di bangunan itu berarti berjumlah 0?
+--- Tungu revisi
+
+7. Klarifikasi cara dapet Barrage, melewati 10 bangunan atau tiap bertambah 10 bangunan
+-- Mencapai angka 10
+
+8. Bisa gak jumlah pasukan pada suatu bangunan melebihi nilai M? Angka pasukan yg maksimal 1 juta itu apa?
+XXX
