@@ -13,14 +13,13 @@
 typedef int IdxType; /* type indeks */
 typedef BANGUNAN ElType; /* type elemen tabel */
 typedef struct {
-	ElType *TI;
-    BANGUNAN_TB[IdxMax+1];
+    BANGUNAN TB[IdxMax+1];
 } TabBANGUNAN;
 /* Tabel of BANGUNAN yang dideklarasikan secara implisit statik
 
 /* ********** SELEKTOR ********** */
-#define TI(T)     (T).TI
-#define Elmt(T,i) (T).TI[(i)]
+#define TI(T)     (T).TB
+#define Elmt(T,i) (T).TB[(i)]
 
 BANGUNAN ValTabUndef();
 /* Karena ini make array implisit, array mesti dinisiasi dulu dengan BANGUNAN ValTabUndef */

@@ -13,7 +13,10 @@ typedef struct{
 } Permainan;
 
 /* ********** SELEKTOR ********** */
-
+#define PanjangPeta(P) (P).N
+#define LebarPeta(P) (P).M
+#define JumlahBangunan(P) (P).B
+#define DaftarBangunan(P) (P).DaftarBangunan
 
 /* ********** KONSTRUKTOR ********** */
 

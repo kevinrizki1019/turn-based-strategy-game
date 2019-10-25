@@ -26,7 +26,7 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm){
         tipe = CKata.TabKata[1];
         ADVKATA(); x=CKatatoInt();
         ADVKATA(); y=CKatatoInt();
-        (*Perm).DaftarBangunan.TB[i] = MakeBANGUNAN(tipe,MakePOINT(x,y));
+        Elmt(DaftarBangunan((*Perm)), i) = MakeBANGUNAN(tipe,MakePOINT(x,y));
     }
 
     /* Input keterhubungan */
