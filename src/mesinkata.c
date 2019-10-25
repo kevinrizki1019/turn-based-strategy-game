@@ -12,7 +12,7 @@ void IgnoreBlank(){
 /* Mengabaikan satu atau beberapa BLANK
    I.S. : CC sembarang
    F.S. : CC ≠ BLANK */
-    while ((CC==BLANK) && (!EndPita)){
+    while (((CC==BLANK) || (CC==ENTER)) && (!EndPita)){
         ADV();
     }
 }
@@ -44,25 +44,36 @@ void ADVKATA(){
     }
 }
 
-void SalinKata()
+void SalinKata(){
 /* Mengakuisisi kata, menyimpan dalam CKata
    I.S. : CC adalah karakter pertama dari kata
    F.S. : CKata berisi kata yang sudah diakuisisi;
-          CC = BLANK atau CC = MARK;
+          CC = BLANK atau EndPita = true;
           CC adalah karakter sesudah karakter terakhir yang diakuisisi.
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
-{
     /* Kamus Lokal */
     int i=1;
 
     /* Algoritma */
-    while ((CC!=BLANK) && (!EndPita)){
+    while ((CC!=BLANK) && (CC!=ENTER) && (!EndPita)){
         if (i<=NMax){
             CKata.TabKata[i] = CC;
-            printf("%c %d\n",CC,i);
             i++;
         }
         ADV();
     }
     CKata.Length = i-1;
+}
+
+int CKatatoInt(){
+/*  Mengembalikan integer dari kata */
+    /* Kamus */
+    int i,res;
+
+    /* Algoritma */
+    res=0;
+    for (i=1;i<=CKata.Length;i++){
+        res = res*10+(int) (CKata.TabKata[i]-'0');
+    }
+    return res;
 }

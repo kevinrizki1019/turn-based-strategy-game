@@ -9,6 +9,7 @@
 
 #define NMax 50
 #define BLANK ' '
+#define ENTER '\n'
 
 typedef struct {
   char TabKata[NMax+1]; /* container penyimpan kata, indeks yang dipakai [1..NMax] */
@@ -38,8 +39,11 @@ void SalinKata();
 /* Mengakuisisi kata, menyimpan dalam CKata
    I.S. : CC adalah karakter pertama dari kata
    F.S. : CKata berisi kata yang sudah diakuisisi;
-          CC = BLANK atau CC = MARK;
+          CC = BLANK atau EndPita = true;
           CC adalah karakter sesudah karakter terakhir yang diakuisisi.
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
+
+int CKatatoInt();
+/*  Mengembalikan integer dari kata */
 
 #endif
