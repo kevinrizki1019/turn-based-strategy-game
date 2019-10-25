@@ -82,7 +82,6 @@ ADT List
 
 Pertanyaan
 1. Kalo UNDO itu nyampe mana
-<<<<<<< HEAD
 - UNDO itu nyampe awal dia main aja
 
 X2. Nyimpen daftar kepemilikan bangunan di file yang akan di simpan (sementara: disimpen di setiap baris bangunan di tambahin kpemilikan)
@@ -100,8 +99,6 @@ X2. Nyimpen daftar kepemilikan bangunan di file yang akan di simpan (sementara: 
 
 8. Bisa gak jumlah pasukan pada suatu bangunan melebihi nilai M? Angka pasukan yg maksimal 1 juta itu apa?
 XXX
-=======
 2. Nyimpen daftar kepemilikan bangunan di file yang akan di simpan (sementara: disimpen di setiap baris bangunan di tambahin kpemilikan)
 3. MOVE itu mindahin ke bangunan milik kita doang atau semua yg terhubung punya lawan
 4. ADT Graph variasi multilist
->>>>>>> 11f235e732e853b1df202268894a5357f56436ec

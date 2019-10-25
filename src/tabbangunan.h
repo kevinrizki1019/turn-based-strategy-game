@@ -8,10 +8,10 @@
 
 // Banyaknya bangunan, angka disesuain sama spek
 #define IdxMax 29 
-#define IdxMin 1
+#define IdxMin 1 
 
 typedef int IdxType; /* type indeks */
-typedef int ElType; /* type elemen tabel */
+typedef BANGUNAN ElType; /* type elemen tabel */
 typedef struct {
 	ElType *TI;
     BANGUNAN_TB[IdxMax+1];
@@ -22,6 +22,12 @@ typedef struct {
 #define TI(T)     (T).TI
 #define Elmt(T,i) (T).TI[(i)]
 
+BANGUNAN ValTabUndef();
+/* Karena ini make array implisit, array mesti dinisiasi dulu dengan BANGUNAN ValTabUndef */
+/* Definisi ValTabUndef: */
+/* JenisBangunan(ValTabUndef) = 'X */
+/* Atribut lain sembarang */
+
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create tabel kosong  */
 void MakeEmpty (TabBANGUNAN * T);
@@ -30,7 +36,7 @@ void MakeEmpty (TabBANGUNAN * T);
 
 void Dealokasi(TabBANGUNAN *T);
 /* I.S. T terdefinisi; */
-/* F.S. TI(T) dikembalikan ke system, MaxEl(T)=0; Neff(T)=0 */
+/* F.S. TI(T) dikembalikan ke system, MaxEl(T)=0 */
 
 /* ********** SELEKTOR (TAMBAHAN) ********** */
 /* *** Banyaknya elemen *** */

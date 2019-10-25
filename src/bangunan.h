@@ -58,6 +58,16 @@ BANGUNAN MakeBANGUNAN (char jenis_bangunan, POINT posisi);
 void SetPertahanan (BANGUNAN *B);
 // Mengubah nilai status pertahanan sesuai levelnya
 
+/* ********** OPERASI BACA/TULIS ********** */
+void TulisBangunan (BANGUNAN B);
+// Menulis keterangan sebuah bangunan dengan format:
+// <JenisBangunan(B)> <Posisi(B)> <JumlahPasukan(B)> <Level(B)>
+// Tanpa spasi atau enter di awal dan di akhir
+
+void BacaBangunan (BANGUNAN *B);
+// Membaca data bangunan dari file eksternal dengan bantuan mesin keterangan
+// Lalu menyimpannya dalam *B
+
 /* ********** OPERASI LAINNYA ********** */
 void TambahSatuLevel (BANGUNAN *B);
 // Menambah level bangunan sebesar 1 
@@ -71,10 +81,5 @@ void KurangJumlahPasukan (BANGUNAN *B, int jumlah_pengurangan);
 // Menambahkan nilai JumlahPasukan(*B) sebesar jumlah_pengurangan
 // tidak dilakukan pengurangan jika JumlahPasukan(*B) - jumlah_pengurangan < 0
 
-
-void TulisBangunan (BANGUNAN B);
-// Menulis keterangan sebuah bangunan dengan format:
-// <JenisBangunan(B)> <Posisi(B)> <JumlahPasukan(B)> <Level(B)>
-// Tanpa spasi atau enter di awal dan di akhir
 
 #endif
