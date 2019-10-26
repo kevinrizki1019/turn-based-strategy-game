@@ -81,5 +81,8 @@ void KurangJumlahPasukan (BANGUNAN *B, int jumlah_pengurangan);
 // Menambahkan nilai JumlahPasukan(*B) sebesar jumlah_pengurangan
 // tidak dilakukan pengurangan jika JumlahPasukan(*B) - jumlah_pengurangan < 0
 
+boolean IsBangunanSama(BANGUNAN A, BANGUNAN B);
+// Mengembalikan nilai true jika bangunan A dan B sama, false jika tidak
+
 
 #endif
