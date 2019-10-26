@@ -13,6 +13,7 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm){
     int i,j,x,y;
     char tipe;
     
+
     /* Algoritma */
     STARTKATA(NamaFile);
     (*Perm).N = CKatatoInt();
@@ -20,6 +21,8 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm){
     (*Perm).M = CKatatoInt();
     ADVKATA();
     (*Perm).B = CKatatoInt();
+
+    MakeEmpty(&DaftarBangunan(*Perm));
 
     for (i=IdxMin;i<=(*Perm).B;i++){
         ADVKATA();
@@ -30,4 +33,13 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm){
     }
 
     /* Input keterhubungan */
+}
+
+int main() {
+    Permainan P;
+    BacaKonfigurasi("../config_map.txt", &P);
+    printf("Panjang peta : %d\n", PanjangPeta(P));
+    printf("Lebar peta :%d\n", LebarPeta(P));
+    printf("Jumlah bangunan: %d\n", JumlahBangunan(P));
+    TulisIsiTab(DaftarBangunan(P));
 }

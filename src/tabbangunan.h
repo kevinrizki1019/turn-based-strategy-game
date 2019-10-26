@@ -29,7 +29,7 @@ BANGUNAN ValTabUndef();
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create tabel kosong  */
-void MakeEmpty (TabBANGUNAN * T);
+void MakeEmpty (TabBANGUNAN *T);
 /* I.S. T sembarang */
 /* F.S. Terbentuk tabel T kosong dengan kapasitas IdxMax-IdxMin+1. Isi tabel adalah ValTabUndef */
 
