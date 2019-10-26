@@ -141,6 +141,19 @@ void TulisBangunan (BANGUNAN B)
     printf(" %d lv. %d", JumlahPasukan(B), Level(B));
 }
 
+boolean IsBangunanSama(BANGUNAN A, BANGUNAN B){
+    if ((A.JenisBangunan == B.JenisBangunan) &&
+        (A.Posisi.X == B.Posisi.X) && 
+        (A.Posisi.Y == B.Posisi.Y) &&
+        (A.Level == B.Level) &&
+        (A.JumlahPasukan == B.JumlahPasukan) &&
+        (A.P == B.P)){
+            return true;
+        }
+    return false;
+    
+}
+
 // int main() {
 //     BANGUNAN B1;
 //     POINT P;
