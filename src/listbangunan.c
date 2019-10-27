@@ -1,32 +1,11 @@
+/* Nama file: listbangunan.c */
+/* Copyright: Kelompok 11 K-1 IF2110 2019/2020 */
+
 #include "boolean.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include "listbangunan.h"
 
-boolean IsEmpty (List L){
-    return (First(L) ==  Nil);
-}
-
-void CreateEmpty (List *L){
-    First(*L) = Nil;
-}
-
-address Alokasi (BANGUNAN X){
-    address P;
-
-    P = (address) malloc (sizeof (ElmtList));
-    if (P != Nil) {
-        Info(P) = X;
-        Next(P) = Nil;
-        return P;
-    } 
-    else {
-        return Nil;
-    }
-}
-
-void Dealokasi (address *P){
-    free(*P);
-}
 
 address Search (List L, BANGUNAN X){
     address P;
@@ -152,7 +131,7 @@ void DelAfter (List *L, address *Pdel, address Prec) {
     Next(*Pdel) = Nil;
 }
 
-int NbElmt (List L) {
+int NbElmtList (List L) {
     address P;
     int n = 0;
 

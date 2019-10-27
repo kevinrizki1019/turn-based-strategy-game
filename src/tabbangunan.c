@@ -17,10 +17,6 @@ void MakeEmpty (TabBANGUNAN * T){
     }
 }
 
-void Dealokasi(TabBANGUNAN *T){
-	
-}
-
 void TulisIsiTab(TabBANGUNAN T) {
     int i;
     i = IdxMin;
@@ -28,5 +24,13 @@ void TulisIsiTab(TabBANGUNAN T) {
         TulisBangunan(Elmt(T, i));
         printf("\n");
         i++;
+    }
+}
+
+void CopyTab (TabBANGUNAN Tin, TabBANGUNAN * Tout) {
+    IdxType i;
+
+    for (i=GetFirstIdx(Tin); i<=GetLastIdx(Tin); i++) {
+        Elmt(*Tout,i) = Elmt(Tin,i);
     }
 }

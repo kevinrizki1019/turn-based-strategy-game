@@ -33,9 +33,6 @@ void MakeEmpty (TabBANGUNAN *T);
 /* I.S. T sembarang */
 /* F.S. Terbentuk tabel T kosong dengan kapasitas IdxMax-IdxMin+1. Isi tabel adalah ValTabUndef */
 
-void Dealokasi(TabBANGUNAN *T);
-/* I.S. T terdefinisi; */
-/* F.S. TI(T) dikembalikan ke system, MaxEl(T)=0 */
 
 /* ********** SELEKTOR (TAMBAHAN) ********** */
 /* *** Banyaknya elemen *** */
@@ -88,5 +85,12 @@ void TulisIsiTab(TabBANGUNAN T);
 /* F.S. Jika T tidak kosong: [e1,e2,...,en] */
 /* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
 /* Jika tabel kosong : menulis [] */
+
+/* OPERASI LAIN */
+void CopyTab (TabBANGUNAN Tin, TabBANGUNAN * Tout);
+/* I.S. Tin terdefinisi, Tout sembarang */
+/* F.S. Tout berisi salinan dari Tin (elemen dan ukuran identik) */
+/* Proses : Menyalin isi Tin ke Tout */
+
 
 #endif
