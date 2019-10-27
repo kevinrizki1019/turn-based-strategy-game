@@ -77,3 +77,29 @@ int CKatatoInt(){
     }
     return res;
 }
+
+Kata StringtoKata(char s[]){
+/* Mengubah string menjadi Kata */
+    int i=0;
+    Kata kata;
+    while(s[i]!='\0'){
+        kata.TabKata[i]=s[i];
+        i++;
+    }
+    kata.Length=i;
+    return kata;
+}
+
+boolean IsSamaKata(Kata kata1,Kata kata2){
+/* Mengembalikan true jika kata1=kata2 */
+    if (kata1.Length==kata2.Length){
+        int i=0;
+        while ((i<kata1.Length) && (kata1.TabKata[i]==kata2.TabKata[i])){
+            i++;
+        }
+        return (kata1.TabKata[i]==kata2.TabKata[i]);
+    }
+    else{
+        return false;
+    }
+}

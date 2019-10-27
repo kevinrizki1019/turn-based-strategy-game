@@ -1,4 +1,5 @@
 #include "permainan.h"
+#include "mesinkata.h"
 #include <stdio.h>
 #include <unistd.h>
 
@@ -15,7 +16,8 @@ int main(){
     // /* Kamus */
     // Permainan Perm;
     // char s[NMaxStr];
-    // int i;
+    // Kata command;
+    // int i,turn=1;
 
     // /* Algoritma */
     // do{
@@ -31,5 +33,12 @@ int main(){
     //     printf("\n");
     // }
 
-    // TulisMATRIKSPetaPermainan(Perm);
+    // do{
+    //     TulisMATRIKSPetaPermainan(Perm);
+    //     printf("Player %d\n",turn);
+
+    //     printf("ENTER COMMAND: ");
+    //     scanf("%s",s);
+    //     command=StringtoKata(s);
+    // }while(!IsSamaKata(command,StringtoKata("EXIT")));
 }

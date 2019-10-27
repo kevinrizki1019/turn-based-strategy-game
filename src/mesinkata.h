@@ -43,7 +43,14 @@ void SalinKata();
           CC adalah karakter sesudah karakter terakhir yang diakuisisi.
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
 
+/* Operasi Mesinkata */
 int CKatatoInt();
-/*  Mengembalikan integer dari kata */
+/*  Mengembalikan integer dari CKata */
+
+Kata StringtoKata(char s[]);
+/* Mengubah string menjadi Kata */
+
+boolean IsSamaKata(Kata kata1,Kata kata2);
+/* Mengembalikan true jika kata1=kata2 */
 
 #endif
