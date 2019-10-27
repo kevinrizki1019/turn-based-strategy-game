@@ -12,34 +12,50 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm){
     /* Kamus */
     int i,j,x,y;
     char tipe;
-    
 
     /* Algoritma */
     STARTKATA(NamaFile);
-    (*Perm).N = CKatatoInt();
+    TinggiPeta(*Perm) = CKatatoInt();
     ADVKATA();
-    (*Perm).M = CKatatoInt();
+    LebarPeta(*Perm) = CKatatoInt();
     ADVKATA();
-    (*Perm).B = CKatatoInt();
+    JumlahBangunan(*Perm) = CKatatoInt();
 
     MakeEmpty(&DaftarBangunan(*Perm));
+    MakeMATRIKS(TinggiPeta(*Perm),LebarPeta(*Perm),&Peta(*Perm));
 
     for (i=IdxMin;i<=(*Perm).B;i++){
         ADVKATA();
         tipe = CKata.TabKata[1];
         ADVKATA(); x=CKatatoInt();
         ADVKATA(); y=CKatatoInt();
-        Elmt(DaftarBangunan((*Perm)), i) = MakeBANGUNAN(tipe,MakePOINT(x,y));
+        
+        if (i<=2){
+            Elmt(DaftarBangunan((*Perm)), i) = MakeBANGUNAN(tipe,MakePOINT(x,y),i);
+        }
+        else{
+            Elmt(DaftarBangunan((*Perm)), i) = MakeBANGUNAN(tipe,MakePOINT(x,y),0);
+        }
+
+        ElmtMat(Peta(*Perm),x,y) = i;
     }
 
     /* Input keterhubungan */
 }
 
-int main() {
-    Permainan P;
-    BacaKonfigurasi("../config_map.txt", &P);
-    printf("Panjang peta : %d\n", PanjangPeta(P));
-    printf("Lebar peta :%d\n", LebarPeta(P));
-    printf("Jumlah bangunan: %d\n", JumlahBangunan(P));
-    TulisIsiTab(DaftarBangunan(P));
+void TulisMATRIKSPetaPermainan (Permainan Perm){
+    for (int i=0;i<=TinggiPeta(Perm)+1;i++){
+        for (int j=0;j<=LebarPeta(Perm)+1;j++){
+            if (ElmtMat(Peta(Perm),i,j)==-1){
+                printf("*");
+            }
+            else if (ElmtMat(Peta(Perm),i,j)==0){
+                printf(" ");
+            }
+            else{
+                printf("%c",JenisBangunan(Elmt(DaftarBangunan(Perm),ElmtMat(Peta(Perm),i,j))));
+            }
+        }
+        printf("\n");
+    }
 }

@@ -77,13 +77,14 @@ boolean IsLevelValid (int lvl)
 }
 
 /* ********** KONSTRUKTOR ********** */
-BANGUNAN MakeBANGUNAN (char jenis_bangunan, POINT posisi)
+BANGUNAN MakeBANGUNAN (char jenis_bangunan, POINT posisi,int pemilik)
 {
     BANGUNAN B;
     JenisBangunan(B) = jenis_bangunan;
     Posisi(B) = MakePOINT (Absis(posisi), Ordinat(posisi));
     JumlahPasukan(B) = GetPasukanAwal(B);
     Level(B) = 1;
+    Pemilik(B) = pemilik;
     SetPertahanan(&B);
     return B;
 }
@@ -153,41 +154,3 @@ boolean IsBangunanSama(BANGUNAN A, BANGUNAN B){
     return false;
     
 }
-
-// int main() {
-//     BANGUNAN B1;
-//     POINT P;
-
-//     Absis(P) = 13;
-//     Ordinat(P) = 2;
-//     B1 = MakeBANGUNAN('V', P);
-//     TulisBangunan(B1);
-//     printf("\n");
-
-//     printf("%d\n", Pertahanan(B1));
-//     Pertahanan(B1) = true;
-//     printf("%d\n", Pertahanan(B1));
-//     SetPertahanan(&B1);
-//     printf("%d\n", Pertahanan(B1));
-
-//     TulisBangunan(B1);
-//     printf("\n");
-//     TambahSatuLevel(&B1);
-//     TulisBangunan(B1);
-//     printf("\n");
-
-//     TambahJumlahPasukan(&B1, 10);
-//     TulisBangunan(B1);
-//     printf("\n");
-//     TambahJumlahPasukan(&B1, 10);
-//     TulisBangunan(B1);
-//     printf("\n");
-
-//     KurangJumlahPasukan(&B1, 20);
-//     TulisBangunan(B1);
-//     printf("\n");
-//     KurangJumlahPasukan(&B1, 20);
-//     TulisBangunan(B1);
-//     printf("\n");
-//     return 0;
-// }

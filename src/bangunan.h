@@ -14,14 +14,14 @@ typedef struct {
     POINT Posisi;
     int JumlahPasukan;
     int Level;
+    int Pemilik;  // tanda pemilik bangunan. 0(tidak ada yang punya), 1/2 (milik player)
     boolean P; // Nilai atribut P yaitu Pertahanan
 } BANGUNAN;
 /* CATATAN:
 Setelah dipikir-pikir ada beberapa attribut yg bisa didrop disini
 1. ID, digantiin dengan indeks bangunan pada tab bangunan
-2. Pemilik, digantiin dengan list linier
-3. A, M, dan U, didapet dari kombinasi JenisBangunan dan level
-4. Khusus untuk P karena ada skill shield up mesti dibuat atribut status pertahanan yes/no
+2. A, M, dan U, didapet dari kombinasi JenisBangunan dan level
+3. Khusus untuk P karena ada skill shield up mesti dibuat atribut status pertahanan yes/no
 */
 
 /* ********** SELEKTOR ********** */
@@ -29,6 +29,7 @@ Setelah dipikir-pikir ada beberapa attribut yg bisa didrop disini
 #define Posisi(B)           (B).Posisi
 #define JumlahPasukan(B)    (B).JumlahPasukan
 #define Level(B)            (B).Level
+#define Pemilik(B)            (B).Pemilik
 #define Pertahanan(B)       (B).P
 
 int GetNilaiPenambahanPasukan (BANGUNAN B);
@@ -49,7 +50,7 @@ boolean IsLevelValid (int lvl);
 // Level valid: 1 <= lvl <= 4
 
 /* ********** KONSTRUKTOR ********** */
-BANGUNAN MakeBANGUNAN (char jenis_bangunan, POINT posisi);
+BANGUNAN MakeBANGUNAN (char jenis_bangunan, POINT posisi,int pemilik);
 // Prekondisi: semua parameter adalah valid untuk tipe BANGUNAN
 // Proses Membuat sebuah BANGUNAN dengan atribut sesuai parameter
 // untuk atribut Level dimulai dengan nilai 1

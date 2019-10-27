@@ -12,17 +12,17 @@ typedef struct{
     int N,M; // Menyimpan ukuran peta
     int B; // Menyimpan banyak bangunan
     TabBANGUNAN DaftarBangunan; // Menyimpan daftar bangunan
-    MATRIKS MatriksBangunan;
-    List ListBangunanPlayer1;
-    List ListBangunanPlayer2;
+    MATRIKS Peta;
+    // List ListBangunanP1;
+    // List ListBangunanP2;
 } Permainan;
 
 /* ********** SELEKTOR ********** */
-#define PanjangPeta(P) (P).N
+#define TinggiPeta(P) (P).N
 #define LebarPeta(P) (P).M
 #define JumlahBangunan(P) (P).B
 #define DaftarBangunan(P) (P).DaftarBangunan
-#define MatriksBangunan(P) (P).MatriksBangunan
+#define Peta(P) (P).Peta
 
 void BacaKonfigurasi(char NamaFile[],Permainan *Perm);
 /*  Membaca konfigurasi file dari 'NamaFile'
@@ -32,8 +32,8 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm);
 void TulisMATRIKSPetaPermainan (Permainan Perm);
 /* Prosedur yang serupa seperti TulisMATRIKS namun mengganti memberikan output */
 /* berupa character sesuai integer yang ada pada konvensi sebagai berikut */
-/* Elmt(MatriksBangunan(Perm),i,j) = -1 maka cetak '*' */
-/* Elmt(MatriksBangunan(Perm),i,j = 0 maka cetak ' ' */
-/* else maka TulisBANGUNAN(Elmt(MatriksBangunan(Perm), i, j)) */
+/* Elmt(Peta(Perm),i,j) = -1 maka cetak '*' */
+/* Elmt(Peta(Perm),i,j = 0 maka cetak ' ' */
+/* else maka TulisBANGUNAN(Elmt(Peta(Perm), i, j)) */
 
 #endif
