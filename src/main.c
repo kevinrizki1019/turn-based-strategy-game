@@ -33,12 +33,16 @@ int main(){
     //     printf("\n");
     // }
 
+    // /* Looping Command */
     // do{
     //     TulisMATRIKSPetaPermainan(Perm);
     //     printf("Player %d\n",turn);
 
     //     printf("ENTER COMMAND: ");
     //     scanf("%s",s);
-    //     command=StringtoKata(s);
-    // }while(!IsSamaKata(command,StringtoKata("EXIT")));
+    //     if (s!="EXIT\0"){
+
+    //         turn=turn%2+1;
+    //     }
+    // }while(s=="EXIT\0");
 }

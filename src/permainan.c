@@ -3,6 +3,7 @@
 
 #include "permainan.h"
 #include "mesinkata.h"
+#include "color.h"
 #include <stdio.h>
 
 void BacaKonfigurasi(char NamaFile[],Permainan *Perm){
@@ -53,7 +54,17 @@ void TulisMATRIKSPetaPermainan (Permainan Perm){
                 printf(" ");
             }
             else{
+                if (Pemilik(Elmt(DaftarBangunan(Perm),ElmtMat(Peta(Perm),i,j)))==1 ){
+                    blue();
+                }
+                else if (Pemilik(Elmt(DaftarBangunan(Perm),ElmtMat(Peta(Perm),i,j)))==2 ){
+                    red();
+                }
                 printf("%c",JenisBangunan(Elmt(DaftarBangunan(Perm),ElmtMat(Peta(Perm),i,j))));
+
+                if (Pemilik(Elmt(DaftarBangunan(Perm),ElmtMat(Peta(Perm),i,j)))!=0 ){
+                    reset();
+                }
             }
         }
         printf("\n");
