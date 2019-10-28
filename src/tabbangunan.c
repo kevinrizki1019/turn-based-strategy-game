@@ -27,10 +27,10 @@ void TulisIsiTab(TabBANGUNAN T) {
     }
 }
 
-void CopyTab (TabBANGUNAN Tin, TabBANGUNAN * Tout) {
-    IdxType i;
+// void CopyTab (TabBANGUNAN Tin, TabBANGUNAN * Tout) {
+//     IdxType i;
 
-    for (i=GetFirstIdx(Tin); i<=GetLastIdx(Tin); i++) {
-        Elmt(*Tout,i) = Elmt(Tin,i);
-    }
-}
+//     for (i=GetFirstIdx(Tin); i<=GetLastIdx(Tin); i++) {
+//         Elmt(*Tout,i) = Elmt(Tin,i);
+//     }
+// }

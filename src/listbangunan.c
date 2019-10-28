@@ -1,24 +1,53 @@
 /* Nama file: listbangunan.c */
 /* Copyright: Kelompok 11 K-1 IF2110 2019/2020 */
 
-#include "boolean.h"
+#include "listbangunan.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "listbangunan.h"
 
+boolean IsEmptyList (List L){
+    return (First(L) ==  Nil);
+}
 
-address Search (List L, BANGUNAN X){
+void CreateEmpty (List *L){
+    First(*L) = Nil;
+}
+
+address Alokasi (int X){
     address P;
+
+    P = (address) malloc (sizeof (ElmtList));
+    if (P != Nil) {
+        Info(P) = X;
+        Next(P) = Nil;
+        return P;
+    } 
+    else {
+        return Nil;
+    }
+}
+
+void Dealokasi (address *P){
+    free(*P);
+}
+
+address Search (List L, int X){
+    address P;
+    boolean found = false;
     
     P = First(L);
-    while (P != Nil) {
-        if (IsBangunanSama(X, Info(P))) {return P;}
-        P = Next(P);
+    while ((P != Nil) && (!found)) {
+        if (X==Info(P)){
+            found = true;
+        }
+        else{
+            P = Next(P);
+        }
     }
     return P;
 }
 
-void InsVFirst (List *L, BANGUNAN X) {
+void InsVFirst (List *L, int X) {
     address P;
     
     P = Alokasi(X);
@@ -27,7 +56,7 @@ void InsVFirst (List *L, BANGUNAN X) {
     }
 }
 
-void InsVLast (List *L, BANGUNAN X) {
+void InsVLast (List *L, int X) {
     address P;
 
     P = Alokasi(X);
@@ -36,7 +65,7 @@ void InsVLast (List *L, BANGUNAN X) {
     }
 }
 
-void DelVFirst (List *L, BANGUNAN *X) {
+void DelVFirst (List *L, int *X) {
     address P;
 
     P = First(*L);
@@ -46,7 +75,7 @@ void DelVFirst (List *L, BANGUNAN *X) {
     Dealokasi(&P);
 }
 
-void DelVLast (List *L, BANGUNAN *X) {
+void DelVLast (List *L, int *X) {
     address P;
 
     DelLast(L,&P);
@@ -83,18 +112,18 @@ void DelFirst (List *L, address *P) {
     First(*L) = Next(First(*L));
 }
 
-void DelP (List *L, BANGUNAN X) {
+void DelP (List *L, int X) {
     address P, Prec;
-    BANGUNAN Y;
+    int Y;
 
     P = First(*L);
-    if (IsBangunanSama(X, Info(P))) {
+    if (X==Info(P)) {
         DelVFirst(L,&Y);
     } 
     else {
         Prec = Nil;
         while (P != Nil) {
-            if (IsBangunanSama(Info(P), X)) {
+            if (Info(P)==X) {
                 DelAfter(L,&P,Prec);
                 Dealokasi(&P);
                 return;

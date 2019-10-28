@@ -1,86 +1,78 @@
 /* Nama file: listbangunan.h */
 /* Copyright: Kelompok 11 K-1 IF2110 2019/2020 */
+/* List yang elemennya bertipa integer yang menunjukkan indeks pada DaftarBangunan yang 
+ merepresentasikan kepemilikan dari suatu player*/
 
 #ifndef __LIST_LINIER_BANGUNAN__
 #define __LIST_LINIER_BANGUNAN__
 
 #include "boolean.h"
-#include "bangunan.h"
-#include "tabbangunan.h"
 
-/* List direpresentasi secara berkait dengan tabel */
-typedef BANGUNAN InfoType;
-typedef int address; // [IndexMin..IndexMax, Nil]
-typedef struct {
-	InfoType info;
-	address Next;
-} ElmtList;
-
-/* TABEL MEMORI UNTUK DAFTAR BANGUNAN, GLOBAL */
-#define IndexMin 1
-#define IndexMax 29 
 #define Nil NULL
-/* Nil adalah address tidak terdefinisi, di luar [IndexMin..IndexMax] */
-TabBANGUNAN TabMem; 
-address FirstAvail;
 
+typedef struct tElmtlist *address;
+typedef struct tElmtlist {
+	int info;
+	address next;
+} ElmtList;
 typedef struct {
 	address First;
 } List;
 
-#define First(L) (L).First
-#define Next(P) TabMem[P].Next
-#define Info(P) TabMem[P].Info
+/* Definisi list : */
+/* List kosong : First(L) = Nil */
+/* Setiap elemen dengan address P dapat diacu Info(P), Next(P) */
+/* Elemen terakhir list : jika addressnya Last, maka Next(Last)=Nil */
+
+#define Info(P) (P)->info
+#define Next(P) (P)->next
+#define First(L) ((L).First)
 
 /* PROTOTYPE */
-boolean MemFull();
-/* Mengirimkan true jika memori list sudah "habis": FirstAvail==Nil */  
+/****************** TEST LIST KOSONG ******************/
+boolean IsEmptyList (List L);
+/* Mengirim true jika list kosong */
 
-void InitTab();
-/* Prosedur yang sama dengan MakeEmpty dengan beberapa tambahan */
-/* I.S. Sembarang. */
-/* F.S. TabMem[IndexMin..IndexMax] siap dipakai sebagai elemen list */
-/* berkait, Elemen pertama yang available adalah FirstAvail=1. */
-/* Next(i)=i+1 untuk i[IndexMin..IndexMax+1], Next(IndexMax)=Nil */
+/****************** PEMBUATAN LIST KOSONG ******************/
+void CreateEmpty (List *L);
+/* I.S. sembarang             */
+/* F.S. Terbentuk list kosong */
 
-void AllocTab(address *P);
-/* Mengambil sebuah elemen siap pakai P pada awal list FirstAvail */
-/* I.S. FirstAvail mungkin kosong. */
-/* F.S. Jika FirstAvail tidak Nil, P adalah FirstAvail dan */
-/* FirstAvail yang baru adalah Next(FirstAvail) */
-/* Jika FirstAvail=Nil, P=Nil, */
-/* tulis pesan “Tidak tersedia lagi elemen siap pakai” } */
+/****************** Manajemen Memori ******************/
+address Alokasi (int X);
+/* Mengirimkan address hasil alokasi sebuah elemen */
+/* Jika alokasi berhasil, maka address tidak nil, dan misalnya */
+/* menghasilkan P, maka Info(P)=X, Next(P)=Nil */
+/* Jika alokasi gagal, mengirimkan Nil */
+void Dealokasi (address *P);
+/* I.S. P terdefinisi */
+/* F.S. P dikembalikan ke sistem */
+/* Melakukan dealokasi/pengembalian address P */
 
-void DeAllocTab (address P)
-// { Mengembalikan sebuah elemen P pada awal list FirstAvail}
-// { I.S. FirstAvail mungkin kosong. P tidak Nil. }
-// { F.S. FirstAvail = P }
-
-/* UBAH BAWAH INI */
 /****************** PENCARIAN SEBUAH ELEMEN LIST ******************/
-address Search (List L, BANGUNAN X);
+address Search (List L, int X);
 /* Mencari apakah ada elemen list dengan Info(P)= X */
 /* Jika ada, mengirimkan address elemen tersebut. */
 /* Jika tidak ada, mengirimkan Nil */
 
 /****************** PRIMITIF BERDASARKAN NILAI ******************/
 /*** PENAMBAHAN ELEMEN ***/
-void InsVFirst (List *L, BANGUNAN X);
+void InsVFirst (List *L, int X);
 /* I.S. L mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen pertama dengan nilai X jika alokasi berhasil */
-void InsVLast (List *L, BANGUNAN X);
+void InsVLast (List *L, int X);
 /* I.S. L mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen list di akhir: elemen terakhir yang baru */
 /* bernilai X jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
 
 /*** PENGHAPUSAN ELEMEN ***/
-void DelVFirst (List *L, BANGUNAN *X);
+void DelVFirst (List *L, int *X);
 /* I.S. List L tidak kosong  */
 /* F.S. Elemen pertama list dihapus: nilai info disimpan pada X */
 /*      dan alamat elemen pertama di-dealokasi */
-void DelVLast (List *L, BANGUNAN *X);
+void DelVLast (List *L, int *X);
 /* I.S. list tidak kosong */
 /* F.S. Elemen terakhir list dihapus: nilai info disimpan pada X */
 /*      dan alamat elemen terakhir di-dealokasi */
@@ -104,7 +96,7 @@ void DelFirst (List *L, address *P);
 /* F.S. P adalah alamat elemen pertama list sebelum penghapusan */
 /*      Elemen list berkurang satu (mungkin menjadi kosong) */
 /* First element yg baru adalah suksesor elemen pertama yang lama */
-void DelP (List *L, BANGUNAN X);
+void DelP (List *L, int X);
 /* I.S. Sembarang */
 /* F.S. Jika ada elemen list beraddress P, dengan Info(P)=X  */
 /* Maka P dihapus dari list dan di-dealokasi */

@@ -24,6 +24,8 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm){
 
     MakeEmpty(&DaftarBangunan(*Perm));
     MakeMATRIKS(TinggiPeta(*Perm),LebarPeta(*Perm),&Peta(*Perm));
+    CreateEmpty(&ListBangunanP1(*Perm));
+    CreateEmpty(&ListBangunanP2(*Perm));
 
     for (i=IdxMin;i<=(*Perm).B;i++){
         ADVKATA();
@@ -33,6 +35,12 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm){
         
         if (i<=2){
             Elmt(DaftarBangunan((*Perm)), i) = MakeBANGUNAN(tipe,MakePOINT(x,y),i);
+            if (i==1){
+                InsVFirst(&ListBangunanP1(*Perm),1);
+            }
+            else{
+                InsVFirst(&ListBangunanP2(*Perm),2);
+            }
         }
         else{
             Elmt(DaftarBangunan((*Perm)), i) = MakeBANGUNAN(tipe,MakePOINT(x,y),0);
@@ -44,7 +52,7 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm){
     /* Input keterhubungan */
 }
 
-void TulisMATRIKSPetaPermainan (Permainan Perm){
+void TulisPetaPermainan (Permainan Perm){
     for (int i=0;i<=TinggiPeta(Perm)+1;i++){
         for (int j=0;j<=LebarPeta(Perm)+1;j++){
             if (ElmtMat(Peta(Perm),i,j)==-1){
@@ -68,5 +76,18 @@ void TulisMATRIKSPetaPermainan (Permainan Perm){
             }
         }
         printf("\n");
+    }
+}
+
+void TulisBangunanPlayer(List L,TabBANGUNAN tabBangunan){
+    address P=First(L);
+    int i=0;
+
+    while (P!=Nil){
+        i++;
+        printf("%d. ",i);
+        TulisBangunan(Elmt(tabBangunan,Info(P)));
+        printf("\n");
+        P=Next(P);
     }
 }

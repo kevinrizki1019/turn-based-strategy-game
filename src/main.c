@@ -35,14 +35,19 @@ int main(){
 
     // /* Looping Command */
     // do{
-    //     TulisMATRIKSPetaPermainan(Perm);
+    //     TulisPetaPermainan(Perm);
     //     printf("Player %d\n",turn);
 
     //     printf("ENTER COMMAND: ");
     //     scanf("%s",s);
     //     if (s!="EXIT\0"){
-
+    //         if (turn==1){
+    //             TulisBangunanPlayer(ListBangunanP1(Perm),DaftarBangunan(Perm));
+    //         }
+    //         else{
+    //             TulisBangunanPlayer(ListBangunanP2(Perm),DaftarBangunan(Perm));
+    //         }
     //         turn=turn%2+1;
     //     }
-    // }while(s=="EXIT\0");
+    // }while(s!="EXIT\0");
 }
