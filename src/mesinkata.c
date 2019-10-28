@@ -83,7 +83,7 @@ Kata StringtoKata(char s[]){
     int i=0;
     Kata kata;
     while(s[i]!='\0'){
-        kata.TabKata[i]=s[i];
+        kata.TabKata[i+1]=s[i];
         i++;
     }
     kata.Length=i;
@@ -93,7 +93,7 @@ Kata StringtoKata(char s[]){
 boolean IsSamaKata(Kata kata1,Kata kata2){
 /* Mengembalikan true jika kata1=kata2 */
     if (kata1.Length==kata2.Length){
-        int i=0;
+        int i=1;
         while ((i<kata1.Length) && (kata1.TabKata[i]==kata2.TabKata[i])){
             i++;
         }

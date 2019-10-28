@@ -1,14 +1,23 @@
 #include "permainan.h"
 #include "mesinkata.h"
+#include "command.h"
 #include <stdio.h>
 #include <unistd.h>
 
 #define NMaxStr 255
 
+void TulisDaftarBangunan(Permainan Perm,int turn){
+    if (turn==1){
+        TulisBangunanPlayer(ListBangunanP1(Perm),DaftarBangunan(Perm));
+    }
+    else{
+        TulisBangunanPlayer(ListBangunanP2(Perm),DaftarBangunan(Perm));
+    }
+}
+
 
 int main(){
     /* Silakan mencoba codingan di bawah ini */
-    
 
 
 
@@ -17,9 +26,11 @@ int main(){
     // Permainan Perm;
     // char s[NMaxStr];
     // Kata command;
-    // int i,turn=1;
+    // int i,turn=1,idx;
+    // boolean finish = false;
 
     // /* Algoritma */
+    // InitDaftarCommand();
     // do{
     //     printf("Masukkan nama file: ");
     //     scanf("%s",s);
@@ -38,16 +49,31 @@ int main(){
     //     TulisPetaPermainan(Perm);
     //     printf("Player %d\n",turn);
 
-    //     printf("ENTER COMMAND: ");
-    //     scanf("%s",s);
-    //     if (s!="EXIT\0"){
-    //         if (turn==1){
-    //             TulisBangunanPlayer(ListBangunanP1(Perm),DaftarBangunan(Perm));
+        
+        
+    //     do{ // command != "EXIT"
+    //         printf("ENTER COMMAND: ");
+    //         scanf("%s",s);
+    //         command = StringtoKata(s);
+    //         if (IsSamaKata(command,DaftarCommand[1])){ // command == "ATTACK"
+    //             TulisDaftarBangunan(Perm,turn);
+    //             printf("Bangunan yang digunakan untuk menyerang: ");
+    //             scanf("%d",&idx);
     //         }
-    //         else{
-    //             TulisBangunanPlayer(ListBangunanP2(Perm),DaftarBangunan(Perm));
+    //         else if (IsSamaKata(command,DaftarCommand[2])){ // command == "LEVEL_UP"
+    //             TulisDaftarBangunan(Perm,turn);
+    //             printf("Bangunan yang akan di level up: ");
+    //             scanf("%d",&idx);
     //         }
+    //         else if (IsSamaKata(command,DaftarCommand[8])){ // command == "EXIT"
+    //             finish = true;
+    //         }
+    //         if (!finish) printf("\n");
+    //     }while ( !finish && !IsSamaKata(command,DaftarCommand[5]) );
+        
+    //     if (!finish){
+    //         printf("\n");
     //         turn=turn%2+1;
     //     }
-    // }while(s!="EXIT\0");
+    // }while(!finish);
 }
