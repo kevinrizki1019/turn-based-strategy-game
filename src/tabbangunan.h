@@ -8,7 +8,8 @@
 
 // Banyaknya bangunan, angka disesuain sama spek
 #define IdxMax 29 
-#define IdxMin 1 
+#define IdxMin 1
+#define Undef -999
 
 typedef int IdxType; /* type indeks */
 typedef BANGUNAN ElType; /* type elemen tabel */
