@@ -22,7 +22,7 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm){
     ADVKATA();
     JumlahBangunan(*Perm) = CKatatoInt();
 
-    MakeEmpty(&DaftarBangunan(*Perm));
+    MakeEmptyTab(&DaftarBangunan(*Perm),JumlahBangunan(*Perm));
     MakeMATRIKS(TinggiPeta(*Perm),LebarPeta(*Perm),&Peta(*Perm));
     CreateEmpty(&ListBangunanP1(*Perm));
     CreateEmpty(&ListBangunanP2(*Perm));
@@ -46,6 +46,7 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm){
             Elmt(DaftarBangunan((*Perm)), i) = MakeBANGUNAN(tipe,MakePOINT(x,y),0);
         }
 
+        NeffTab(DaftarBangunan(*Perm))++;
         ElmtMat(Peta(*Perm),x,y) = i;
     }
 
@@ -83,6 +84,7 @@ void TulisBangunanPlayer(List L,TabBANGUNAN tabBangunan){
     address P=First(L);
     int i=0;
 
+    printf("Daftar bangunan:\n");
     while (P!=Nil){
         i++;
         printf("%d. ",i);
