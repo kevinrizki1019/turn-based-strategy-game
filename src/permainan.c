@@ -84,12 +84,20 @@ void TulisBangunanPlayer(List L,TabBANGUNAN tabBangunan){
     address P=First(L);
     int i=0;
 
-    printf("Daftar bangunan:\n");
     while (P!=Nil){
         i++;
         printf("%d. ",i);
         TulisBangunan(Elmt(tabBangunan,Info(P)));
         printf("\n");
         P=Next(P);
+    }
+}
+
+void TulisDaftarBangunan(Permainan Perm,int turn){
+    if (turn==1){
+        TulisBangunanPlayer(ListBangunanP1(Perm),DaftarBangunan(Perm));
+    }
+    else{
+        TulisBangunanPlayer(ListBangunanP2(Perm),DaftarBangunan(Perm));
     }
 }

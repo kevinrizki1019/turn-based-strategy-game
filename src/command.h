@@ -6,10 +6,15 @@
 #define __COMMAND_H__
 
 #include "mesinkata.h"
+#include "permainan.h"
 
 extern Kata DaftarCommand[9]; /* Berisi 8 daftar command yang bisa dilakukan. Indeks 0 tidak digunakan */
 
 void InitDaftarCommand();
 /* Mengisi array DaftarCommand */
+
+void attack(Perm P, int turn);
+/* Menjalankan mekanisme attack yang dilakukan oleh pemain turn */
+
 
 #endif

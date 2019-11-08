@@ -17,3 +17,16 @@ void InitDaftarCommand(){
     DaftarCommand[7] = StringtoKata("MOVE");
     DaftarCommand[8] = StringtoKata("EXIT");
 }
+
+attack(perm, ) {
+    printf("Daftar bangunan:\n");
+    TulisDaftarBangunan(Perm,turn);
+    printf("Bangunan yang digunakan untuk menyerang: ");
+    scanf("%d",&idx);
+    /* Dari bangunan yang dipilih, cetak bangunan mana aja yang terhubung dengan bangunan tersebut */
+    if ()
+    printf("Daftar Bangunan yang dapat diserang");
+    // TulisDaftarBangunanTerhubung(int id, GRAPH G);
+    printf("Bangunan yang diserang: ");
+    scanf("%d",&idx);    
+}
