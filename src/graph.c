@@ -83,10 +83,15 @@ void InsVLastAdj (adrver v, infotype X) {
             FirstAdj(v) = a;
         } else {
             aLast = FirstAdj(v);
-            while (NextAdj(aLast) != Nil) {
+            while (NextAdj(aLast) != Nil && InfoAdj(aLast) != X) {
                 aLast = NextAdj(aLast);
             }
-            NextAdj(aLast) = a;
+            if (InfoAdj(aLast) != X) {
+                NextAdj(aLast) = a;
+            } else {
+                // X sudah menjadi adjacent dari v
+                DealokasiAdj(&a);
+            }
         }
         NextAdj(a) = Nil;
     }
@@ -141,7 +146,9 @@ int main() {
     MakeTerhubung(&G1,1,4);
     MakeTerhubung(&G1,2,6);
     
-    PrintKeterhubungan(G1);
+    MakeTerhubung(&G1,2,6);
     
+    PrintKeterhubungan(G1);
+
     return 0;
 }
