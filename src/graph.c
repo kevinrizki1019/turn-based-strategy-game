@@ -54,6 +54,57 @@ void CreateGraph(GraphBANGUNAN *G, int V)
     }
 }
 
+adrver SearchVer(GraphBANGUNAN G, infotype X) {
+    adrver v;
+
+    v = FirstVer(G);
+    while (v != Nil && InfoVer(v) != X) {
+        v = NextVer(v);
+    }
+    return v;
+}
+
+adradj SearchAdj(adrver v, infotype X) {
+    adradj a;
+
+    a = FirstAdj(v);
+    while (a != Nil && InfoAdj(a) != X) {
+        a = NextAdj(a);
+    }
+    return a;
+}
+
+void InsVLastAdj (adrver v, infotype X) {
+    adradj a, aLast;
+    
+    a = AlokasiAdj(X);
+    if (a != Nil) {
+        if (FirstAdj(v) == Nil) {
+            FirstAdj(v) = a;
+        } else {
+            aLast = FirstAdj(v);
+            while (NextAdj(aLast) != Nil) {
+                aLast = NextAdj(aLast);
+            }
+            NextAdj(aLast) = a;
+        }
+        NextAdj(a) = Nil;
+    }
+
+}
+
+void MakeTerhubung(GraphBANGUNAN *G, infotype V1, infotype V2) {
+    adrver P1, P2;
+
+    // InsertVLastAdj V2 ke vertice pada G dengan infotype V1
+    P1 = SearchVer(*G,V1);
+    InsVLastAdj(P1,V2);
+    
+    // InsertVLastAdj V1 ke vertice pada G dengan infotype V2
+    P2 = SearchVer(*G,V2);
+    InsVLastAdj(P2,V1);
+}
+
 void PrintKeterhubungan(GraphBANGUNAN G)
 {
     int i;
@@ -61,10 +112,12 @@ void PrintKeterhubungan(GraphBANGUNAN G)
     adradj PAdj;
     
     if (FirstVer(G) != Nil) {
+        // Iterasi adress vertice
         PVer = FirstVer(G);
         while (PVer != Nil) {
             printf("%d",InfoVer(PVer));
             if (FirstAdj(PVer) != Nil) {
+                // Iterasi adress adjacent
                 PAdj = FirstAdj(PVer);
                 while (PAdj != Nil) {
                     printf("->%d",InfoAdj(PAdj));
@@ -84,8 +137,11 @@ int main() {
     P = Nil;
 
     CreateGraph(&G1,6);
+    MakeTerhubung(&G1,1,3);
+    MakeTerhubung(&G1,1,4);
+    MakeTerhubung(&G1,2,6);
+    
     PrintKeterhubungan(G1);
     
-
     return 0;
 }

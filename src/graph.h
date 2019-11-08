@@ -9,7 +9,7 @@
 #define Nil NULL
 
 /* 
-    FirstGraph -> [Info] -> [Info] -> [Info] -> [/]
+    FirstVer -> [Info] -> [Info] -> [Info] -> [/]
                     |          |         |
                     V          V         V   
                   [Info]      [/]     [Info]
@@ -43,7 +43,7 @@ typedef struct {
 #define InfoVer(V) (V)->InfoVer
 #define FirstAdj(V) (V)->FirstAdj
 #define NextVer(V) (V)->NextVer
-/* Selektor untuk addres adjacent*/
+/* Selektor untuk address adjacent*/
 #define NextAdj(A) (A)->NextAdj
 #define InfoAdj(A) (A)->InfoAdj
 /* Selektor untuk adress vertice pertama pada graph */
@@ -51,8 +51,8 @@ typedef struct {
 
 /* Definisi GraphBANGUNAN : */
 /* GraphBANGUNAN kosong : Semua FirstAdjacent(V) = Nil */
-/* Setiap vertice dengan adrvertice P dapat diacu InfoVer(P), NextVer(P), FirstAdj(P) */
-/* Setiap adjacent dengan adradj P dapat diacu dengan InfoAdj(P), NextAdj(P) */
+/* Setiap vertice dengan adrvertice V dapat diacu InfoVer(P), NextVer(V), FirstAdj(V) */
+/* Setiap adjacent dengan adradj A dapat diacu dengan InfoAdj(A), NextAdj(A) */
 /* Elemen terakhir vertice : jika addressnya Last, maka NextVer(Last)=Nil */
 /* Elemen terakhir adjacent : jika addressnya Last, maka NextAdj(Last)=Nil */
 
@@ -78,14 +78,20 @@ void MakeTerhubung(GraphBANGUNAN *G, int V1, int V2);
 /* Menambahkan V2 sebagai adjacent dari V1, dan V1 sebagai adjacent dari V2 */
 
 adrver SearchVer (GraphBANGUNAN G, infotype X);
+/* Mengirinkan adrver, misal v,  dimana InfoVer(V) == X */
+/* Jika X tidak ada pada G mengirimkan Nil */
+/* prekondisi: G terdefinisi*/
 
 adradj SearchAdj (adrver V, infotype X);
+/* Mengirinkan adradj, misal a,  dimana InfoAdj(a) == X */
+/* Jika X tidak ada pada G mengirimkan Nil */
+/* prekondisi: G terdefinisi*/
 
 void InsVLastVer (GraphBANGUNAN *G, infotype X);
 /* Melakukan alokasi P, jika berhasil maka */
 /* menambahkan elemen alamat P, dengan InfoVer(P) = X, diakhir list vertice */
 
-void InsVLastAdj (GraphBANGUNAN *G, infotype X);
+void InsVLastAdj (adrver v, infotype X);
 /* Melakukan alokasi P, jika berhasil maka */
 /* menambahkan elemen alamat P, dengan InfoAdj(P) = X, diakhir list adjacent */
 
