@@ -13,7 +13,7 @@ extern Kata DaftarCommand[9]; /* Berisi 8 daftar command yang bisa dilakukan. In
 void InitDaftarCommand();
 /* Mengisi array DaftarCommand */
 
-void attack(Perm P, int turn);
+void attack(Permainan P, int turn);
 /* Menjalankan mekanisme attack yang dilakukan oleh pemain turn */
 
 

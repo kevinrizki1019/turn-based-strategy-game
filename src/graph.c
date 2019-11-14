@@ -50,7 +50,6 @@ void CreateGraph(GraphBANGUNAN *G, int V)
             NextVer(P) = FirstVer(*G);
             FirstVer(*G) = P;
         }
-        P = Nil;
     }
 }
 
@@ -133,22 +132,4 @@ void PrintKeterhubungan(GraphBANGUNAN G)
             PVer = NextVer(PVer);           
         }
     }
-}
-
-int main() {
-    GraphBANGUNAN G1;
-    adrver P;
-
-    P = Nil;
-
-    CreateGraph(&G1,6);
-    MakeTerhubung(&G1,1,3);
-    MakeTerhubung(&G1,1,4);
-    MakeTerhubung(&G1,2,6);
-    
-    MakeTerhubung(&G1,2,6);
-    
-    PrintKeterhubungan(G1);
-
-    return 0;
 }

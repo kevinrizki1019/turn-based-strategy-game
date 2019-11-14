@@ -11,23 +11,24 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm){
     I.S. = 'NamaFile' terdefinisi dan ada
     F.S. = Variabel Perm terinisialisasi */
     /* Kamus */
-    int i,j,x,y;
+    int i,j,x,y,n,m,b;
     char tipe;
 
     /* Algoritma */
     STARTKATA(NamaFile);
-    TinggiPeta(*Perm) = CKatatoInt();
+    n = CKatatoInt();
     ADVKATA();
-    LebarPeta(*Perm) = CKatatoInt();
+    m = CKatatoInt();
     ADVKATA();
-    JumlahBangunan(*Perm) = CKatatoInt();
+    b = CKatatoInt(); // banyak bangunan
 
-    MakeEmptyTab(&DaftarBangunan(*Perm),JumlahBangunan(*Perm));
-    MakeMATRIKS(TinggiPeta(*Perm),LebarPeta(*Perm),&Peta(*Perm));
+    MakeEmptyTab(&DaftarBangunan(*Perm),b);
+    MakeMATRIKS(n,m,&Peta(*Perm));
     CreateEmpty(&ListBangunanP1(*Perm));
     CreateEmpty(&ListBangunanP2(*Perm));
+    CreateGraph(&Graph(*Perm),b);
 
-    for (i=IdxMin;i<=(*Perm).B;i++){
+    for (i=IdxMin;i<=b;i++){
         ADVKATA();
         tipe = CKata.TabKata[1];
         ADVKATA(); x=CKatatoInt();
@@ -47,10 +48,19 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm){
         }
 
         NeffTab(DaftarBangunan(*Perm))++;
-        ElmtMat(Peta(*Perm),x,y) = i;
+        ElmtMat(Peta(*Perm),x,y) = i; // mengeset id bangunan pada matriks peta
     }
 
     /* Input keterhubungan */
+    for (i=IdxMin;i<=b;i++){
+        for (j=IdxMin;j<=b;j++){
+            ADVKATA();
+            x = CKatatoInt();
+            if (x==1){
+                MakeTerhubung(&Graph(*Perm),i,j);
+            }
+        }
+    }
 }
 
 void TulisPetaPermainan (Permainan Perm){

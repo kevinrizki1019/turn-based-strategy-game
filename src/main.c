@@ -31,19 +31,20 @@ int main(){
     if (pil=='1'){
         BacaKonfigurasi("config_map.txt",&Perm);
     }
-    printf("%d %d %d\n",Perm.N,Perm.M,Perm.B);
-    for (i=IdxMin;i<=Perm.B;i++){
+    printf("%d %d %d\n",TinggiPeta(Perm),LebarPeta(Perm),JumlahBangunan(Perm));
+    for (i=IdxMin;i<=JumlahBangunan(Perm);i++){
         printf("%d. ",i);
         TulisBangunan(Perm.DaftarBangunan.TB[i]);
         printf("\n");
     }
+    PrintKeterhubungan(Graph(Perm));
     /* Looping Command */
     do{
         TulisPetaPermainan(Perm);
         printf("Player %d\n",turn);
+        TulisDaftarBangunan(Perm,turn);
+        printf("\n");
 
-        
-        
         do{ // command != "EXIT"
             printf("ENTER COMMAND: ");
             scanf("%s",s);
@@ -52,12 +53,16 @@ int main(){
                 //attack(perm, turn);
             }
             else if (IsSamaKata(command,DaftarCommand[2])){ // command == "LEVEL_UP"
+                printf("Daftar bangunan:\n");
                 TulisDaftarBangunan(Perm,turn);
                 printf("Bangunan yang akan di level up: ");
                 scanf("%d",&idx);
             }
             else if (IsSamaKata(command,DaftarCommand[8])){ // command == "EXIT"
                 finish = true;
+            }
+            else{
+                printf("Input salah\n");
             }
             if (!finish) printf("\n");
         }while ( !finish && !IsSamaKata(command,DaftarCommand[5]) );

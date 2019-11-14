@@ -7,24 +7,25 @@
 #include "tabbangunan.h"
 #include "matriks.h"
 #include "listbangunan.h"
+#include "graph.h"
 
 typedef struct{
-    int N,M; // Menyimpan ukuran peta
-    int B; // Menyimpan banyak bangunan
     TabBANGUNAN DaftarBangunan; // Menyimpan daftar bangunan
     MATRIKS Peta;
     List ListBangunanPlayer1;
     List ListBangunanPlayer2;
+    GraphBANGUNAN G;
 } Permainan;
 
 /* ********** SELEKTOR ********** */
-#define TinggiPeta(P) (P).N
-#define LebarPeta(P) (P).M
-#define JumlahBangunan(P) (P).B
+#define TinggiPeta(P) (P).Peta.NBrsEff
+#define LebarPeta(P) (P).Peta.NKolEff
+#define JumlahBangunan(P) (P).DaftarBangunan.Neff
 #define DaftarBangunan(P) (P).DaftarBangunan
 #define Peta(P) (P).Peta
 #define ListBangunanP1(P) (P).ListBangunanPlayer1
 #define ListBangunanP2(P) (P).ListBangunanPlayer2
+#define Graph(P) (P).G
 
 void BacaKonfigurasi(char NamaFile[],Permainan *Perm);
 /*  Membaca konfigurasi file dari 'NamaFile'
