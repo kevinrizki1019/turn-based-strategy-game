@@ -29,8 +29,12 @@ Setelah dipikir-pikir ada beberapa attribut yg bisa didrop disini
 #define Posisi(B)           (B).Posisi
 #define JumlahPasukan(B)    (B).JumlahPasukan
 #define Level(B)            (B).Level
-#define Pemilik(B)            (B).Pemilik
+#define Pemilik(B)          (B).Pemilik
 #define Pertahanan(B)       (B).P
+
+/* ********** SELEKTOR Tambahan ********** */
+void StringJenisBangunan(BANGUNAN B);
+/* Mengembalikan string jenis bangunan dari B, JenisBangunan(B) == 'C' -> Castle dst */
 
 int GetNilaiPenambahanPasukan (BANGUNAN B);
 // Mengembalikan nilai A bergantung pada JenisBangunan(B) dan Level(B)

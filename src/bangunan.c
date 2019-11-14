@@ -5,6 +5,18 @@
 #include <stdio.h>
 
 /* ********** SELEKTOR ********** */
+void StringJenisBangunan(BANGUNAN B) {
+    if (JenisBangunan(B) == 'C') {
+        printf("Castle");
+    } else if (JenisBangunan(B) == 'T') {
+        printf("Tower");
+    } else if (JenisBangunan(B) == 'F') {
+        printf("Fortress");
+    } else if (JenisBangunan(B) == 'V') {
+        printf("Village");
+    }
+}
+
 int GetNilaiPenambahanPasukan (BANGUNAN B)
 // Mengembalikan nilai A bergantung pada JenisBangunan(B) dan Level(B)
 {
