@@ -2,8 +2,6 @@
 /* Copyright: Kelompok 11 K-1 IF2110 2019/2020 */
 
 #include "permainan.h"
-#include "mesinkata.h"
-#include "color.h"
 #include <stdio.h>
 
 void BacaKonfigurasi(char NamaFile[],Permainan *Perm){
@@ -61,6 +59,27 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm){
             }
         }
     }
+}
+
+void PrintKonfigurasiPermainan(Permainan Perm) {
+    int i;
+    
+    printf("\nDimensi Peta\n");
+    printf("Tinggi: %d\n",TinggiPeta(Perm));
+    printf("Lebar: %d\n",LebarPeta(Perm));
+    printf("Jumlah Bangunan: %d\n\n",JumlahBangunan(Perm));
+    
+    printf("Daftar Bangunan:\n");
+    for (i=IdxMin;i<=JumlahBangunan(Perm);i++){
+        printf("%d. ",i);
+        TulisBangunan(Perm.DaftarBangunan.TB[i]);
+        printf("\n");
+    }
+
+    printf("\nKeterhubungan Bangunan:\n");
+    PrintKeterhubungan(Graph(Perm));
+    
+    printf("\n");
 }
 
 void TulisPetaPermainan (Permainan Perm){

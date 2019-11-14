@@ -4,10 +4,12 @@
 #ifndef __PERMAINAN_H__
 #define __PERMAINAN_H__
 
+#include "mesinkata.h"
 #include "tabbangunan.h"
 #include "matriks.h"
 #include "listbangunan.h"
 #include "graph.h"
+#include "color.h"
 
 typedef struct{
     TabBANGUNAN DaftarBangunan; // Menyimpan daftar bangunan
@@ -31,6 +33,9 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm);
 /*  Membaca konfigurasi file dari 'NamaFile'
     I.S. = 'NamaFile' terdefinisi dan ada
     F.S. = Variabel Perm terinisialisasi */
+
+void PrintKonfigurasiPermainan(Permainan Perm);
+/* Mencetak ke layar konfigurasi permainan hasil pembacaan dari file eksternal */
 
 void TulisPetaPermainan (Permainan Perm);
 /* Prosedur yang serupa seperti TulisMATRIKS namun mengganti memberikan output */
