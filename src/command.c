@@ -3,6 +3,7 @@
 /* Mengolah command (input) dari user */
 
 #include "command.h"
+#include <stdio.h>
 
 Kata DaftarCommand[9]; /* Berisi 8 daftar command yang bisa dilakukan. Indeks 0 tidak digunakan */
 
@@ -18,15 +19,30 @@ void InitDaftarCommand(){
     DaftarCommand[8] = StringtoKata("EXIT");
 }
 
-// attack(perm, ) {
-//     printf("Daftar bangunan:\n");
-//     TulisDaftarBangunan(Perm,turn);
-//     printf("Bangunan yang digunakan untuk menyerang: ");
-//     scanf("%d",&idx);
-//     /* Dari bangunan yang dipilih, cetak bangunan mana aja yang terhubung dengan bangunan tersebut */
-//     if ()
-//     printf("Daftar Bangunan yang dapat diserang");
-//     // TulisDaftarBangunanTerhubung(int id, GRAPH G);
-//     printf("Bangunan yang diserang: ");
-//     scanf("%d",&idx);    
-// }
+void ShowAvailableCommand() {
+    printf("Daftar Command:\n");
+    printf("- ATTACK\n");
+    printf("- LEVEL_UP\n");
+    printf("- SKILL\n");
+    printf("- UNDO\n");
+    printf("- END_TURN\n");
+    printf("- SAVE\n");
+    printf("- MOVE\n");
+    printf("- EXIT\n");
+}
+
+/* IMPLEMENTASI PROSEDUR-PROSEDUR COMMAND */
+void CommandLevelUp(Permainan *perm,int turn) {  
+    IdxType idx;
+
+    printf("Daftar bangunan:\n");
+    TulisDaftarBangunan(*perm,turn);
+    printf("Bangunan yang akan di level up: ");
+    scanf("%d",&idx); 
+
+    TambahSatuLevel(&Elmt(DaftarBangunan(*perm),idx));
+    printf("Level ");
+    StringJenisBangunan(Elmt(DaftarBangunan(*perm),idx));
+    printf("-mu bertambah menjadi %d!\n", Level(Elmt(DaftarBangunan(*perm),idx)));
+}
+
