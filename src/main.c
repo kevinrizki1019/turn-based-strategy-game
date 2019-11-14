@@ -7,18 +7,16 @@
 
 int main(){
     /* Silakan mencoba codingan di bawah ini */
-
-
-
     /* Jangan mengahapus codingan dibawah karena untuk main program */
     /* Kamus */
     Permainan Perm;
     char s[NMaxStr],pil;
     Kata command;
-    int i,turn=1,idx;
-    boolean finish = false;
+    int i,turn;
+    boolean finish;
 
     /* Algoritma */
+    /* Inisiasi Game */
     InitDaftarCommand();
     do{
         printf("Opsi:\n");
@@ -31,14 +29,17 @@ int main(){
     if (pil=='1'){
         BacaKonfigurasi("config_map.txt",&Perm);
     }
-    printf("%d %d %d\n",TinggiPeta(Perm),LebarPeta(Perm),JumlahBangunan(Perm));
-    for (i=IdxMin;i<=JumlahBangunan(Perm);i++){
-        printf("%d. ",i);
-        TulisBangunan(Perm.DaftarBangunan.TB[i]);
-        printf("\n");
-    }
-    PrintKeterhubungan(Graph(Perm));
+
+    /* Tampilan awal game hasil load dari file */
+    printf("\n~~~~~~~~~~~~~~~");
+    PrintKonfigurasiPermainan(Perm);
+    ShowAvailableCommand();
+    printf("~~~~~~~~~~~~~~~\n\n");
+
+
     /* Looping Command */
+    turn = 1;
+    finish = false;
     do{
         TulisPetaPermainan(Perm);
         printf("Player %d\n",turn);
@@ -50,26 +51,40 @@ int main(){
             scanf("%s",s);
             command = StringtoKata(s);
             if (IsSamaKata(command,DaftarCommand[1])){ // command == "ATTACK"
-                //attack(perm, turn);
+                // CommandAttack(perm, turn);
             }
             else if (IsSamaKata(command,DaftarCommand[2])){ // command == "LEVEL_UP"
-                printf("Daftar bangunan:\n");
-                TulisDaftarBangunan(Perm,turn);
-                printf("Bangunan yang akan di level up: ");
-                scanf("%d",&idx);
+                // CommandLevelUp(&Perm, turn);
+            }
+            else if (IsSamaKata(command,DaftarCommand[3])){ // command == "SKILL"
+                // CommandSkill(&Perm, turn);
+            } 
+            else if (IsSamaKata(command,DaftarCommand[4])){ // command == "UNDO"
+                // CommandUndo(&Perm, turn);
+            }
+            else if (IsSamaKata(command,DaftarCommand[5])){ // command == "END_TURN"
+                // CommandEndTurn(&Perm, turn);
+            }
+            else if (IsSamaKata(command,DaftarCommand[6])){ // command == "SAVE"
+                // CommandSave(&Perm, turn);
+            }
+            else if (IsSamaKata(command,DaftarCommand[7])){ // command == "MOVE"
+                // CommandMove(&Perm, turn);
             }
             else if (IsSamaKata(command,DaftarCommand[8])){ // command == "EXIT"
-                finish = true;
+                // CommandExit(&Perm,turn);
+                // finish = true;
             }
             else{
                 printf("Input salah\n");
             }
             if (!finish) printf("\n");
-        }while ( !finish && !IsSamaKata(command,DaftarCommand[5]) );
+        } while ( !finish && !IsSamaKata(command,DaftarCommand[5]) );
         
         if (!finish){
             printf("\n");
             turn=turn%2+1;
         }
+        
     }while(!finish);
 }
