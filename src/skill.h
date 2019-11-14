@@ -9,7 +9,7 @@
 
 /* *********** OUTPUT *********** */
 void PrintSkill(int idx);
-/* Mencetak skill dengan ke i */
+/* Mencetak skill dengan urutan ke i */
 
 
 /* *********** Implementasi Skill *********** */

@@ -44,10 +44,10 @@ void TulisPetaPermainan (Permainan Perm);
 /* Elmt(Peta(Perm),i,j = 0 maka cetak ' ' */
 /* else maka TulisBANGUNAN(Elmt(Peta(Perm), i, j)) */
 
-void TulisBangunanPlayer(List L,TabBANGUNAN tabBangunan);
+void TulisBangunanPlayer(List L,TabBANGUNAN tabBangunan,int *n);
 /* Menuliskan daftar bangunan dari suatu player */
 
-void TulisDaftarBangunan(Permainan Perm,int turn);
+void TulisDaftarBangunan(Permainan Perm,int turn,int *n);
 /* Menuliskan daftar bangunan dari suatu player pada suatu state permainan tertentu */
 
 // TulisDaftarBangunanTerhubung(int id, GRAPH G);

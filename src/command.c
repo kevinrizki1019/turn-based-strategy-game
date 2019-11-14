@@ -31,24 +31,28 @@ void ShowAvailableCommand() {
     printf("- EXIT\n");
 }
 
+boolean IsInRange(int x,int l,int r){
+    return ((l<=x) && (x<=r));
+}
+
 /* IMPLEMENTASI PROSEDUR-PROSEDUR COMMAND */
 void CommandLevelUp(Permainan *perm,int turn) {  
     IdxType idx;
-    int IdBangunan;
+    int IdBangunan,BanyakBangunan;
 
     /* Mencetak daftar bangunan player*/ 
     printf("Daftar bangunan:\n");
-    TulisDaftarBangunan(*perm,turn);
+    TulisDaftarBangunan(*perm,turn,&BanyakBangunan);
     
     /* Input pengguna bangunan mana yang ingin di level up */
     do {
         printf("Bangunan yang akan di level up: ");
         scanf("%d",&idx);
         /* Masukan harus valid */ 
-        if ((idx<= 0) || idx > JumlahBangunanPlayer(*perm,turn)) {
+        if (!IsInRange(idx,0,BanyakBangunan)) {
             printf("Masukkan tidak valid\n");
         }
-    } while (idx <= 0 || idx > JumlahBangunanPlayer(*perm,turn));
+    } while (!IsInRange(idx,0,BanyakBangunan));
 
     /* Mendapatkan IdBangunan mana yang akan di level up */
     if (turn == 1) {

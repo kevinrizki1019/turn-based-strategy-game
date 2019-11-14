@@ -53,9 +53,11 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm){
     for (i=IdxMin;i<=b;i++){
         for (j=IdxMin;j<=b;j++){
             ADVKATA();
-            x = CKatatoInt();
-            if (x==1){
-                MakeTerhubung(&Graph(*Perm),i,j);
+            if (j>i){
+                x = CKatatoInt();
+                if (x==1){
+                    MakeTerhubung(&Graph(*Perm),i,j);
+                }
             }
         }
     }
@@ -109,24 +111,23 @@ void TulisPetaPermainan (Permainan Perm){
     }
 }
 
-void TulisBangunanPlayer(List L,TabBANGUNAN tabBangunan){
+void TulisBangunanPlayer(List L,TabBANGUNAN tabBangunan,int *n){
     address P=First(L);
-    int i=0;
 
+    *n = 0;
     while (P!=Nil){
-        i++;
-        printf("%d. ",i);
+        printf("%d. ",++(*n));
         TulisBangunan(Elmt(tabBangunan,Info(P)));
         printf("\n");
         P=Next(P);
     }
 }
 
-void TulisDaftarBangunan(Permainan Perm,int turn){
+void TulisDaftarBangunan(Permainan Perm,int turn,int *n){
     if (turn==1){
-        TulisBangunanPlayer(ListBangunanP1(Perm),DaftarBangunan(Perm));
+        TulisBangunanPlayer(ListBangunanP1(Perm),DaftarBangunan(Perm),n);
     }
     else{
-        TulisBangunanPlayer(ListBangunanP2(Perm),DaftarBangunan(Perm));
+        TulisBangunanPlayer(ListBangunanP2(Perm),DaftarBangunan(Perm),n);
     }
 }
