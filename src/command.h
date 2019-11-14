@@ -33,6 +33,9 @@ void CommandUndo(Permainan *perm, int turn);
 void CommandEndTurn(Permainan *perm, int turn);
 /* Menjalankan mekanisme end_turn yang dilakukan oleh pemain turn */
 
+void CommandSave(Permainan *perm, int turn);
+/* Menjalankan mekanisme save yang dilakukan oleh pemain turn */
+
 void CommandMove(Permainan *perm, int turn);
 /* Menjalankan mekanisme move yang dilakukan oleh pemain turn */
 
