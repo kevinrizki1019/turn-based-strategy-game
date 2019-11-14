@@ -17,6 +17,9 @@ void InitDaftarCommand();
 void ShowAvailableCommand();
 /* Menampilkan ke layar daftar Command yang bisa dilakukan player */
 
+boolean IsInRange(int x,int l,int r);
+/* Fungsi untuk membantu pengecekan nilai. Mengirimkan true jika x di antara l dan r */
+
 /* **** PROSEDUR YANG DIJALANKAN KETIKA PLAYER MENGETIKKAN COMMAND DI LAYAR *** */
 void CommandAttack(Permainan *perm, int turn);
 /* Menjalankan mekanisme attack yang dilakukan oleh pemain turn */

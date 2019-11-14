@@ -12,8 +12,8 @@ int main(){
     Permainan Perm;
     char s[NMaxStr],pil;
     Kata command;
-    int i,turn;
-    boolean finish;
+    int i,turn,BanyakBangunan;
+    boolean finish,ExtraTurn;
 
     /* Algoritma */
     /* Inisiasi Game */
@@ -43,9 +43,11 @@ int main(){
     do{
         TulisPetaPermainan(Perm);
         printf("Player %d\n",turn);
-        TulisDaftarBangunan(Perm,turn);
+        TulisDaftarBangunan(Perm,turn,&BanyakBangunan);
         printf("\n");
 
+        /* boolean skill */
+        ExtraTurn = false;
         do{ // command != "EXIT"
             printf("ENTER COMMAND: ");
             scanf("%s",s);
@@ -54,7 +56,7 @@ int main(){
                 // CommandAttack(perm, turn);
             }
             else if (IsSamaKata(command,DaftarCommand[2])){ // command == "LEVEL_UP"
-                // CommandLevelUp(&Perm, turn);
+                CommandLevelUp(&Perm, turn);
             }
             else if (IsSamaKata(command,DaftarCommand[3])){ // command == "SKILL"
                 // CommandSkill(&Perm, turn);
@@ -73,7 +75,7 @@ int main(){
             }
             else if (IsSamaKata(command,DaftarCommand[8])){ // command == "EXIT"
                 // CommandExit(&Perm,turn);
-                // finish = true;
+                finish = true;
             }
             else{
                 printf("Input salah\n");
@@ -83,7 +85,7 @@ int main(){
         
         if (!finish){
             printf("\n");
-            turn=turn%2+1;
+            if (!ExtraTurn) turn=turn%2+1;
         }
         
     }while(!finish);
