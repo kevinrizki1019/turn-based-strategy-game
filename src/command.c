@@ -34,15 +34,30 @@ void ShowAvailableCommand() {
 /* IMPLEMENTASI PROSEDUR-PROSEDUR COMMAND */
 void CommandLevelUp(Permainan *perm,int turn) {  
     IdxType idx;
+    int IdBangunan;
 
+    /* Mencetak daftar bangunan player*/ 
     printf("Daftar bangunan:\n");
     TulisDaftarBangunan(*perm,turn);
-    printf("Bangunan yang akan di level up: ");
-    scanf("%d",&idx); 
+    
+    /* Input pengguna bangunan mana yang ingin di level up */
+    do {
+        printf("Bangunan yang akan di level up: ");
+        scanf("%d",&idx);
+        /* Masukan harus valid */ 
+        if ((idx<= 0) || idx > JumlahBangunanPlayer(*perm,turn)) {
+            printf("Masukkan tidak valid\n");
+        }
+    } while (idx <= 0 || idx > JumlahBangunanPlayer(*perm,turn));
 
-    TambahSatuLevel(&Elmt(DaftarBangunan(*perm),idx));
-    printf("Level ");
-    StringJenisBangunan(Elmt(DaftarBangunan(*perm),idx));
-    printf("-mu bertambah menjadi %d!\n", Level(Elmt(DaftarBangunan(*perm),idx)));
+    /* Mendapatkan IdBangunan mana yang akan di level up */
+    if (turn == 1) {
+        IdBangunan = GetId(ListBangunanP1(*perm),idx);
+    } else {
+        IdBangunan = GetId(ListBangunanP2(*perm),idx);
+    }
+
+    /* Menambah level, evaluasi kevalidan penambahan pasukan ada di dalam prosedur  */
+    TambahSatuLevel(&Elmt(DaftarBangunan(*perm),IdBangunan));
 }
 

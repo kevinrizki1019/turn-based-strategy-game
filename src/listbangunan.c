@@ -47,6 +47,20 @@ address Search (List L, int X){
     return P;
 }
 
+
+int GetId (List L, int n) {
+    int i;
+    address P;
+
+    if (!IsEmptyList(L)) {
+        P = First(L);
+        for (i=1; i<n; i++) {
+            P = Next(P);
+        }
+    }
+    return Info(P);
+}
+
 void InsVFirst (List *L, int X) {
     address P;
     

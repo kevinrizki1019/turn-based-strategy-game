@@ -12,7 +12,7 @@
 
 typedef struct tElmtlist *address;
 typedef struct tElmtlist {
-	int info;
+	int info; /* ID Bangunan */
 	address next;
 } ElmtList;
 typedef struct {
@@ -54,6 +54,9 @@ address Search (List L, int X);
 /* Mencari apakah ada elemen list dengan Info(P)= X */
 /* Jika ada, mengirimkan address elemen tersebut. */
 /* Jika tidak ada, mengirimkan Nil */
+
+int GetId (List L, int n);
+/* Mendapatkan IDBangunan (indeks pada array) dari bangunan ke n dari list */
 
 /****************** PRIMITIF BERDASARKAN NILAI ******************/
 /*** PENAMBAHAN ELEMEN ***/

@@ -118,10 +118,41 @@ void SetPertahanan (BANGUNAN *B)
 }
 
 /* ********** OPERASI LAINNYA ********** */
+boolean IsLevelBangunanBisaDitambah (BANGUNAN *B) {
+
+}
+
 void TambahSatuLevel (BANGUNAN *B) 
 {
-    if (IsLevelValid(Level(*B) + 1)) {
-        Level(*B)++;
+    int M;
+
+    /* Nilai M untuk mengecek apakah jumlah pasukan cukup untuk dilevel up*/
+    M = GetMaksimumPenambahanPasukan (*B);
+
+    if (JumlahPasukan(*B) >= (M / 2)) {
+        
+        /* Mengecek apakah level bangunan sudah max atau belum */
+        if (IsLevelValid(Level(*B) + 1)) {
+
+            Level(*B)++;
+            printf("Level ");
+            StringJenisBangunan(*B);
+            printf("-mu bertambah menjadi %d!\n", Level(*B));
+            JumlahPasukan(*B) -= M / 2;
+
+        } else {
+
+            printf("Level\n");
+            StringJenisBangunan(*B);
+            printf("sudah max tidak bisa di level up!\n");
+
+        }
+        
+    } else {
+
+        printf("Jumlah pasukan ");
+        StringJenisBangunan(*B);
+        printf(" kurang untuk level up!\n");
     }
 }
 
@@ -129,6 +160,8 @@ void TambahJumlahPasukan (BANGUNAN *B, int jumlah_penambahan)
 {
     if (JumlahPasukan(*B) < GetMaksimumPenambahanPasukan(*B)) {
         JumlahPasukan(*B) += jumlah_penambahan;
+    } else {
+        printf("Bangunan tidak bisa ditambahkan pasukannya sejumlah itu\n");
     }
 }
 
@@ -163,6 +196,6 @@ boolean IsBangunanSama(BANGUNAN A, BANGUNAN B){
         (A.P == B.P)){
             return true;
         }
-    return false;
-    
+    return false;   
 }
+
