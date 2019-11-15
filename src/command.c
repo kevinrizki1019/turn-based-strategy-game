@@ -49,10 +49,10 @@ void CommandLevelUp(Permainan *perm,int turn) {
         printf("Bangunan yang akan di level up: ");
         scanf("%d",&idx);
         /* Masukan harus valid */ 
-        if (!IsInRange(idx,0,BanyakBangunan)) {
+        if (!IsInRange(idx,1,BanyakBangunan)) {
             printf("Masukkan tidak valid\n");
         }
-    } while (!IsInRange(idx,0,BanyakBangunan));
+    } while (!IsInRange(idx,1,BanyakBangunan));
 
     /* Mendapatkan IdBangunan mana yang akan di level up */
     if (turn == 1) {

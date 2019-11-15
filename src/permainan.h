@@ -9,13 +9,19 @@
 #include "matriks.h"
 #include "listbangunan.h"
 #include "graph.h"
+#include "queueofskill.h"
 #include "color.h"
+
+typedef struct{
+    List ListBangunan;
+    Queue QueueSkill;
+} Player;
 
 typedef struct{
     TabBANGUNAN DaftarBangunan; // Menyimpan daftar bangunan
     MATRIKS Peta;
-    List ListBangunanPlayer1;
-    List ListBangunanPlayer2;
+    Player Player1;
+    Player Player2;
     GraphBANGUNAN G;
 } Permainan;
 
@@ -25,8 +31,8 @@ typedef struct{
 #define JumlahBangunan(P) (P).DaftarBangunan.Neff
 #define DaftarBangunan(P) (P).DaftarBangunan
 #define Peta(P) (P).Peta
-#define ListBangunanP1(P) (P).ListBangunanPlayer1
-#define ListBangunanP2(P) (P).ListBangunanPlayer2
+#define ListBangunanP1(P) (P).Player1.ListBangunan
+#define ListBangunanP2(P) (P).Player2.ListBangunan
 #define Graph(P) (P).G
 
 void BacaKonfigurasi(char NamaFile[],Permainan *Perm);

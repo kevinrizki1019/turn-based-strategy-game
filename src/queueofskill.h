@@ -10,12 +10,12 @@
 
 /* Definisi elemen dan address */
 typedef int infotype;
-typedef int address;   /* indeks tabel */
+typedef int addrQueue;   /* indeks tabel */
 /* Contoh deklarasi variabel bertype Queue : */
 /* Versi I : tabel dinamik, Head dan Tail eksplisit, ukuran disimpan */
 typedef struct { infotype * T;   /* tabel penyimpan elemen */
-                 address HEAD;  /* alamat penghapusan */
-                 address TAIL;  /* alamat penambahan */
+                 addrQueue HEAD;  /* alamat penghapusan */
+                 addrQueue TAIL;  /* alamat penambahan */
                  int MaxEl;     /* Max elemen queue */
                } Queue;
 /* Definisi Queue kosong: HEAD=Nil; TAIL=Nil. */
@@ -37,7 +37,7 @@ boolean IsFull (Queue Q);
 /* yaitu mengandung elemen sebanyak MaxEl */
 
 /* *** Kreator *** */
-void CreateEmpty (Queue * Q, int Max);
+void CreateEmptyQueue (Queue * Q, int Max);
 /* I.S. sembarang */
 /* F.S. Sebuah Q kosong terbentuk dan salah satu kondisi sbb: */
 /* Jika alokasi berhasil, Tabel memori dialokasi berukuran Max+1 */

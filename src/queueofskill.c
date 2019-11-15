@@ -13,7 +13,7 @@ boolean IsFull (Queue Q){
 /* yaitu mengandung elemen sebanyak MaxEl */
 
 /* *** Kreator *** */
-void CreateEmpty (Queue * Q, int Max){
+void CreateEmptyQueue (Queue * Q, int Max){
     (*Q).T = (infotype *) malloc ((Max+1)*sizeof(infotype));
     if ((*Q).T != NULL) {
 	    MaxEl(*Q) = Max;
