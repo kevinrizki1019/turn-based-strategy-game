@@ -74,39 +74,41 @@ void CommandAttack(Permainan *perm, int turn) {
     scanf("%d",&jumlahPasukanPenyerang);
 
     idDiSerang = GetIdAdj(Graph(*perm),idPenyerang,idxDiSerang);
-    /* MELAKUKAN SERANGAN */
-    /* Satu bangunan cuman bisa nyerang sekali -> buat mark */
-
-    /* Melakukan pembandingan jumlah pasukan bangunan penyerang dan diserang */
-    // *bangunanPenyerang = Elmt(DaftarBangunan(*perm),idPenyerang); 
-    // *bangunanDiSerang = Elmt(DaftarBangunan(*perm),idDiSerang);
-    
-    jumlahPasukanDiSerang = JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang));
-    
-    if (jumlahPasukanPenyerang < jumlahPasukanDiSerang) {
-        JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenyerang)) -= jumlahPasukanPenyerang;
-        JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang)) -= jumlahPasukanPenyerang;
+    if (idDiSerang == 0) {
+        printf("Tidak ada bangunan yang dapat diserang\n");
     } else {
-        JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenyerang)) -= jumlahPasukanPenyerang;
-        JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang)) = jumlahPasukanPenyerang - JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang));
+        /* MELAKUKAN SERANGAN */
+        /* Satu bangunan cuman bisa nyerang sekali -> buat mark */
+
+        /* Melakukan pembandingan jumlah pasukan bangunan penyerang dan diserang */
+        // *bangunanPenyerang = Elmt(DaftarBangunan(*perm),idPenyerang); 
+        // *bangunanDiSerang = Elmt(DaftarBangunan(*perm),idDiSerang);
         
-        /* Melakukan akuisisi */
-        if (turn == 1) {
-            Pemilik(Elmt(DaftarBangunan(*perm),idDiSerang)) = 1;
-            InsVLast(&ListBangunanP1(*perm),idDiSerang);
+        jumlahPasukanDiSerang = JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang));
+        
+        if (jumlahPasukanPenyerang < jumlahPasukanDiSerang) {
+            JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenyerang)) -= jumlahPasukanPenyerang;
+            JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang)) -= jumlahPasukanPenyerang;
+        
+            printf("Bangunan gagal direbut. \n");
         } else {
-            Pemilik(Elmt(DaftarBangunan(*perm),idDiSerang)) = 2;
-            InsVLast(&ListBangunanP2(*perm),idDiSerang);
+            JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenyerang)) -= jumlahPasukanPenyerang;
+            JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang)) = jumlahPasukanPenyerang - JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang));
+            
+            /* Melakukan akuisisi */
+            if (turn == 1) {
+                Pemilik(Elmt(DaftarBangunan(*perm),idDiSerang)) = 1;
+                InsVLast(&ListBangunanP1(*perm),idDiSerang);
+            } else {
+                Pemilik(Elmt(DaftarBangunan(*perm),idDiSerang)) = 2;
+                InsVLast(&ListBangunanP2(*perm),idDiSerang);
+            }
+
+            printf("Bangunan menjadi milikmu! \n");
         }
 
-    }
-
-    /* Cek pertahanan, Pertahanan(B) */
-    /* Cek skill AttackUp dan CriticalHit */
-
-    
-
-    /* Mencetak hasil penyerangan */
+        /* Cek pertahanan, Pertahanan(B) */
+        /* Cek skill AttackUp dan CriticalHit */
 }
 
 /* IMPLEMENTASI PROSEDUR-PROSEDUR COMMAND */
