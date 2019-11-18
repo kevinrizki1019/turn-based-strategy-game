@@ -38,6 +38,16 @@ void PrintSkill(int idx){
     }
 }
 
+void PrintAvailableSkill(Permainan Perm,int player){
+    printf("Skill Available: ");
+    if (player==1){
+        PrintSkill(InfoHead(SkillP1(Perm)));
+    }
+    else{
+        PrintSkill(InfoHead(SkillP2(Perm)));
+    }
+}
+
 /* *********** Implementasi Skill *********** */
 void InstantUpgrade(Permainan *Perm,int player);
 /* Melakukan upgrade bangunan yang dimiliki oleh suatu player.

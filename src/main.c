@@ -1,6 +1,7 @@
 #include "permainan.h"
 #include "mesinkata.h"
 #include "command.h"
+#include "skill.h"
 #include <stdio.h>
 
 #define NMaxStr 255
@@ -44,9 +45,12 @@ int main(){
         TulisPetaPermainan(Perm);
         printf("Player %d\n",turn);
         TulisDaftarBangunan(Perm,turn,&BanyakBangunan);
+        PrintAvailableSkill(Perm,turn);
         printf("\n");
-        /* boolean skill */
+
         end_turn = false;
+        /* boolean skill */
+        
         do{ // command != "EXIT"
             printf("ENTER COMMAND: ");
             STARTKATA("-",false);

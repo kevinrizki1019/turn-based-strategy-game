@@ -11,6 +11,8 @@
 void PrintSkill(int idx);
 /* Mencetak skill dengan urutan ke i */
 
+void PrintAvailableSkill(Permainan Perm,int player);
+/* Mencetak skill terdepan player */
 
 /* *********** Implementasi Skill *********** */
 void InstantUpgrade(Permainan *Perm,int player);

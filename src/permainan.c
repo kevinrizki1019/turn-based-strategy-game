@@ -25,7 +25,11 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm){
     CreateEmpty(&ListBangunanP1(*Perm));
     CreateEmpty(&ListBangunanP2(*Perm));
     CreateGraph(&Graph(*Perm),b);
+    CreateEmptyQueue(&SkillP1(*Perm),10);
+    CreateEmptyQueue(&SkillP2(*Perm),10);
 
+    Add(&SkillP1(*Perm),1);
+    Add(&SkillP2(*Perm),1);
     for (i=IdxMin;i<=b;i++){
         ADVKATA();
         tipe = CKata.TabKata[1];

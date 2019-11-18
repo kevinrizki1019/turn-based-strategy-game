@@ -33,6 +33,8 @@ typedef struct{
 #define Peta(P) (P).Peta
 #define ListBangunanP1(P) (P).Player1.ListBangunan
 #define ListBangunanP2(P) (P).Player2.ListBangunan
+#define SkillP1(P) (P).Player1.QueueSkill
+#define SkillP2(P) (P).Player2.QueueSkill
 #define Graph(P) (P).G
 
 void BacaKonfigurasi(char NamaFile[],Permainan *Perm);
