@@ -73,6 +73,22 @@ adradj SearchAdj(adrver v, infotype X) {
     return a;
 }
 
+infotype GetIdAdj (GraphBANGUNAN G, infotype infoV, int idx) {
+    adrver v;
+    adradj a;
+    int count;
+
+    v = SearchVer(G, infoV);
+    a = FirstAdj(v);
+    count = 1;
+    while (a != Nil && count != idx) {
+        a = NextAdj(a);
+        count++;
+    }
+
+    return InfoAdj(a);
+}
+
 void InsVLastAdj (adrver v, infotype X) {
     adradj a, aLast;
     
@@ -133,3 +149,4 @@ void PrintKeterhubungan(GraphBANGUNAN G)
         }
     }
 }
+

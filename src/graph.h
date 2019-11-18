@@ -87,6 +87,9 @@ adradj SearchAdj (adrver V, infotype X);
 /* Jika X tidak ada pada G mengirimkan Nil */
 /* prekondisi: G terdefinisi*/
 
+infotype GetIdAdj (GraphBANGUNAN G, infotype infoV, int idx);
+/* Mengirimkan info dari adjecent ke-idx dari sebuah vertix v dengan info infoV */
+
 void InsVLastVer (GraphBANGUNAN *G, infotype X);
 /* Melakukan alokasi P, jika berhasil maka */
 /* menambahkan elemen alamat P, dengan InfoVer(P) = X, diakhir list vertice */

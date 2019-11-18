@@ -35,6 +35,69 @@ boolean IsInRange(int x,int l,int r){
     return ((l<=x) && (x<=r));
 }
 
+
+void CommandAttack(Permainan *perm, int turn) {
+    IdxType idPenyerang,idDiSerang;
+    int idxPenyerang,idxDiSerang,BanyakBangunan, jumlahPasukanPenyerang, jumlahPasukanDiSerang;
+    BANGUNAN *bangunanPenyerang, *bangunanDiSerang;
+
+    /* Mencetak daftar bangunan player */
+    printf("Daftar bangunan:\n");
+    TulisDaftarBangunan(*perm,turn,&BanyakBangunan); 
+
+    /* Input player bangunan mana yang digunakan untuk menyerang */
+    /* Input pengguna bangunan mana yang ingin digunakan untuk menyerang */
+    do {
+        printf("Bangunan yang akan digunakan untuk menyerang: ");
+        scanf("%d",&idxPenyerang);
+        /* Masukan harus valid */ 
+        if (!IsInRange(idxPenyerang,1,BanyakBangunan)) {
+            printf("Masukkan tidak valid\n");
+        }
+    } while (!IsInRange(idxPenyerang,1,BanyakBangunan));
+
+    if (turn == 1) {
+        idPenyerang = GetId(ListBangunanP1(*perm),idxPenyerang);
+    } else {
+        idPenyerang = GetId(ListBangunanP2(*perm),idxPenyerang);
+    }
+
+    /* Mencetak daftar bangunan yang terhubung dengan bangunan player yang dipilih jika ada */
+    printf("Daftar bangunan yang dapat diserang: \n");
+    TulisDaftarBangunanTerhubung(*perm,idPenyerang);
+
+    /* Meminta input bangunan diserang dan jumlah pasukan untuk menyerang */
+    printf("\n");
+    printf("Bangunan yang diserang: ");
+    scanf("%d",&idxDiSerang);
+    printf("Jumlah pasukan: ");
+    scanf("%d",&jumlahPasukanPenyerang);
+
+    idDiSerang = GetIdAdj(Graph(*perm),idPenyerang,idxDiSerang);
+    /* MELAKUKAN SERANGAN */
+    /* Satu bangunan cuman bisa nyerang sekali -> buat mark */
+
+    /* Melakukan pembandingan jumlah pasukan bangunan penyerang dan diserang */
+    // *bangunanPenyerang = Elmt(DaftarBangunan(*perm),idPenyerang); 
+    // *bangunanDiSerang = Elmt(DaftarBangunan(*perm),idDiSerang);
+    
+    // jumlahPasukanDiSerang = JumlahPasukan(bangunanDiSerang);
+    
+    if (jumlahPasukanPenyerang < jumlahPasukanDiSerang) {
+        JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenyerang)) -= jumlahPasukanPenyerang;
+        JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang)) -= jumlahPasukanPenyerang;
+    } else {
+        JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenyerang)) -= jumlahPasukanPenyerang;
+        JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang)) = jumlahPasukanPenyerang - JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang));
+    }
+
+    /* Cek pertahanan, Pertahanan(B) */
+    /* Cek skill AttackUp dan CriticalHit */
+    /* Melakukan akuisisi jika penyerangan berhasil */
+
+    /* Mencetak hasil penyerangan */
+}
+
 /* IMPLEMENTASI PROSEDUR-PROSEDUR COMMAND */
 void CommandLevelUp(Permainan *perm,int turn) {  
     IdxType idx;
@@ -64,4 +127,3 @@ void CommandLevelUp(Permainan *perm,int turn) {
     /* Menambah level, evaluasi kevalidan penambahan pasukan ada di dalam prosedur  */
     TambahSatuLevel(&Elmt(DaftarBangunan(*perm),IdBangunan));
 }
-
