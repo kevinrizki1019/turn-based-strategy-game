@@ -160,9 +160,7 @@ void TambahJumlahPasukan (BANGUNAN *B, int jumlah_penambahan)
 {
     if (JumlahPasukan(*B) < GetMaksimumPenambahanPasukan(*B)) {
         JumlahPasukan(*B) += jumlah_penambahan;
-    } else {
-        printf("Bangunan tidak bisa ditambahkan pasukannya sejumlah itu\n");
-    }
+    }   
 }
 
 void KurangJumlahPasukan (BANGUNAN *B, int jumlah_pengurangan)

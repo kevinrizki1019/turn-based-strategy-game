@@ -109,6 +109,7 @@ void CommandAttack(Permainan *perm, int turn) {
 
         /* Cek pertahanan, Pertahanan(B) */
         /* Cek skill AttackUp dan CriticalHit */
+    }
 }
 
 /* IMPLEMENTASI PROSEDUR-PROSEDUR COMMAND */
@@ -139,4 +140,33 @@ void CommandLevelUp(Permainan *perm,int turn) {
 
     /* Menambah level, evaluasi kevalidan penambahan pasukan ada di dalam prosedur  */
     TambahSatuLevel(&Elmt(DaftarBangunan(*perm),IdBangunan));
+}
+
+void TambahPasukanDiAwalGiliran(Permainan *perm, int turn) {
+    int i, A, Id;
+    address P;
+    
+    if (turn == 1) {
+        P = First(ListBangunanP1(*perm));
+        i = 1;
+        while (P != Nil) {
+            Id = GetId(ListBangunanP1(*perm),i);
+            A = GetNilaiPenambahanPasukan(Elmt(DaftarBangunan(*perm),Id));
+            TambahJumlahPasukan(&Elmt(DaftarBangunan(*perm),Id),A);
+            
+            i++;
+            P = Next(P);
+        }
+    } else {
+        P = First(ListBangunanP2(*perm));
+        i = 1;
+        while (P != Nil) {
+            Id = GetId(ListBangunanP2(*perm),i);
+            A = GetNilaiPenambahanPasukan(Elmt(DaftarBangunan(*perm),Id));
+            TambahJumlahPasukan(&Elmt(DaftarBangunan(*perm),Id),A);
+            
+            i++;
+            P = Next(P);
+        }            
+    }
 }

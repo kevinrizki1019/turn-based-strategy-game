@@ -41,11 +41,11 @@ int main(){
     turn = 1;
     finish = false;
     do{
+        TambahPasukanDiAwalGiliran(&Perm,turn);
         TulisPetaPermainan(Perm);
         printf("Player %d\n",turn);
         TulisDaftarBangunan(Perm,turn,&BanyakBangunan);
         printf("\n");
-
         /* boolean skill */
         ExtraTurn = false;
         do{ // command != "EXIT"
