@@ -53,7 +53,7 @@ int main(){
             scanf("%s",s);
             command = StringtoKata(s);
             if (IsSamaKata(command,DaftarCommand[1])){ // command == "ATTACK"
-                // CommandAttack(perm, turn);
+                CommandAttack(&Perm, turn);
             }
             else if (IsSamaKata(command,DaftarCommand[2])){ // command == "LEVEL_UP"
                 CommandLevelUp(&Perm, turn);

@@ -131,3 +131,31 @@ void TulisDaftarBangunan(Permainan Perm,int turn,int *n){
         TulisBangunanPlayer(ListBangunanP2(Perm),DaftarBangunan(Perm),n);
     }
 }
+
+void TulisDaftarBangunanTerhubung(Permainan Perm, int Id)
+{
+    int i,adj_id;
+    TabBANGUNAN DB;
+    adrver V;
+    adradj A;
+
+    DB = DaftarBangunan(Perm);
+    if (FirstVer(Graph(Perm)) != Nil) {
+        V = SearchVer(Graph(Perm),Id);
+        if (FirstAdj(V) != Nil) {
+            A = FirstAdj(V);
+            i = 1;
+            while (A != Nil) {
+                printf("%d.", i);
+                adj_id = InfoAdj(A);
+                TulisBangunan(Elmt(DB,adj_id));
+                if (NextAdj(A) != Nil) {
+                    printf("\n");
+                }
+
+                A = NextAdj(A);
+                i++;
+            }
+        }
+    }
+}
