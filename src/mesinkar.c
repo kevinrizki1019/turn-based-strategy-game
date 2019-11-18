@@ -10,7 +10,7 @@ boolean EndPita;
 static FILE * pita;
 static int retval;
 
-void START(char NamaFile[]) {
+void START(char NamaFile[], boolean file) {
 /* Mesin siap dioperasikan. Pita dengan nama file 'NamaFile' disiapkan untuk dibaca.
    Karakter pertama yang ada pada pita posisinya adalah pada jendela.
    I.S. : 'NamaFile' terdefinisi dan ada filenya
@@ -19,7 +19,12 @@ void START(char NamaFile[]) {
           EndPita=false*/
 
     /* Algoritma */
-    pita = fopen(NamaFile,"r");
+    if (file){
+        pita = fopen(NamaFile,"r");
+    }
+    else{
+        pita = stdin;
+    }
     EndPita=false;
     ADV();
 }

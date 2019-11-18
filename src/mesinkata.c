@@ -17,7 +17,7 @@ void IgnoreBlank(){
     }
 }
 
-void STARTKATA(char NamaFile[]){
+void STARTKATA(char NamaFile[], boolean file){
 /* I.S. : CC sembarang
    F.S. : EndKata = true, dan CC = MARK;
           atau EndKata = false, CKata adalah kata yang sudah diakuisisi,
@@ -25,7 +25,7 @@ void STARTKATA(char NamaFile[]){
     /* Kamus Lokal */
 
     /* Algoritma */
-    START(NamaFile);
+    START(NamaFile,file);
     IgnoreBlank();
     if (!EndPita){
         SalinKata();

@@ -10,7 +10,7 @@
 extern char CC;
 extern boolean EndPita;
 
-void START(char NamaFile[]);
+void START(char NamaFile[], boolean file);
 /* Mesin siap dioperasikan. Pita dengan nama file 'NamaFile' disiapkan untuk dibaca.
    Karakter pertama yang ada pada pita posisinya adalah pada jendela.
    I.S. : 'NamaFile' terdefinisi dan ada filenya

@@ -4,16 +4,16 @@
 /* ************ Prototype ************ */
 /* *** Konstruktor/Kreator *** */
 void CreateEmptyStack(Stack *S){
-    Top(*S) =  Nil;
+    Top(*S) =  0;
 }
 
 
 /* ************ Predikat Untuk test keadaan KOLEKSI ************ */
-boolean IsEmpty (Stack S){
-    return (Top(S)==Nil);
+boolean IsStackEmpty (Stack S){
+    return (Top(S)==0);
 }
 
-boolean IsFull (Stack S){
+boolean IsStackFull (Stack S){
     return (Top(S)==MaxElStack);
 }
 

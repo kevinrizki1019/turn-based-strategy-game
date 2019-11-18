@@ -18,6 +18,7 @@ typedef struct { infotype * T;   /* tabel penyimpan elemen */
                  int MaxElQueue;     /* Max elemen queue */
                } Queue;
 /* Definisi Queue kosong: HEAD=0; TAIL=0. */
+
 /* Catatan implementasi: T[0] tidak pernah dipakai */
 
 /* ********* AKSES (Selektor) ********* */

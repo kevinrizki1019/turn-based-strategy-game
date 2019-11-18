@@ -13,7 +13,7 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm){
     char tipe;
 
     /* Algoritma */
-    STARTKATA(NamaFile);
+    STARTKATA(NamaFile,true);
     n = CKatatoInt();
     ADVKATA();
     m = CKatatoInt();

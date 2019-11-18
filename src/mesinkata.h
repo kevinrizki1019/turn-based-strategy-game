@@ -24,7 +24,7 @@ void IgnoreBlank();
    I.S. : CC sembarang
    F.S. : CC ≠ BLANK */
 
-void STARTKATA(char NamaFile[]);
+void STARTKATA(char NamaFile[], boolean file);
 /* I.S. : CC sembarang, 'NamaFile' terdefinisi dan ada filenya
    F.S. : CKata adalah kata yang sudah diakuisisi,
           CC karakter pertama sesudah karakter terakhir kata */
