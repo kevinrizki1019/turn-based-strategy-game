@@ -81,7 +81,7 @@ void CommandAttack(Permainan *perm, int turn) {
     // *bangunanPenyerang = Elmt(DaftarBangunan(*perm),idPenyerang); 
     // *bangunanDiSerang = Elmt(DaftarBangunan(*perm),idDiSerang);
     
-    // jumlahPasukanDiSerang = JumlahPasukan(bangunanDiSerang);
+    jumlahPasukanDiSerang = JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang));
     
     if (jumlahPasukanPenyerang < jumlahPasukanDiSerang) {
         JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenyerang)) -= jumlahPasukanPenyerang;
@@ -89,11 +89,22 @@ void CommandAttack(Permainan *perm, int turn) {
     } else {
         JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenyerang)) -= jumlahPasukanPenyerang;
         JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang)) = jumlahPasukanPenyerang - JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang));
+        
+        /* Melakukan akuisisi */
+        if (turn == 1) {
+            Pemilik(Elmt(DaftarBangunan(*perm),idDiSerang)) = 1;
+            InsVLast(&ListBangunanP1(*perm),idDiSerang);
+        } else {
+            Pemilik(Elmt(DaftarBangunan(*perm),idDiSerang)) = 2;
+            InsVLast(&ListBangunanP2(*perm),idDiSerang);
+        }
+
     }
 
     /* Cek pertahanan, Pertahanan(B) */
     /* Cek skill AttackUp dan CriticalHit */
-    /* Melakukan akuisisi jika penyerangan berhasil */
+
+    
 
     /* Mencetak hasil penyerangan */
 }
