@@ -125,7 +125,7 @@ void TulisDaftarBangunan(List ListPlayer,TabBANGUNAN tabBangunan,int *n){
 
 void TulisDaftarBangunanTerhubung(Permainan Perm, int Id, int *n)
 {
-    int i,adj_id;
+    int adj_id;
     TabBANGUNAN DB;
     adrver V;
     adradj A;
@@ -136,18 +136,15 @@ void TulisDaftarBangunanTerhubung(Permainan Perm, int Id, int *n)
         V = SearchVer(Graph(Perm),Id);
         if (FirstAdj(V) != Nil) {
             A = FirstAdj(V);
-            i = 1;
             while (A != Nil) {
-                printf("%d.", i);
+                printf("%d.", ++(*n));
                 adj_id = InfoAdj(A);
                 TulisBangunan(Elmt(DB,adj_id));
                 if (NextAdj(A) != Nil) {
                     printf("\n");
                 }
 
-                (*n)++;
                 A = NextAdj(A);
-                i++;
             }
         }
     }
@@ -155,7 +152,7 @@ void TulisDaftarBangunanTerhubung(Permainan Perm, int Id, int *n)
 
 
 void TulisDaftarBangunanMusuhTerhubung(Permainan Perm, int Id, int *n, int turn) {
-    int i,adj_id;
+    int adj_id;
     TabBANGUNAN DB;
     adrver V;
     adradj A;
@@ -167,14 +164,12 @@ void TulisDaftarBangunanMusuhTerhubung(Permainan Perm, int Id, int *n, int turn)
         if (FirstAdj(V) != Nil) {
             
             A = FirstAdj(V);
-            i = 1;
             while (A != Nil) {
                 adj_id = InfoAdj(A);
                 if (Pemilik(Elmt(DB,adj_id)) != turn) {
-                    printf("%d.", i);
+                    printf("%d.", ++(*n));
                     TulisBangunan(Elmt(DB,adj_id));
-                    (*n)++;
-                    i++;
+                    
                     if (NextAdj(A) != Nil) {
                         printf("\n");
                     }

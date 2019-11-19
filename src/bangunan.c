@@ -186,6 +186,9 @@ void TulisBangunan (BANGUNAN B)
     }
     TulisPOINT(Posisi(B));
     printf(" %d lv. %d", JumlahPasukan(B), Level(B));
+    /* buat mempermudah ngedebug */
+    printf(" Pemilik(%d) ",Pemilik(B));
+    printf(((Pertahanan(B))? "(Pertahanan)":"()"));
 }
 
 boolean IsBangunanSama(BANGUNAN A, BANGUNAN B){
