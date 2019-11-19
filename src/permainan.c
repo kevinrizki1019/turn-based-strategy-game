@@ -22,14 +22,15 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm){
 
     MakeEmptyTab(&DaftarBangunan(*Perm),b);
     MakeMATRIKS(n,m,&Peta(*Perm));
-    CreateEmpty(&ListBangunanP1(*Perm));
-    CreateEmpty(&ListBangunanP2(*Perm));
     CreateGraph(&Graph(*Perm),b);
-    CreateEmptyQueue(&SkillP1(*Perm),10);
-    CreateEmptyQueue(&SkillP2(*Perm),10);
 
-    Add(&SkillP1(*Perm),1);
-    Add(&SkillP2(*Perm),1);
+    for (int player=1;player<=2;++player){
+        CreateEmpty(&ListBangunanPlayer(*Perm,player));
+        CreateEmptyQueue(&SkillPlayer(*Perm,player),10);
+        Add(&SkillPlayer(*Perm,player),1);
+    }
+
+
     for (i=IdxMin;i<=b;i++){
         ADVKATA();
         tipe = CKata.TabKata[1];
@@ -38,12 +39,7 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm){
         
         if (i<=2){
             Elmt(DaftarBangunan((*Perm)), i) = MakeBANGUNAN(tipe,MakePOINT(x,y),i);
-            if (i==1){
-                InsVFirst(&ListBangunanP1(*Perm),1);
-            }
-            else{
-                InsVFirst(&ListBangunanP2(*Perm),2);
-            }
+            InsVFirst(&ListBangunanPlayer(*Perm,i),i);
         }
         else{
             Elmt(DaftarBangunan((*Perm)), i) = MakeBANGUNAN(tipe,MakePOINT(x,y),0);
@@ -115,8 +111,8 @@ void TulisPetaPermainan (Permainan Perm){
     }
 }
 
-void TulisBangunanPlayer(List L,TabBANGUNAN tabBangunan,int *n){
-    address P=First(L);
+void TulisDaftarBangunan(List ListPlayer,TabBANGUNAN tabBangunan,int *n){
+    address P=First(ListPlayer);
 
     *n = 0;
     while (P!=Nil){
@@ -124,15 +120,6 @@ void TulisBangunanPlayer(List L,TabBANGUNAN tabBangunan,int *n){
         TulisBangunan(Elmt(tabBangunan,Info(P)));
         printf("\n");
         P=Next(P);
-    }
-}
-
-void TulisDaftarBangunan(Permainan Perm,int turn,int *n){
-    if (turn==1){
-        TulisBangunanPlayer(ListBangunanP1(Perm),DaftarBangunan(Perm),n);
-    }
-    else{
-        TulisBangunanPlayer(ListBangunanP2(Perm),DaftarBangunan(Perm),n);
     }
 }
 

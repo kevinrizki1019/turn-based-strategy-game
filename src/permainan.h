@@ -21,8 +21,7 @@ typedef struct{
 typedef struct{
     TabBANGUNAN DaftarBangunan; // Menyimpan daftar bangunan
     MATRIKS Peta;
-    Player Player1;
-    Player Player2;
+    Player Player[3];
     Stack StackPermainan;
     GraphBANGUNAN G;
 } Permainan;
@@ -33,10 +32,8 @@ typedef struct{
 #define JumlahBangunan(P) (P).DaftarBangunan.Neff
 #define DaftarBangunan(P) (P).DaftarBangunan
 #define Peta(P) (P).Peta
-#define ListBangunanP1(P) (P).Player1.ListBangunan
-#define ListBangunanP2(P) (P).Player2.ListBangunan
-#define SkillP1(P) (P).Player1.QueueSkill
-#define SkillP2(P) (P).Player2.QueueSkill
+#define ListBangunanPlayer(P,idPlayer) (P).Player[idPlayer].ListBangunan
+#define SkillPlayer(P,idPlayer) (P).Player[idPlayer].QueueSkill
 #define StackPerm(P) (P).StackPermainan
 #define Graph(P) (P).G
 
@@ -55,11 +52,8 @@ void TulisPetaPermainan (Permainan Perm);
 /* Elmt(Peta(Perm),i,j = 0 maka cetak ' ' */
 /* else maka TulisBANGUNAN(Elmt(Peta(Perm), i, j)) */
 
-void TulisBangunanPlayer(List L,TabBANGUNAN tabBangunan,int *n);
+void TulisDaftarBangunan(List ListPlayer,TabBANGUNAN tabBangunan,int *n);
 /* Menuliskan daftar bangunan dari suatu player */
-
-void TulisDaftarBangunan(Permainan Perm,int turn,int *n);
-/* Menuliskan daftar bangunan dari suatu player pada suatu state permainan tertentu */
 
 void TulisDaftarBangunanTerhubung(Permainan Perm, int Id, int *n);
 /* Menuliskan daftar bangunan yang terhubung dengan bangunan tersebut sesuai ADT Graph */

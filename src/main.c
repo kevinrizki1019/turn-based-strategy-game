@@ -50,7 +50,7 @@ int main(){
         do{ // command != "EXIT"
             TulisPetaPermainan(Perm);
             printf("Player %d\n",turn);
-            TulisDaftarBangunan(Perm,turn,&BanyakBangunan);
+            TulisDaftarBangunan(ListBangunanPlayer(Perm,turn),DaftarBangunan(Perm),&BanyakBangunan);
             PrintAvailableSkill(Perm,turn);
             printf("\n");
             printf("ENTER COMMAND: ");
@@ -88,11 +88,7 @@ int main(){
         
         if (!finish){
             printf("\n");
-            if (turn == 1) {
-                turn = 2;
-            } else { // turn == 2
-                turn = 1;
-            }
+            turn = turn%2+1;
         }
         
     }while(!finish);

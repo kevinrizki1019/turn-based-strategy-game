@@ -9,27 +9,27 @@ void PrintSkill(int idx){
 /* Mencetak skill dengan urutan ke i */
     switch(idx){
         case 1: // Instant Upgrade
-        printf("IU\n");
+        printf("IU");
         break;
 
         case 2: // Shield
-        printf("SH\n");
+        printf("SH");
         break;
 
         case 3: // Extra Turn
-        printf("ET\n");
+        printf("ET");
         break;
 
         case 4: // Attack Up
-        printf("AU\n");
+        printf("AU");
         break;
 
         case 5: // Critical Hit
-        printf("CH\n");
+        printf("CH");
         break;
 
         case 6: // Instant Reinforcement
-        printf("IR\n");
+        printf("IR");
         break;
 
         case 7: // Barrage
@@ -40,12 +40,8 @@ void PrintSkill(int idx){
 
 void PrintAvailableSkill(Permainan Perm,int player){
     printf("Skill Available: ");
-    if (player==1){
-        PrintSkill(InfoHead(SkillP1(Perm)));
-    }
-    else{
-        PrintSkill(InfoHead(SkillP2(Perm)));
-    }
+    PrintSkill(InfoHead(SkillPlayer(Perm,player)));
+    printf("\n");
 }
 
 /* *********** Implementasi Skill *********** */

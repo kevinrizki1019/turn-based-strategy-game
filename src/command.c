@@ -40,7 +40,7 @@ void CommandAttack(Permainan *perm, int turn) {
     /* Mencetak daftar bangunan player */
     /* Satu bangunan cuman bisa nyerang sekali -> buat mark, jadi kalo udah nyerang gak ditampilin lagi di sini */
     printf("Daftar bangunan:\n");
-    TulisDaftarBangunan(*perm,turn,&BanyakBangunanPenyerang); 
+    TulisDaftarBangunan(ListBangunanPlayer(*perm,turn),DaftarBangunan(*perm),&BanyakBangunanPenyerang); 
 
     /* Input player bangunan mana yang digunakan untuk menyerang */
     /* Input pengguna bangunan mana yang ingin digunakan untuk menyerang */
@@ -101,7 +101,7 @@ void CommandLevelUp(Permainan *perm,int turn) {
 
     /* Mencetak daftar bangunan player*/ 
     printf("Daftar bangunan:\n");
-    TulisDaftarBangunan(*perm,turn,&BanyakBangunan);
+    TulisDaftarBangunan(ListBangunanPlayer(*perm,turn),DaftarBangunan(*perm),&BanyakBangunan);
     
     /* Input pengguna bangunan mana yang ingin di level up */
     idx = InputPenggunaValidDalamRange(1,BanyakBangunan,"Bangunan yang akan di level up : ");
@@ -145,28 +145,15 @@ void TambahPasukanDiAwalGiliran(Permainan *perm, int turn) {
     int i, A, Id;
     address P;
     
-    if (turn == 1) {
-        P = First(ListBangunanP1(*perm));
-        i = 1;
-        while (P != Nil) {
-            Id = GetIdFromList(ListBangunanP1(*perm),i);
-            A = GetNilaiPenambahanPasukan(Elmt(DaftarBangunan(*perm),Id));
-            TambahJumlahPasukan(&Elmt(DaftarBangunan(*perm),Id),A);
-            
-            i++;
-            P = Next(P);
-        }
-    } else {
-        P = First(ListBangunanP2(*perm));
-        i = 1;
-        while (P != Nil) {
-            Id = GetIdFromList(ListBangunanP2(*perm),i);
-            A = GetNilaiPenambahanPasukan(Elmt(DaftarBangunan(*perm),Id));
-            TambahJumlahPasukan(&Elmt(DaftarBangunan(*perm),Id),A);
-            
-            i++;
-            P = Next(P);
-        }            
+    P = First(ListBangunanPlayer(*perm,turn));
+    i = 1;
+    while (P != Nil) {
+        Id = GetIdFromList(ListBangunanPlayer(*perm,turn),i);
+        A = GetNilaiPenambahanPasukan(Elmt(DaftarBangunan(*perm),Id));
+        TambahJumlahPasukan(&Elmt(DaftarBangunan(*perm),Id),A);
+        
+        i++;
+        P = Next(P);
     }
 }
 
@@ -189,28 +176,17 @@ int InputPenggunaValidDalamRange (int l, int r, char *Pesan) {
 }
 
 int GetIdBaseOnTurn (Permainan *perm,int index, int turn) {
-    if (turn == 1) {
-        return GetIdFromList(ListBangunanP1(*perm),index);
-    } else { // (turn == 2)
-        return GetIdFromList(ListBangunanP2(*perm),index);
-    }
+    return GetIdFromList(ListBangunanPlayer(*perm,turn),index);
 }
 
 void AkuisisiBangunan(Permainan *perm, int id, int turn) {
-    if (turn == 1) {
-        if (Pemilik(Elmt(DaftarBangunan(*perm),id)) == 2) {
-            DelP(&ListBangunanP2(*perm),id);
-        } 
-        Pemilik(Elmt(DaftarBangunan(*perm),id)) = 1;
-        Level(Elmt(DaftarBangunan(*perm),id)) = 1;
-        // Dipastikan id tidak akan ada di dalam list si penyerang (Lewat increment idxDiSerang)
-        InsVLast(&ListBangunanP1(*perm),id);
-    } else if (turn==2) {
-        if (Pemilik(Elmt(DaftarBangunan(*perm),id)) == 1) {
-            DelP(&ListBangunanP1(*perm),id);
-        } 
-        Pemilik(Elmt(DaftarBangunan(*perm),id)) = 2;
-        Level(Elmt(DaftarBangunan(*perm),id)) = 1;
-        InsVLast(&ListBangunanP2(*perm),id);
-    }
+    int musuh = turn%2+1;
+    
+    if (Pemilik(Elmt(DaftarBangunan(*perm),id)) == musuh) {
+        DelP(&ListBangunanPlayer(*perm,musuh),id);
+    } 
+    Pemilik(Elmt(DaftarBangunan(*perm),id)) = turn;
+    Level(Elmt(DaftarBangunan(*perm),id)) = 1;
+    // Dipastikan id tidak akan ada di dalam list si penyerang (Lewat increment idxDiSerang)
+    InsVLast(&ListBangunanPlayer(*perm,turn),id);
 }
