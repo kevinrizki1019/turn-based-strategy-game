@@ -49,4 +49,22 @@ void CommandExit(Permainan *perm, int turn);
 void TambahPasukanDiAwalGiliran(Permainan *perm, int turn);
 /* Menambhakn semua jumlah pasukan pada bangunan milik player 1 atau 2 (tergantung nnilai turn)*/
 
+/* Fungsi/Prosedur Bantuan */
+boolean IsInRange(int x,int l,int r);
+/* Mengembalikan true jika l <= x <= r */
+
+int InputPenggunaValidDalamRange (int l, int r, char *Pesan);
+/*  Mengembalikan suatu nilai integer, misal n, 
+    yang berada dalam range l <= n <= r. Fungsi akan terus meminta
+    input hingga masukkan benar. Kalimat meminta berupa string Pesan */
+
+int GetIdBaseOnTurn (Permainan *perm,int index, int turn);
+/*  Mengembalikan id bangunan ke-index, 
+    nilai id diambil berdasarkan listbangunan player berdasarkan turn */
+
+void AkuisisiBangunan(Permainan *perm, int id, int turn);
+/*  I.S. Pemilik bangunan pada DaftarBangunan dalam permainan ke-turn sembarang */
+/*  F.S. Pemilik bangunan tersebut berganti menjadi milik pemain-turn */
+/*  Proses: merubah atribut Pemilik, melakukan DelP pada list pemilik sebelumnya dan InsVLast ke list pemilik baru */
+
 #endif

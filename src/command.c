@@ -30,96 +30,66 @@ void ShowAvailableCommand() {
     printf("- MOVE\n");
     printf("- EXIT\n");
 }
-
-boolean IsInRange(int x,int l,int r){
-    return ((l<=x) && (x<=r));
-}
-
-
+    
 /* IMPLEMENTASI PROSEDUR-PROSEDUR COMMAND */
 void CommandAttack(Permainan *perm, int turn) {
     IdxType idPenyerang,idDiSerang;
-    int idxPenyerang,idxDiSerang,BanyakBangunanPenyerang,BanyakBangunanDiSerang, jumlahPasukanPenyerang, jumlahPasukanDiSerang;
+    int idxPenyerang,idxDiSerang,BanyakBangunanPenyerang,BanyakBangunanDapatDiSerang, jumlahPasukanPenyerang, jumlahPasukanDiSerang, jumlahPasukanPenyerangEfektif;
     BANGUNAN *bangunanPenyerang, *bangunanDiSerang;
 
     /* Mencetak daftar bangunan player */
+    /* Satu bangunan cuman bisa nyerang sekali -> buat mark, jadi kalo udah nyerang gak ditampilin lagi di sini */
     printf("Daftar bangunan:\n");
     TulisDaftarBangunan(*perm,turn,&BanyakBangunanPenyerang); 
 
     /* Input player bangunan mana yang digunakan untuk menyerang */
     /* Input pengguna bangunan mana yang ingin digunakan untuk menyerang */
-    do {
-        printf("Bangunan yang akan digunakan untuk menyerang: ");
-        scanf("%d",&idxPenyerang);
-        /* Masukan harus valid */ 
-        if (!IsInRange(idxPenyerang,1,BanyakBangunanPenyerang)) {
-            printf("Masukkan tidak valid\n");
-        }
-    } while (!IsInRange(idxPenyerang,1,BanyakBangunanPenyerang));
-
-    if (turn == 1) {
-        idPenyerang = GetId(ListBangunanP1(*perm),idxPenyerang);
-    } else {
-        idPenyerang = GetId(ListBangunanP2(*perm),idxPenyerang);
-    }
+    idxPenyerang = InputPenggunaValidDalamRange (1, BanyakBangunanPenyerang, "Bangunan yang akan digunakan untuk menyerang: ");
+    idPenyerang = GetIdBaseOnTurn(perm,idxPenyerang,turn);
 
     /* Mencetak daftar bangunan yang terhubung dengan bangunan player yang dipilih jika ada */
     printf("Daftar bangunan yang dapat diserang: \n");
-    TulisDaftarBangunanMusuhTerhubung(*perm,idPenyerang,&BanyakBangunanDiSerang,turn);
+    TulisDaftarBangunanMusuhTerhubung(*perm,idPenyerang,&BanyakBangunanDapatDiSerang,turn);
     printf("\n");
     
-    /* Meminta input bangunan diserang dan jumlah pasukan untuk menyerang */
-    do {
-        printf("Bangunan yang diserang: ");
-        scanf("%d",&idxDiSerang);
-        if (!IsInRange(idxDiSerang,1,BanyakBangunanDiSerang)) {
-            printf("Masukkan tidak valid\n");
-        }
-    } while (!IsInRange(idxDiSerang,1,BanyakBangunanDiSerang));
-    
-    
-    do {
-        idDiSerang = GetIdAdj(Graph(*perm),idPenyerang,idxDiSerang);
-        if (Pemilik(Elmt(DaftarBangunan(*perm),idDiSerang)) == turn){
-            idxDiSerang++;
-        }
-    } while (Pemilik(Elmt(DaftarBangunan(*perm),idDiSerang)) == turn);
-
-
-    printf("Jumlah pasukan: ");
-    scanf("%d",&jumlahPasukanPenyerang);
-
-    if (idDiSerang == 0) {
+    if (BanyakBangunanDapatDiSerang == 0) {
         printf("Tidak ada bangunan yang dapat diserang\n");
     } else {
-        /* MELAKUKAN SERANGAN */
-        /* Satu bangunan cuman bisa nyerang sekali -> buat mark */
-
-        /* Melakukan pembandingan jumlah pasukan bangunan penyerang dan diserang */
-        jumlahPasukanDiSerang = JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang));
-        
-        if (jumlahPasukanPenyerang < jumlahPasukanDiSerang) {
-            JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenyerang)) -= jumlahPasukanPenyerang;
-            JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang)) -= jumlahPasukanPenyerang;
-        
-            printf("Bangunan gagal direbut. \n");
-        } else {
-            JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenyerang)) -= jumlahPasukanPenyerang;
-            JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang)) = jumlahPasukanPenyerang - JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang));
-            
-            /* Melakukan akuisisi */
-            if (turn == 1) {
-                Pemilik(Elmt(DaftarBangunan(*perm),idDiSerang)) = 1;
-                InsVLast(&ListBangunanP1(*perm),idDiSerang);
-            } else if (turn==2) {
-                Pemilik(Elmt(DaftarBangunan(*perm),idDiSerang)) = 2;
-                InsVLast(&ListBangunanP2(*perm),idDiSerang);
+        int i=1,count=0;
+        /* Meminta input bangunan diserang */
+        idxDiSerang = InputPenggunaValidDalamRange (1, BanyakBangunanDapatDiSerang, "Bangunan yang diserang: ");
+        // Mengincrement idxDiSerang agar bangunan yang sudah dimiliki si penyerang tidak ditampilkan ke opsi
+        do {
+            idDiSerang = GetIdAdj(Graph(*perm),idPenyerang,i);
+            if (Pemilik(Elmt(DaftarBangunan(*perm),idDiSerang)) == turn){      
+            } else {
+                count++;
             }
-
+            i++;
+        } while (count!=idxDiSerang);
+        
+        /* Meminta input jumlah pasukan untuk menyerang */
+        jumlahPasukanPenyerang = InputPenggunaValidDalamRange (0, JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenyerang)),"Jumlah pasukan: ");
+        jumlahPasukanDiSerang = JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang));
+        /* Cek pertahanan, Pertahanan(B) */
+        if (Pertahanan(Elmt(DaftarBangunan(*perm),idDiSerang))) {
+            jumlahPasukanPenyerangEfektif = jumlahPasukanPenyerang * 3 / 4;
+        } else {
+            jumlahPasukanPenyerangEfektif = jumlahPasukanPenyerang;
+        }
+        /* MELAKUKAN SERANGAN */
+        /* Melakukan pembandingan jumlah pasukan bangunan penyerang dan diserang */
+        if (jumlahPasukanPenyerangEfektif < jumlahPasukanDiSerang) {
+            printf("Bangunan gagal direbut. \n");
+            JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenyerang)) -= jumlahPasukanPenyerang;
+            JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang)) -= jumlahPasukanPenyerangEfektif;
+        } else {
             printf("Bangunan menjadi milikmu! \n");
+            JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenyerang)) -= jumlahPasukanPenyerang;
+            JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang)) = jumlahPasukanPenyerangEfektif - JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang));
+            AkuisisiBangunan(perm, idDiSerang, turn);
         }
 
-        /* Cek pertahanan, Pertahanan(B) */
         /* Cek skill AttackUp dan CriticalHit */
     }
 }
@@ -134,57 +104,16 @@ void CommandLevelUp(Permainan *perm,int turn) {
     TulisDaftarBangunan(*perm,turn,&BanyakBangunan);
     
     /* Input pengguna bangunan mana yang ingin di level up */
-    do {
-        printf("Bangunan yang akan di level up: ");
-        scanf("%d",&idx);
-        /* Masukan harus valid */ 
-        if (!IsInRange(idx,1,BanyakBangunan)) {
-            printf("Masukkan tidak valid\n");
-        }
-    } while (!IsInRange(idx,1,BanyakBangunan));
+    idx = InputPenggunaValidDalamRange(1,BanyakBangunan,"Bangunan yang akan di level up : ");
 
     /* Mendapatkan IdBangunan mana yang akan di level up */
-    if (turn == 1) {
-        IdBangunan = GetId(ListBangunanP1(*perm),idx);
-    } else {
-        IdBangunan = GetId(ListBangunanP2(*perm),idx);
-    }
+    IdBangunan = GetIdBaseOnTurn(perm,idx,turn);
 
     /* Menambah level, evaluasi kevalidan penambahan pasukan ada di dalam prosedur  */
     TambahSatuLevel(&Elmt(DaftarBangunan(*perm),IdBangunan),&success,&B_lama);
     
     if (success){
         Push(&StackPerm(*perm),MakeInfoStack(B_lama,IdBangunan,'0'));
-    }
-}
-
-/* PROSEDUR PENUNJANG GAME LAINNYA */
-void TambahPasukanDiAwalGiliran(Permainan *perm, int turn) {
-    int i, A, Id;
-    address P;
-    
-    if (turn == 1) {
-        P = First(ListBangunanP1(*perm));
-        i = 1;
-        while (P != Nil) {
-            Id = GetId(ListBangunanP1(*perm),i);
-            A = GetNilaiPenambahanPasukan(Elmt(DaftarBangunan(*perm),Id));
-            TambahJumlahPasukan(&Elmt(DaftarBangunan(*perm),Id),A);
-            
-            i++;
-            P = Next(P);
-        }
-    } else {
-        P = First(ListBangunanP2(*perm));
-        i = 1;
-        while (P != Nil) {
-            Id = GetId(ListBangunanP2(*perm),i);
-            A = GetNilaiPenambahanPasukan(Elmt(DaftarBangunan(*perm),Id));
-            TambahJumlahPasukan(&Elmt(DaftarBangunan(*perm),Id),A);
-            
-            i++;
-            P = Next(P);
-        }            
     }
 }
 
@@ -208,5 +137,78 @@ void CommandUndo(Permainan *perm){
             printf("\n%d %c\n",s.idBangunan,s.jenis);
             Elmt(DaftarBangunan(*perm),s.idBangunan) = s.bangunan;
         }
+    }
+}
+
+/* PROSEDUR PENUNJANG GAME LAINNYA */
+void TambahPasukanDiAwalGiliran(Permainan *perm, int turn) {
+    int i, A, Id;
+    address P;
+    
+    if (turn == 1) {
+        P = First(ListBangunanP1(*perm));
+        i = 1;
+        while (P != Nil) {
+            Id = GetIdFromList(ListBangunanP1(*perm),i);
+            A = GetNilaiPenambahanPasukan(Elmt(DaftarBangunan(*perm),Id));
+            TambahJumlahPasukan(&Elmt(DaftarBangunan(*perm),Id),A);
+            
+            i++;
+            P = Next(P);
+        }
+    } else {
+        P = First(ListBangunanP2(*perm));
+        i = 1;
+        while (P != Nil) {
+            Id = GetIdFromList(ListBangunanP2(*perm),i);
+            A = GetNilaiPenambahanPasukan(Elmt(DaftarBangunan(*perm),Id));
+            TambahJumlahPasukan(&Elmt(DaftarBangunan(*perm),Id),A);
+            
+            i++;
+            P = Next(P);
+        }            
+    }
+}
+
+/* Fungsi/Prosedur Bantuan */
+boolean IsInRange(int x,int l,int r) {
+    return ((l<=x) && (x<=r));
+}
+
+int InputPenggunaValidDalamRange (int l, int r, char *Pesan) {
+    int input;
+    do {
+        printf("%s",Pesan);
+        scanf("%d",&input);
+        /* Masukan harus valid */ 
+        if (!IsInRange(input,l,r)) {
+            printf("Masukkan tidak valid\n");
+        }
+    } while (!IsInRange(input,l,r));
+    return input;
+}
+
+int GetIdBaseOnTurn (Permainan *perm,int index, int turn) {
+    if (turn == 1) {
+        return GetIdFromList(ListBangunanP1(*perm),index);
+    } else { // (turn == 2)
+        return GetIdFromList(ListBangunanP2(*perm),index);
+    }
+}
+
+void AkuisisiBangunan(Permainan *perm, int id, int turn) {
+    if (turn == 1) {
+        if (Pemilik(Elmt(DaftarBangunan(*perm),id)) == 2) {
+            DelP(&ListBangunanP2(*perm),id);
+        } 
+        Pemilik(Elmt(DaftarBangunan(*perm),id)) = 1;
+        // Dipastikan id tidak akan ada di dalam list si penyerang (Lewat increment idxDiSerang)
+        InsVLast(&ListBangunanP1(*perm),id);
+    } else if (turn==2) {
+        if (Pemilik(Elmt(DaftarBangunan(*perm),id)) == 1) {
+            DelP(&ListBangunanP1(*perm),id);
+        } 
+        Pemilik(Elmt(DaftarBangunan(*perm),id)) = 2;
+        InsVLast(&ListBangunanP2(*perm),id);
     }
 }
