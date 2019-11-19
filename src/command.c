@@ -76,8 +76,16 @@ void CommandAttack(Permainan *perm, int turn) {
             printf("Masukkan tidak valid\n");
         }
     } while (!IsInRange(idxDiSerang,1,BanyakBangunanDiSerang));
-    idDiSerang = GetIdAdj(Graph(*perm),idPenyerang,idxDiSerang);
     
+    
+    do {
+        idDiSerang = GetIdAdj(Graph(*perm),idPenyerang,idxDiSerang);
+        if (Pemilik(Elmt(DaftarBangunan(*perm),idDiSerang)) == turn){
+            idxDiSerang++;
+        }
+    } while (Pemilik(Elmt(DaftarBangunan(*perm),idDiSerang)) == turn);
+
+
     printf("Jumlah pasukan: ");
     scanf("%d",&jumlahPasukanPenyerang);
 
@@ -103,7 +111,7 @@ void CommandAttack(Permainan *perm, int turn) {
             if (turn == 1) {
                 Pemilik(Elmt(DaftarBangunan(*perm),idDiSerang)) = 1;
                 InsVLast(&ListBangunanP1(*perm),idDiSerang);
-            } else {
+            } else if (turn==2) {
                 Pemilik(Elmt(DaftarBangunan(*perm),idDiSerang)) = 2;
                 InsVLast(&ListBangunanP2(*perm),idDiSerang);
             }
