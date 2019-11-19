@@ -55,7 +55,7 @@ address Search (List L, int X);
 /* Jika ada, mengirimkan address elemen tersebut. */
 /* Jika tidak ada, mengirimkan Nil */
 
-int GetId (List L, int n);
+int GetIdFromList (List L, int n);
 /* Mendapatkan IDBangunan (indeks pada array) dari bangunan ke n dari list */
 
 /****************** PRIMITIF BERDASARKAN NILAI ******************/

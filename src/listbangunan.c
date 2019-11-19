@@ -48,7 +48,7 @@ address Search (List L, int X){
 }
 
 
-int GetId (List L, int n) {
+int GetIdFromList (List L, int n) {
     int i;
     address P;
 
