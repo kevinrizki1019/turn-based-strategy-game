@@ -202,6 +202,7 @@ void AkuisisiBangunan(Permainan *perm, int id, int turn) {
             DelP(&ListBangunanP2(*perm),id);
         } 
         Pemilik(Elmt(DaftarBangunan(*perm),id)) = 1;
+        Level(Elmt(DaftarBangunan(*perm),id)) = 1;
         // Dipastikan id tidak akan ada di dalam list si penyerang (Lewat increment idxDiSerang)
         InsVLast(&ListBangunanP1(*perm),id);
     } else if (turn==2) {
@@ -209,6 +210,7 @@ void AkuisisiBangunan(Permainan *perm, int id, int turn) {
             DelP(&ListBangunanP1(*perm),id);
         } 
         Pemilik(Elmt(DaftarBangunan(*perm),id)) = 2;
+        Level(Elmt(DaftarBangunan(*perm),id)) = 1;
         InsVLast(&ListBangunanP2(*perm),id);
     }
 }
