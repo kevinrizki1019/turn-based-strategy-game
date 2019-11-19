@@ -10,6 +10,7 @@
 #include "listbangunan.h"
 #include "graph.h"
 #include "queueofskill.h"
+#include "stackt.h"
 #include "color.h"
 
 typedef struct{
@@ -22,6 +23,7 @@ typedef struct{
     MATRIKS Peta;
     Player Player1;
     Player Player2;
+    Stack StackPermainan;
     GraphBANGUNAN G;
 } Permainan;
 
@@ -35,6 +37,7 @@ typedef struct{
 #define ListBangunanP2(P) (P).Player2.ListBangunan
 #define SkillP1(P) (P).Player1.QueueSkill
 #define SkillP2(P) (P).Player2.QueueSkill
+#define StackPerm(P) (P).StackPermainan
 #define Graph(P) (P).G
 
 void BacaKonfigurasi(char NamaFile[],Permainan *Perm);

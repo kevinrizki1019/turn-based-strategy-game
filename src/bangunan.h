@@ -74,7 +74,7 @@ void BacaBangunan (BANGUNAN *B);
 // Lalu menyimpannya dalam *B
 
 /* ********** OPERASI LAINNYA ********** */
-void TambahSatuLevel (BANGUNAN *B);
+void TambahSatuLevel (BANGUNAN *B, boolean *success, BANGUNAN *B_lama);
 // Menambah level bangunan sebesar 1 
 // selama nilai setelah penambahan masih valid
 

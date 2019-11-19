@@ -122,7 +122,7 @@ boolean IsLevelBangunanBisaDitambah (BANGUNAN *B) {
 
 }
 
-void TambahSatuLevel (BANGUNAN *B) 
+void TambahSatuLevel (BANGUNAN *B, boolean *success, BANGUNAN *B_lama) 
 {
     int M;
 
@@ -134,6 +134,7 @@ void TambahSatuLevel (BANGUNAN *B)
         /* Mengecek apakah level bangunan sudah max atau belum */
         if (IsLevelValid(Level(*B) + 1)) {
 
+            (*B_lama) = (*B); (*success) = true;
             Level(*B)++;
             printf("Level ");
             StringJenisBangunan(*B);
@@ -142,6 +143,7 @@ void TambahSatuLevel (BANGUNAN *B)
 
         } else {
 
+            (*success) = false;
             printf("Level\n");
             StringJenisBangunan(*B);
             printf("sudah max tidak bisa di level up!\n");
@@ -150,6 +152,7 @@ void TambahSatuLevel (BANGUNAN *B)
         
     } else {
 
+        (*success) = false;
         printf("Jumlah pasukan ");
         StringJenisBangunan(*B);
         printf(" kurang untuk level up!\n");

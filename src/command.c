@@ -118,6 +118,8 @@ void CommandAttack(Permainan *perm, int turn) {
 void CommandLevelUp(Permainan *perm,int turn) {  
     IdxType idx;
     int IdBangunan,BanyakBangunan;
+    boolean success;
+    BANGUNAN B_lama;
 
     /* Mencetak daftar bangunan player*/ 
     printf("Daftar bangunan:\n");
@@ -141,7 +143,11 @@ void CommandLevelUp(Permainan *perm,int turn) {
     }
 
     /* Menambah level, evaluasi kevalidan penambahan pasukan ada di dalam prosedur  */
-    TambahSatuLevel(&Elmt(DaftarBangunan(*perm),IdBangunan));
+    TambahSatuLevel(&Elmt(DaftarBangunan(*perm),IdBangunan),&success,&B_lama);
+    
+    if (success){
+        Push(&StackPerm(*perm),MakeInfoStack(B_lama,IdBangunan,'0'));
+    }
 }
 
 /* PROSEDUR PENUNJANG GAME LAINNYA */
@@ -171,5 +177,28 @@ void TambahPasukanDiAwalGiliran(Permainan *perm, int turn) {
             i++;
             P = Next(P);
         }            
+    }
+}
+
+void CommandUndo(Permainan *perm){
+    if (IsStackEmpty(StackPerm(*perm))){
+        printf("Tidak ada yang bisa di undo\n");
+    }
+    else{
+        infoStack s;
+        Pop(&StackPerm(*perm),&s);
+        // mencetak elemen stack yang di delete untuk di debug
+        TulisBangunan(s.bangunan);
+        printf("\n%d %c\n",s.idBangunan,s.jenis);
+
+        // mengganti elemen di daftar bangunan
+        Elmt(DaftarBangunan(*perm),s.idBangunan) = s.bangunan;
+        //if(s.jenis=='1')   // merupakan command ATTACK berhasil
+        if (s.jenis=='2'){  // merupakan command ATTACK gagal atau MOVE
+            Pop(&StackPerm(*perm),&s);
+            TulisBangunan(s.bangunan);
+            printf("\n%d %c\n",s.idBangunan,s.jenis);
+            Elmt(DaftarBangunan(*perm),s.idBangunan) = s.bangunan;
+        }
     }
 }

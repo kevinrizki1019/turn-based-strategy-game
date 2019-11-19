@@ -42,16 +42,17 @@ int main(){
     finish = false;
     do{
         TambahPasukanDiAwalGiliran(&Perm,turn);
-        TulisPetaPermainan(Perm);
-        printf("Player %d\n",turn);
-        TulisDaftarBangunan(Perm,turn,&BanyakBangunan);
-        PrintAvailableSkill(Perm,turn);
-        printf("\n");
 
+        CreateEmptyStack(&StackPerm(Perm));
         end_turn = false;
         /* boolean skill */
         
         do{ // command != "EXIT"
+            TulisPetaPermainan(Perm);
+            printf("Player %d\n",turn);
+            TulisDaftarBangunan(Perm,turn,&BanyakBangunan);
+            PrintAvailableSkill(Perm,turn);
+            printf("\n");
             printf("ENTER COMMAND: ");
             STARTKATA("-",false);
             if (IsSamaKata(CKata,DaftarCommand[1])){ // command == "ATTACK"
@@ -64,10 +65,9 @@ int main(){
                 // CommandSkill(&Perm, turn);
             } 
             else if (IsSamaKata(CKata,DaftarCommand[4])){ // command == "UNDO"
-                // CommandUndo(&Perm, turn);
+                CommandUndo(&Perm);
             }
             else if (IsSamaKata(CKata,DaftarCommand[5])){ // command == "END_TURN"
-                // CommandEndTurn(&Perm, turn);
                 end_turn = true;
             }
             else if (IsSamaKata(CKata,DaftarCommand[6])){ // command == "SAVE"

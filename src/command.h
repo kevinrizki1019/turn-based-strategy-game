@@ -30,7 +30,7 @@ void CommandLevelUp(Permainan *perm, int turn);
 void CommandSkill(Permainan *perm, int turn);
 /* Menjalankan mekanisme skill yang dilakukan oleh pemain turn */
 
-void CommandUndo(Permainan *perm, int turn);
+void CommandUndo(Permainan *perm);
 /* Menjalankan mekanisme undo yang dilakukan oleh pemain turn */
 
 void CommandEndTurn(Permainan *perm, int turn);
