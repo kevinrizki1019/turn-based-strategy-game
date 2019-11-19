@@ -36,14 +36,15 @@ boolean IsInRange(int x,int l,int r){
 }
 
 
+/* IMPLEMENTASI PROSEDUR-PROSEDUR COMMAND */
 void CommandAttack(Permainan *perm, int turn) {
     IdxType idPenyerang,idDiSerang;
-    int idxPenyerang,idxDiSerang,BanyakBangunan, jumlahPasukanPenyerang, jumlahPasukanDiSerang;
+    int idxPenyerang,idxDiSerang,BanyakBangunanPenyerang,BanyakBangunanDiSerang, jumlahPasukanPenyerang, jumlahPasukanDiSerang;
     BANGUNAN *bangunanPenyerang, *bangunanDiSerang;
 
     /* Mencetak daftar bangunan player */
     printf("Daftar bangunan:\n");
-    TulisDaftarBangunan(*perm,turn,&BanyakBangunan); 
+    TulisDaftarBangunan(*perm,turn,&BanyakBangunanPenyerang); 
 
     /* Input player bangunan mana yang digunakan untuk menyerang */
     /* Input pengguna bangunan mana yang ingin digunakan untuk menyerang */
@@ -51,10 +52,10 @@ void CommandAttack(Permainan *perm, int turn) {
         printf("Bangunan yang akan digunakan untuk menyerang: ");
         scanf("%d",&idxPenyerang);
         /* Masukan harus valid */ 
-        if (!IsInRange(idxPenyerang,1,BanyakBangunan)) {
+        if (!IsInRange(idxPenyerang,1,BanyakBangunanPenyerang)) {
             printf("Masukkan tidak valid\n");
         }
-    } while (!IsInRange(idxPenyerang,1,BanyakBangunan));
+    } while (!IsInRange(idxPenyerang,1,BanyakBangunanPenyerang));
 
     if (turn == 1) {
         idPenyerang = GetId(ListBangunanP1(*perm),idxPenyerang);
@@ -64,16 +65,22 @@ void CommandAttack(Permainan *perm, int turn) {
 
     /* Mencetak daftar bangunan yang terhubung dengan bangunan player yang dipilih jika ada */
     printf("Daftar bangunan yang dapat diserang: \n");
-    TulisDaftarBangunanTerhubung(*perm,idPenyerang);
-
-    /* Meminta input bangunan diserang dan jumlah pasukan untuk menyerang */
+    TulisDaftarBangunanMusuhTerhubung(*perm,idPenyerang,&BanyakBangunanDiSerang,turn);
     printf("\n");
-    printf("Bangunan yang diserang: ");
-    scanf("%d",&idxDiSerang);
+    
+    /* Meminta input bangunan diserang dan jumlah pasukan untuk menyerang */
+    do {
+        printf("Bangunan yang diserang: ");
+        scanf("%d",&idxDiSerang);
+        if (!IsInRange(idxDiSerang,1,BanyakBangunanDiSerang)) {
+            printf("Masukkan tidak valid\n");
+        }
+    } while (!IsInRange(idxDiSerang,1,BanyakBangunanDiSerang));
+    idDiSerang = GetIdAdj(Graph(*perm),idPenyerang,idxDiSerang);
+    
     printf("Jumlah pasukan: ");
     scanf("%d",&jumlahPasukanPenyerang);
 
-    idDiSerang = GetIdAdj(Graph(*perm),idPenyerang,idxDiSerang);
     if (idDiSerang == 0) {
         printf("Tidak ada bangunan yang dapat diserang\n");
     } else {
@@ -81,9 +88,6 @@ void CommandAttack(Permainan *perm, int turn) {
         /* Satu bangunan cuman bisa nyerang sekali -> buat mark */
 
         /* Melakukan pembandingan jumlah pasukan bangunan penyerang dan diserang */
-        // *bangunanPenyerang = Elmt(DaftarBangunan(*perm),idPenyerang); 
-        // *bangunanDiSerang = Elmt(DaftarBangunan(*perm),idDiSerang);
-        
         jumlahPasukanDiSerang = JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang));
         
         if (jumlahPasukanPenyerang < jumlahPasukanDiSerang) {
@@ -111,8 +115,6 @@ void CommandAttack(Permainan *perm, int turn) {
         /* Cek skill AttackUp dan CriticalHit */
     }
 }
-
-/* IMPLEMENTASI PROSEDUR-PROSEDUR COMMAND */
 void CommandLevelUp(Permainan *perm,int turn) {  
     IdxType idx;
     int IdBangunan,BanyakBangunan;
@@ -142,6 +144,7 @@ void CommandLevelUp(Permainan *perm,int turn) {
     TambahSatuLevel(&Elmt(DaftarBangunan(*perm),IdBangunan));
 }
 
+/* PROSEDUR PENUNJANG GAME LAINNYA */
 void TambahPasukanDiAwalGiliran(Permainan *perm, int turn) {
     int i, A, Id;
     address P;

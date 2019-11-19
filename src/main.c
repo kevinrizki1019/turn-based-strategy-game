@@ -88,7 +88,11 @@ int main(){
         
         if (!finish){
             printf("\n");
-            turn=turn%2+1;
+            if (turn == 1) {
+                turn = 2;
+            } else { // turn == 2
+                turn = 1;
+            }
         }
         
     }while(!finish);

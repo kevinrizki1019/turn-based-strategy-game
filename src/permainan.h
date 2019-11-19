@@ -58,6 +58,11 @@ void TulisBangunanPlayer(List L,TabBANGUNAN tabBangunan,int *n);
 void TulisDaftarBangunan(Permainan Perm,int turn,int *n);
 /* Menuliskan daftar bangunan dari suatu player pada suatu state permainan tertentu */
 
-void TulisDaftarBangunanTerhubung(Permainan Perm, int Id);
+void TulisDaftarBangunanTerhubung(Permainan Perm, int Id, int *n);
 /* Menuliskan daftar bangunan yang terhubung dengan bangunan tersebut sesuai ADT Graph */
+
+void TulisDaftarBangunanMusuhTerhubung(Permainan Perm, int Id, int *n, int turn);
+/* Menuliskan daftar bangunan yang terhubung dengan bangunan tersebut sesuai ADT Graph */
+/* dengan aturan bangunan milik pemain tidak termasuk tertulis*/
+
 #endif

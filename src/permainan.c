@@ -136,7 +136,7 @@ void TulisDaftarBangunan(Permainan Perm,int turn,int *n){
     }
 }
 
-void TulisDaftarBangunanTerhubung(Permainan Perm, int Id)
+void TulisDaftarBangunanTerhubung(Permainan Perm, int Id, int *n)
 {
     int i,adj_id;
     TabBANGUNAN DB;
@@ -144,6 +144,7 @@ void TulisDaftarBangunanTerhubung(Permainan Perm, int Id)
     adradj A;
 
     DB = DaftarBangunan(Perm);
+    *n = 0;
     if (FirstVer(Graph(Perm)) != Nil) {
         V = SearchVer(Graph(Perm),Id);
         if (FirstAdj(V) != Nil) {
@@ -157,8 +158,41 @@ void TulisDaftarBangunanTerhubung(Permainan Perm, int Id)
                     printf("\n");
                 }
 
+                (*n)++;
                 A = NextAdj(A);
                 i++;
+            }
+        }
+    }
+}
+
+
+void TulisDaftarBangunanMusuhTerhubung(Permainan Perm, int Id, int *n, int turn) {
+    int i,adj_id;
+    TabBANGUNAN DB;
+    adrver V;
+    adradj A;
+
+    DB = DaftarBangunan(Perm);
+    *n = 0;
+    if (FirstVer(Graph(Perm)) != Nil) {
+        V = SearchVer(Graph(Perm),Id);
+        if (FirstAdj(V) != Nil) {
+            
+            A = FirstAdj(V);
+            i = 1;
+            while (A != Nil) {
+                adj_id = InfoAdj(A);
+                if (Pemilik(Elmt(DB,adj_id)) != turn) {
+                    printf("%d.", i);
+                    TulisBangunan(Elmt(DB,adj_id));
+                    (*n)++;
+                    i++;
+                    if (NextAdj(A) != Nil) {
+                        printf("\n");
+                    }
+                }
+                A = NextAdj(A);
             }
         }
     }

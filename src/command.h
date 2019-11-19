@@ -45,8 +45,7 @@ void CommandMove(Permainan *perm, int turn);
 void CommandExit(Permainan *perm, int turn);
 /* Menjalankan mekanisme exit yang dilakukan oleh pemain turn */
 
-
-/* Prosedur penunjang game lainnya */
+/* PROSEDUR PENUNJANG GAME LAINNYA */
 void TambahPasukanDiAwalGiliran(Permainan *perm, int turn);
 /* Menambhakn semua jumlah pasukan pada bangunan milik player 1 atau 2 (tergantung nnilai turn)*/
 
