@@ -185,3 +185,16 @@ int NbElmtList (List L) {
     }
     return n;
 }
+
+void CopyList (List Lin, List *Lout) {
+    address P;
+    
+    CreateEmpty(Lout);
+    if (!IsEmptyList(Lin)) {
+        P = First(Lin);
+        while (P != Nil) {
+            InsVLast(Lout, Info(P));
+            P = Next(P);
+        }
+    }
+}

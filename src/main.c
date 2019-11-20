@@ -12,8 +12,9 @@ int main(){
     /* Kamus */
     Permainan Perm;
     char s[NMaxStr],pil;
-    int i,turn,BanyakBangunan;
+    int i,turn,NbBangunanAttackOff,BanyakBangunan;
     boolean finish,end_turn;
+    List ListBangunanPlayerAvailableToAttack, ListBangunanPlayerAvailableToMove;
 
     /* Algoritma */
     /* Inisiasi Game */
@@ -47,6 +48,11 @@ int main(){
         end_turn = false;
         /* boolean skill */
         
+        CreateEmpty(&ListBangunanPlayerAvailableToAttack);
+        CreateEmpty(&ListBangunanPlayerAvailableToMove);
+        CopyList(ListBangunanPlayer(Perm,turn),&ListBangunanPlayerAvailableToAttack);
+        CopyList(ListBangunanPlayer(Perm,turn),&ListBangunanPlayerAvailableToMove);
+        NbBangunanAttackOff = 0;
         do{ // command != "EXIT"
             TulisPetaPermainan(Perm);
             printf("Player %d\n",turn);
@@ -56,7 +62,7 @@ int main(){
             printf("ENTER COMMAND: ");
             STARTKATA("-",false);
             if (IsSamaKata(CKata,DaftarCommand[1])){ // command == "ATTACK"
-                CommandAttack(&Perm, turn);
+                CommandAttack(&Perm, turn, &ListBangunanPlayerAvailableToAttack,&NbBangunanAttackOff);
             }
             else if (IsSamaKata(CKata,DaftarCommand[2])){ // command == "LEVEL_UP"
                 CommandLevelUp(&Perm, turn);

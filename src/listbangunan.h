@@ -118,6 +118,11 @@ void DelAfter (List *L, address *Pdel, address Prec);
 /* F.S. Menghapus Next(Prec): */
 /*      Pdel adalah alamat elemen list yang dihapus  */
 
+void CopyList (List Lin, List *Lout);
+/* I.S. Lin tidak kosong. Lout sembarang  */
+/* F.S. Lout berisi salinan dari Lin */
+/*      Menyalin Lin ke Lout  */
+
 /****************** PROSES SEMUA ELEMEN LIST ******************/
 int NbElmtList (List L);
 /* Mengirimkan banyaknya elemen list; mengirimkan 0 jika list kosong */

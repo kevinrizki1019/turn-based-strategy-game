@@ -21,7 +21,7 @@ boolean IsInRange(int x,int l,int r);
 /* Fungsi untuk membantu pengecekan nilai. Mengirimkan true jika x di antara l dan r */
 
 /* **** PROSEDUR YANG DIJALANKAN KETIKA PLAYER MENGETIKKAN COMMAND DI LAYAR *** */
-void CommandAttack(Permainan *perm, int turn);
+void CommandAttack(Permainan *perm, int turn, List *ListBangunanPlayerAvailableToAttack, int *NbBangunanAttackOff);
 /* Menjalankan mekanisme attack yang dilakukan oleh pemain turn */
 
 void CommandLevelUp(Permainan *perm, int turn);

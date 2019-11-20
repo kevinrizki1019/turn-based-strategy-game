@@ -32,20 +32,23 @@ void ShowAvailableCommand() {
 }
     
 /* IMPLEMENTASI PROSEDUR-PROSEDUR COMMAND */
-void CommandAttack(Permainan *perm, int turn) {
+void CommandAttack(Permainan *perm, int turn, List *ListBangunanPlayerAvailableToAttack, int *NbBangunanAttackOff) {
     IdxType idPenyerang,idDiSerang;
-    int idxPenyerang,idxDiSerang,BanyakBangunanPenyerang,BanyakBangunanDapatDiSerang, jumlahPasukanPenyerang, jumlahPasukanDiSerang, jumlahPasukanPenyerangEfektif;
+    int idxPenyerang,idxDiSerang,BanyakBangunanPenyerang,BanyakBangunanDapatDiSerang, jumlahPasukanPenyerang, jumlahPasukanDiSerang,jumlahPasukanPenyerangEfektif;
     BANGUNAN *bangunanPenyerang, *bangunanDiSerang;
 
     /* Mencetak daftar bangunan player */
     /* Satu bangunan cuman bisa nyerang sekali -> buat mark, jadi kalo udah nyerang gak ditampilin lagi di sini */
     printf("Daftar bangunan:\n");
-    TulisDaftarBangunan(ListBangunanPlayer(*perm,turn),DaftarBangunan(*perm),&BanyakBangunanPenyerang); 
+    TulisDaftarBangunan(*ListBangunanPlayerAvailableToAttack,DaftarBangunan(*perm),&BanyakBangunanPenyerang); 
+    DelP(ListBangunanPlayerAvailableToAttack,idPenyerang);    DelP(ListBangunanPlayerAvailableToAttack,idPenyerang);
 
     /* Input player bangunan mana yang digunakan untuk menyerang */
     /* Input pengguna bangunan mana yang ingin digunakan untuk menyerang */
     idxPenyerang = InputPenggunaValidDalamRange (1, BanyakBangunanPenyerang, "Bangunan yang akan digunakan untuk menyerang: ");
+    idxPenyerang += (*NbBangunanAttackOff);
     idPenyerang = GetIdBaseOnTurn(perm,idxPenyerang,turn);
+    DelP(ListBangunanPlayerAvailableToAttack,idPenyerang);
 
     /* Mencetak daftar bangunan yang terhubung dengan bangunan player yang dipilih jika ada */
     printf("Daftar bangunan yang dapat diserang: \n");
@@ -92,8 +95,9 @@ void CommandAttack(Permainan *perm, int turn) {
             JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenyerang)) -= jumlahPasukanPenyerang;
             JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang)) = jumlahPasukanPenyerangEfektif - JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang));
             AkuisisiBangunan(perm, idDiSerang, turn);
+            InsVLast(ListBangunanPlayerAvailableToAttack,idDiSerang);
         }
-
+        (*NbBangunanAttackOff)++;
         /* Cek skill AttackUp dan CriticalHit */
     }
 }
