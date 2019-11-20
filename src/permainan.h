@@ -62,4 +62,6 @@ void TulisDaftarBangunanMusuhTerhubung(Permainan Perm, int Id, int *n, int turn)
 /* Menuliskan daftar bangunan yang terhubung dengan bangunan tersebut sesuai ADT Graph */
 /* dengan aturan bangunan milik pemain tidak termasuk tertulis*/
 
+void TulisDaftarBangunanPlayerTerhubung(Permainan Perm, int Id, int *n, int turn);
+
 #endif

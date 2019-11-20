@@ -12,7 +12,7 @@ int main(){
     /* Kamus */
     Permainan Perm;
     char s[NMaxStr],pil;
-    int i,turn,NbBangunanAttackOff,BanyakBangunan;
+    int i,turn,NbBangunanAttackOff,NbBangunanMoveOff,BanyakBangunan;
     boolean finish,end_turn;
     List ListBangunanPlayerAvailableToAttack, ListBangunanPlayerAvailableToMove;
 
@@ -53,6 +53,7 @@ int main(){
         CopyList(ListBangunanPlayer(Perm,turn),&ListBangunanPlayerAvailableToAttack);
         CopyList(ListBangunanPlayer(Perm,turn),&ListBangunanPlayerAvailableToMove);
         NbBangunanAttackOff = 0;
+        NbBangunanMoveOff = 0;
         do{ // command != "EXIT"
             TulisPetaPermainan(Perm);
             printf("Player %d\n",turn);
@@ -63,7 +64,7 @@ int main(){
             STARTKATA("-",false);
             if (IsSamaKata(CKata,DaftarCommand[1])){ // command == "ATTACK"
                 if (!IsEmptyList(ListBangunanPlayerAvailableToAttack)) {
-                    CommandAttack(&Perm, turn, &ListBangunanPlayerAvailableToAttack,&NbBangunanAttackOff);
+                    CommandAttack(&Perm,turn,&ListBangunanPlayerAvailableToAttack,&ListBangunanPlayerAvailableToMove,&NbBangunanAttackOff);
                 } else {
                     printf("Tidak ada lagi bangunan yang dapat menyerang!\n");
                 }
@@ -84,7 +85,11 @@ int main(){
                 // CommandSave(&Perm, turn);
             }
             else if (IsSamaKata(CKata,DaftarCommand[7])){ // command == "MOVE"
-                // CommandMove(&Perm, turn);
+                if (!IsEmptyList(ListBangunanPlayerAvailableToMove)) {
+                    CommandMove(&Perm, turn, &ListBangunanPlayerAvailableToMove,&NbBangunanMoveOff);
+                } else {
+                    printf("Tidak ada lagi bangunan yang dapat memindahkan pasukan!\n");
+                }
             }
             else if (IsSamaKata(CKata,DaftarCommand[8])){ // command == "EXIT"
                 // CommandExit(&Perm,turn);
