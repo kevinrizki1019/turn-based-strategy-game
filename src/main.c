@@ -62,7 +62,11 @@ int main(){
             printf("ENTER COMMAND: ");
             STARTKATA("-",false);
             if (IsSamaKata(CKata,DaftarCommand[1])){ // command == "ATTACK"
-                CommandAttack(&Perm, turn, &ListBangunanPlayerAvailableToAttack,&NbBangunanAttackOff);
+                if (!IsEmptyList(ListBangunanPlayerAvailableToAttack)) {
+                    CommandAttack(&Perm, turn, &ListBangunanPlayerAvailableToAttack,&NbBangunanAttackOff);
+                } else {
+                    printf("Tidak ada lagi bangunan yang dapat menyerang!\n");
+                }
             }
             else if (IsSamaKata(CKata,DaftarCommand[2])){ // command == "LEVEL_UP"
                 CommandLevelUp(&Perm, turn);
