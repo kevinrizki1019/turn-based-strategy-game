@@ -83,14 +83,20 @@ void CommandAttack(Permainan *perm, int turn, List *ListBangunanPlayerAvailableT
         /* Melakukan pembandingan jumlah pasukan bangunan penyerang dan diserang */
         if (jumlahPasukanPenyerangEfektif < jumlahPasukanDiSerang) {
             printf("Bangunan gagal direbut. \n");
-            Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idPenyerang),idPenyerang,'2'));
-            Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idDiSerang),idDiSerang,'2'));
+            Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idPenyerang),idPenyerang,-1));
+            Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idDiSerang),idDiSerang,-1));
             JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenyerang)) -= jumlahPasukanPenyerang;
             JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang)) -= jumlahPasukanPenyerangEfektif;
         } else {
             printf("Bangunan menjadi milikmu! \n");
-            Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idPenyerang),idPenyerang,'1'));
-            Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idDiSerang),idDiSerang,'1'));
+            Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idPenyerang),idPenyerang,-2));
+            if (Pemilik(Elmt(DaftarBangunan(*perm),idDiSerang))==turn%2+1){
+                int id = GetIdxFromList(ListBangunanPlayer(*perm,(turn%2+1)),idDiSerang);
+                Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idDiSerang),idDiSerang,id));    
+            }
+            else{
+                Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idDiSerang),idDiSerang,-2));
+            }
             JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenyerang)) -= jumlahPasukanPenyerang;
             JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang)) = jumlahPasukanPenyerangEfektif - JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang));
             AkuisisiBangunan(perm, idDiSerang, turn);
@@ -125,7 +131,7 @@ void CommandLevelUp(Permainan *perm,int turn) {
     TambahSatuLevel(&Elmt(DaftarBangunan(*perm),IdBangunan),&success,&B_lama);
     
     if (success){
-        Push(&StackPerm(*perm),MakeInfoStack(B_lama,IdBangunan,'0'));
+        Push(&StackPerm(*perm),MakeInfoStack(B_lama,IdBangunan,0));
     }
 }
 
@@ -138,26 +144,26 @@ void CommandUndo(Permainan *perm){
         Pop(&StackPerm(*perm),&s);
         // mencetak elemen stack yang di delete untuk di debug
         TulisBangunan(s.bangunan);
-        printf("\n%d %c\n",s.idBangunan,s.jenis);
+        printf("\n%d %d\n",s.idBangunan,s.jenis);
 
         // mengganti elemen di daftar bangunan
         Elmt(DaftarBangunan(*perm),s.idBangunan) = s.bangunan;
-        if(s.jenis=='1'){   // merupakan command ATTACK berhasil
+        if (s.jenis==-1){  // merupakan command ATTACK gagal atau MOVE
+            Pop(&StackPerm(*perm),&s);
+            TulisBangunan(s.bangunan);
+            printf("\n%d %d\n",s.idBangunan,s.jenis);
+            Elmt(DaftarBangunan(*perm),s.idBangunan) = s.bangunan;
+        }
+        else if(s.jenis!=0){   // merupakan command ATTACK berhasil
             int pemilikSekarang = Pemilik(InfoTop(StackPerm(*perm)).bangunan);
             DelP(&ListBangunanPlayer(*perm,pemilikSekarang),s.idBangunan); // dihapus dari list (bisa juga pakai dellast)
 
             if (Pemilik(s.bangunan)==(pemilikSekarang%2+1)){
-                InsVLast(&ListBangunanPlayer(*perm,(pemilikSekarang%2+1)),s.idBangunan);
+                InsVatIdx(&ListBangunanPlayer(*perm,(pemilikSekarang%2+1)),s.idBangunan,s.jenis);
             }
             Pop(&StackPerm(*perm),&s);
             TulisBangunan(s.bangunan);
-            printf("\n%d %c\n",s.idBangunan,s.jenis);
-            Elmt(DaftarBangunan(*perm),s.idBangunan) = s.bangunan;
-        }
-        if (s.jenis=='2'){  // merupakan command ATTACK gagal atau MOVE
-            Pop(&StackPerm(*perm),&s);
-            TulisBangunan(s.bangunan);
-            printf("\n%d %c\n",s.idBangunan,s.jenis);
+            printf("\n%d %d\n",s.idBangunan,s.jenis);
             Elmt(DaftarBangunan(*perm),s.idBangunan) = s.bangunan;
         }
     }
@@ -191,8 +197,7 @@ void CommandMove(Permainan *perm, int turn,List *ListBangunanPlayerAvailableToMo
         // Mengincrement idxPenerima agar bangunan yang tidak dimiliki player tidak ditampilkan ke opsi
         do {
             idPenerima = GetIdAdj(Graph(*perm),idPengirim,i);
-            if (Pemilik(Elmt(DaftarBangunan(*perm),idPenerima)) != turn){      
-            } else {
+            if (Pemilik(Elmt(DaftarBangunan(*perm),idPenerima)) == turn){
                 count++;
             }
             i++;
@@ -201,6 +206,8 @@ void CommandMove(Permainan *perm, int turn,List *ListBangunanPlayerAvailableToMo
         /* Meminta input jumlah pasukan untuk menyerang */
         jumlahPasukanKiriman = InputPenggunaValidDalamRange (0, JumlahPasukan(Elmt(DaftarBangunan(*perm),idPengirim)),"Jumlah pasukan: ");
         /* Melakukan pembandingan jumlah pasukan bangunan penyerang dan diserang */
+        Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idPengirim),idPengirim,-1));
+        Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idPenerima),idPenerima,-1));
         JumlahPasukan(Elmt(DaftarBangunan(*perm),idPengirim)) -= jumlahPasukanKiriman;
         if (JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenerima)) + jumlahPasukanKiriman < MAX_PASUKAN) {
             JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenerima)) += jumlahPasukanKiriman;

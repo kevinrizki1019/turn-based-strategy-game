@@ -7,7 +7,7 @@ void CreateEmptyStack(Stack *S){
     Top(*S) =  0;
 }
 
-infoStack MakeInfoStack(BANGUNAN B, int id, char jenis){
+infoStack MakeInfoStack(BANGUNAN B, int id, int jenis){
     infoStack res;
     res.bangunan = B;
     res.idBangunan = id;

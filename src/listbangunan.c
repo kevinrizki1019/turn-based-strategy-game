@@ -61,6 +61,19 @@ int GetIdFromList (List L, int n) {
     return Info(P);
 }
 
+int GetIdxFromList (List L, int n){
+    int i;
+    address P;
+
+    i = 1;
+    P = First(L);
+    while (Info(P)!=n){
+        ++i;
+        P = Next(P);
+    }
+    return i;
+}
+
 void InsVFirst (List *L, int X) {
     address P;
     
@@ -76,6 +89,27 @@ void InsVLast (List *L, int X) {
     P = Alokasi(X);
     if (P != Nil) {
       InsertLast(L,P);
+    }
+}
+
+void InsVatIdx (List *L, int X, int idx){
+    address now,P;
+
+    if (idx==1){
+        InsVFirst(L,X);
+    }
+    else{
+        P = Alokasi(X);
+        if (P==Nil) return;
+        printf("jancuk\n");
+        now = First(*L);
+        --idx;
+        while (--idx){
+            now = Next(now);
+        }
+        // berhenti sblm idx
+        Next(P) = Next(now);
+        Next(now) = P;
     }
 }
 

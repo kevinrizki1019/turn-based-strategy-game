@@ -14,11 +14,11 @@
 typedef struct {
   BANGUNAN bangunan;  // bangunan sebelum di lakukan suatu aksi
   int idBangunan;   // no id bangunan
-  char jenis;
+  int jenis;
   /* penanda jenis elemen stack untuk suatu command
-    '0' : LEVEL_UP
-    '1' : ATTACK yang berpindah kepemilikan
-    '2' : ATTACK yang tidak berpindah kepemilikan atau MOVE (dapat dijadikan sama)*/ 
+    -1 : ATTACK yang tidak berpindah kepemilikan atau MOVE (dapat dijadikan sama)
+    0 : LEVEL_UP
+    >0 : ATTACK yang berpindah kepemilikan (merepresentasikan posisi dalam list) */ 
 } infoStack;
 
 /* Contoh deklarasi variabel bertype stack dengan ciri TOP : */
@@ -45,7 +45,7 @@ void CreateEmptyStack (Stack *S);
 /* jadi indeksnya antara 1.. MaxElStack+1 karena 0 tidak dipakai */
 /* Ciri stack kosong : TOP bernilai Nil */
 
-infoStack MakeInfoStack(BANGUNAN B, int id, char jenis);
+infoStack MakeInfoStack(BANGUNAN B, int id, int jenis);
 /* Membuat infoStack */
 
 /* ************ Predikat Untuk test keadaan KOLEKSI ************ */

@@ -61,7 +61,8 @@ void InstantUpgrade(Permainan *Perm,int player)
     while (P != Nil){
         B = Elmt(DaftarBangunan(*Perm),Info(P));
         if(IsLevelValid(Level(B)+1) && JumlahPasukan(B)>=GetMaksimumPenambahanPasukan(B)/2){
-			Level(B)++;
+			JumlahPasukan(B) -= GetMaksimumPenambahanPasukan(B)/2;
+            Level(B)++;
             Elmt(DaftarBangunan(*Perm),Info(P)) = B;
 		}
         P = Next(P);

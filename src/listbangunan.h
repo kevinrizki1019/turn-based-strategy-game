@@ -58,6 +58,9 @@ address Search (List L, int X);
 int GetIdFromList (List L, int n);
 /* Mendapatkan IDBangunan (indeks pada array) dari bangunan ke n dari list */
 
+int GetIdxFromList (List L, int n);
+/* Mengirimkan indeks dari kiri letak n pada list */
+
 /****************** PRIMITIF BERDASARKAN NILAI ******************/
 /*** PENAMBAHAN ELEMEN ***/
 void InsVFirst (List *L, int X);
@@ -69,6 +72,8 @@ void InsVLast (List *L, int X);
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen list di akhir: elemen terakhir yang baru */
 /* bernilai X jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
+void InsVatIdx (List *L, int X, int idx);
+/* Menambahakan elemen X ke list pada indeks tertentu */
 
 /*** PENGHAPUSAN ELEMEN ***/
 void DelVFirst (List *L, int *X);
