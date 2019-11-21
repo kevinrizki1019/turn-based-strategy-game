@@ -50,10 +50,33 @@ void PrintAvailableSkill(Permainan Perm,int player){
 }
 
 /* *********** Implementasi Skill *********** */
-void InstantUpgrade(Permainan *Perm,int player);
+void InstantUpgrade(Permainan *Perm,int player)
 /* Melakukan upgrade bangunan yang dimiliki oleh suatu player.
     Jika player = 1, upgrade bangunan player 1.
     Jika player = 2, upgrade bangunan player 2. */
+{	
+	
+	if(player==1){
+		Pemilik(B) = 1;
+		int M = JumlahPasukan(B);
+		if(IsLevelValid(Level(B)) && JumlahPasukan(B)>=M/2){
+			Level(B)++;
+		}
+		else{
+			printf("Invalid command");
+		}
+	}
+	else if(player==2){
+		Pemilik(B) = 2;
+		int M = JumlahPasukan(B);
+		if(IsLevelValid(Level(B)) && JumlahPasukan(B)>=M/2){
+			Level(B)++;
+		}
+		else{
+			printf("Invalid command");
+		}
+	}
+}
 
 void InstantReinforcement(Permainan *Perm,int player);
 /* Melakukan penambahan 5 pasukan pada bangunan yang dimiliki oleh suatu player.
