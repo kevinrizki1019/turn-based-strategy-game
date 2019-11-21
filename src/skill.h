@@ -5,6 +5,7 @@
 #define __SKILL_H__
 
 #include "permainan.h"
+#include "bangunan.h"
 
 
 /* *********** OUTPUT *********** */
