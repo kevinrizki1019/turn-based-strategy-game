@@ -16,7 +16,7 @@ void PrintAvailableSkill(Permainan Perm,int player);
 /* Mencetak skill terdepan player */
 
 /* *********** Implementasi Skill *********** */
-void InstantUpgrade(Permainan *Perm,int player);
+void InstantUpgrade(Permainan *Perm,int player,BANGUNAN B);
 /* Melakukan upgrade bangunan yang dimiliki oleh suatu player.
     Jika player = 1, upgrade bangunan player 1.
     Jika player = 2, upgrade bangunan player 2. */
