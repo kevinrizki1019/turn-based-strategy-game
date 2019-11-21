@@ -229,7 +229,7 @@ void CommandSkill(Permainan *perm, int turn){
     Del(&SkillPlayer(*perm,turn),&x);
     switch(x){
         case 1: // Instant Upgrade
-        // InstantUpgrade(perm,turn);
+        InstantUpgrade(perm,turn);
         break;
 
         case 2: // Shield

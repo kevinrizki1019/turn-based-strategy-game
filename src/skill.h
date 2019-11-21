@@ -5,7 +5,6 @@
 #define __SKILL_H__
 
 #include "permainan.h"
-#include "bangunan.h"
 
 
 /* *********** OUTPUT *********** */
@@ -16,7 +15,7 @@ void PrintAvailableSkill(Permainan Perm,int player);
 /* Mencetak skill terdepan player */
 
 /* *********** Implementasi Skill *********** */
-void InstantUpgrade(Permainan *Perm,int player,BANGUNAN B);
+void InstantUpgrade(Permainan *Perm,int player);
 /* Melakukan upgrade bangunan yang dimiliki oleh suatu player.
     Jika player = 1, upgrade bangunan player 1.
     Jika player = 2, upgrade bangunan player 2. */

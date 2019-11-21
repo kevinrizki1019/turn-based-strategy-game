@@ -2,7 +2,8 @@
 /* Copyright: Kelompok 11 K-1 IF2110 2019/2020 */
 
 #include "skill.h"
-#include "stdio.h"
+#include "bangunan.h"
+#include <stdio.h>
 
 /* *********** OUTPUT *********** */
 void PrintSkill(int idx){
@@ -50,32 +51,21 @@ void PrintAvailableSkill(Permainan Perm,int player){
 }
 
 /* *********** Implementasi Skill *********** */
-void InstantUpgrade(Permainan *Perm,int player,BANGUNAN B)
+void InstantUpgrade(Permainan *Perm,int player)
 /* Melakukan upgrade bangunan yang dimiliki oleh suatu player.
     Jika player = 1, upgrade bangunan player 1.
     Jika player = 2, upgrade bangunan player 2. */
 {	
-	
-	if(player==1){
-		Pemilik(B) = 1;
-		int M = JumlahPasukan(B);
-		if(IsLevelValid(Level(B)) && JumlahPasukan(B)>=M/2){
+	BANGUNAN B;
+    address P = First(ListBangunanPlayer(*Perm,player));
+    while (P != Nil){
+        B = Elmt(DaftarBangunan(*Perm),Info(P));
+        if(IsLevelValid(Level(B)+1) && JumlahPasukan(B)>=GetMaksimumPenambahanPasukan(B)/2){
 			Level(B)++;
+            Elmt(DaftarBangunan(*Perm),Info(P)) = B;
 		}
-		else{
-			printf("Invalid command");
-		}
-	}
-	else if(player==2){
-		Pemilik(B) = 2;
-		int M = JumlahPasukan(B);
-		if(IsLevelValid(Level(B)) && JumlahPasukan(B)>=M/2){
-			Level(B)++;
-		}
-		else{
-			printf("Invalid command");
-		}
-	}
+        P = Next(P);
+    }
 }
 
 void InstantReinforcement(Permainan *Perm,int player);
