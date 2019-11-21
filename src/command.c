@@ -3,6 +3,7 @@
 /* Mengolah command (input) dari user */
 
 #include "command.h"
+#include "skill.h"
 #include <stdio.h>
 
 Kata DaftarCommand[9]; /* Berisi 8 daftar command yang bisa dilakukan. Indeks 0 tidak digunakan */
@@ -95,6 +96,9 @@ void CommandAttack(Permainan *perm, int turn, List *ListBangunanPlayerAvailableT
             AkuisisiBangunan(perm, idDiSerang, turn);
             InsVLast(ListBangunanPlayerAvailableToAttack,idDiSerang);
             InsVLast(ListBangunanPlayerAvailableToMove,idDiSerang);
+            if (JenisBangunan(Elmt(DaftarBangunan(*perm),idDiSerang))=='F'){
+                Add(&SkillPlayer(*perm,(turn%2+1)),3);
+            }
         }
         DelP(ListBangunanPlayerAvailableToAttack,idPenyerang);
         (*NbBangunanAttackOff)++;
@@ -214,6 +218,46 @@ void CommandMove(Permainan *perm, int turn,List *ListBangunanPlayerAvailableToMo
         (*NbBangunanMoveOff)++;
     }
 }
+
+void CommandSkill(Permainan *perm, int turn){
+    if (IsQueueEmpty(SkillPlayer(*perm,turn))){
+        printf("You don\'t have any skill\n");
+        return;
+    }
+
+    infoQueue x;
+    Del(&SkillPlayer(*perm,turn),&x);
+    switch(x){
+        case 1: // Instant Upgrade
+        // InstantUpgrade(perm,turn);
+        break;
+
+        case 2: // Shield
+        
+        break;
+
+        case 3: // Extra Turn
+        (*perm).ExtraTurn = true;
+        break;
+
+        case 4: // Attack Up
+        
+        break;
+
+        case 5: // Critical Hit
+
+        break;
+
+        case 6: // Instant Reinforcement
+        // InstantReinforcement(perm,turn);
+        break;
+
+        case 7: // Barrage
+        // Barrage(perm,turn);
+        break;
+    }
+}
+
 
 /* PROSEDUR PENUNJANG GAME LAINNYA */
 void TambahPasukanDiAwalGiliran(Permainan *perm, int turn) {

@@ -8,11 +8,11 @@
 /* Konstanta untuk mendefinisikan address tak terdefinisi */
 
 /* Definisi elemen dan address */
-typedef int infotype;
+typedef int infoQueue;
 typedef int addrQueue;   /* indeks tabel */
 /* Contoh deklarasi variabel bertype Queue : */
 /* Versi I : tabel dinamik, Head dan Tail eksplisit, ukuran disimpan */
-typedef struct { infotype * T;   /* tabel penyimpan elemen */
+typedef struct { infoQueue * T;   /* tabel penyimpan elemen */
                  addrQueue HEAD;  /* alamat penghapusan */
                  addrQueue TAIL;  /* alamat penambahan */
                  int MaxElQueue;     /* Max elemen queue */
@@ -51,11 +51,11 @@ void DeAlokasi(Queue * Q);
 /* F.S. Q menjadi tidak terdefinisi lagi, MaxElQueue(Q) diset 0 */
 
 /* *** Primitif Add/Delete *** */
-void Add (Queue * Q, infotype X);
+void Add (Queue * Q, infoQueue X);
 /* Proses: Menambahkan X pada Q dengan aturan FIFO */
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
 /* F.S. X menjadi TAIL yang baru, TAIL "maju" dengan mekanisme circular buffer */
-void Del (Queue * Q, infotype * X);
+void Del (Queue * Q, infoQueue * X);
 /* Proses: Menghapus X pada Q dengan aturan FIFO */
 /* I.S. Q tidak mungkin kosong */
 /* F.S. X = 0ai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer; 

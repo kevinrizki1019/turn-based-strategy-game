@@ -40,7 +40,12 @@ void PrintSkill(int idx){
 
 void PrintAvailableSkill(Permainan Perm,int player){
     printf("Skill Available: ");
-    PrintSkill(InfoHead(SkillPlayer(Perm,player)));
+    if (!IsQueueEmpty(SkillPlayer(Perm,player))){
+        PrintSkill(InfoHead(SkillPlayer(Perm,player)));
+    }
+    else{
+        printf("-");
+    }
     printf("\n");
 }
 

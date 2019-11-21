@@ -41,19 +41,22 @@ int main(){
     /* Looping Command */
     turn = 1;
     finish = false;
+    Perm.ExtraTurn = false;
     do{
         TambahPasukanDiAwalGiliran(&Perm,turn);
 
         CreateEmptyStack(&StackPerm(Perm));
         end_turn = false;
-        /* boolean skill */
-        
+
         CreateEmpty(&ListBangunanPlayerAvailableToAttack);
         CreateEmpty(&ListBangunanPlayerAvailableToMove);
         CopyList(ListBangunanPlayer(Perm,turn),&ListBangunanPlayerAvailableToAttack);
         CopyList(ListBangunanPlayer(Perm,turn),&ListBangunanPlayerAvailableToMove);
         NbBangunanAttackOff = 0;
         NbBangunanMoveOff = 0;
+        
+        /* boolean skill */
+        if (Perm.ExtraTurn) Perm.ExtraTurn = false;
         do{ // command != "EXIT"
             TulisPetaPermainan(Perm);
             printf("Player %d\n",turn);
@@ -61,7 +64,7 @@ int main(){
             PrintAvailableSkill(Perm,turn);
             printf("\n");
             printf("ENTER COMMAND: ");
-            STARTKATA("-",false);
+            STARTKATA("stdin",false);
             if (IsSamaKata(CKata,DaftarCommand[1])){ // command == "ATTACK"
                 if (!IsEmptyList(ListBangunanPlayerAvailableToAttack)) {
                     CommandAttack(&Perm,turn,&ListBangunanPlayerAvailableToAttack,&ListBangunanPlayerAvailableToMove,&NbBangunanAttackOff);
@@ -73,7 +76,7 @@ int main(){
                 CommandLevelUp(&Perm, turn);
             }
             else if (IsSamaKata(CKata,DaftarCommand[3])){ // command == "SKILL"
-                // CommandSkill(&Perm, turn);
+                CommandSkill(&Perm, turn);
             } 
             else if (IsSamaKata(CKata,DaftarCommand[4])){ // command == "UNDO"
                 CommandUndo(&Perm);
@@ -92,7 +95,6 @@ int main(){
                 }
             }
             else if (IsSamaKata(CKata,DaftarCommand[8])){ // command == "EXIT"
-                // CommandExit(&Perm,turn);
                 finish = true;
             }
             else{
@@ -103,7 +105,7 @@ int main(){
         
         if (!finish){
             printf("\n");
-            turn = turn%2+1;
+            if (!Perm.ExtraTurn) turn = turn%2+1;
         }
         
     }while(!finish);

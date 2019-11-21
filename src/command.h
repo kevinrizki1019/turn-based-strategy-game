@@ -42,8 +42,6 @@ void CommandSave(Permainan *perm, int turn);
 void CommandMove(Permainan *perm, int turn,List *ListBangunanPlayerAvailableToMove, int *NbBangunanMoveOff);
 /* Menjalankan mekanisme move yang dilakukan oleh pemain turn */
 
-void CommandExit(Permainan *perm, int turn);
-/* Menjalankan mekanisme exit yang dilakukan oleh pemain turn */
 
 /* PROSEDUR PENUNJANG GAME LAINNYA */
 void TambahPasukanDiAwalGiliran(Permainan *perm, int turn);
