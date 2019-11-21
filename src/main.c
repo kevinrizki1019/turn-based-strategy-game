@@ -4,7 +4,6 @@
 #include "skill.h"
 #include <stdio.h>
 
-#define NMaxStr 255
 
 int main(){
     /* Silakan mencoba codingan di bawah ini */
@@ -28,7 +27,12 @@ int main(){
     }while((pil!='1') && (pil!='2'));
     
     if (pil=='1'){
-        BacaKonfigurasi("config_map.txt",&Perm);
+        BacaKonfigurasi("config_map.txt",&Perm,false);
+    }
+    else{
+        printf("Lokasi load file: ");
+        scanf("%s",s);
+        BacaKonfigurasi(s,&Perm,true);
     }
 
     /* Tampilan awal game hasil load dari file */
@@ -85,7 +89,7 @@ int main(){
                 end_turn = true;
             }
             else if (IsSamaKata(CKata,DaftarCommand[6])){ // command == "SAVE"
-                // CommandSave(&Perm, turn);
+                CommandSave(Perm, turn);
             }
             else if (IsSamaKata(CKata,DaftarCommand[7])){ // command == "MOVE"
                 if (!IsEmptyList(ListBangunanPlayerAvailableToMove)) {
@@ -95,6 +99,7 @@ int main(){
                 }
             }
             else if (IsSamaKata(CKata,DaftarCommand[8])){ // command == "EXIT"
+                CommandExit(Perm,turn);
                 finish = true;
             }
             else{

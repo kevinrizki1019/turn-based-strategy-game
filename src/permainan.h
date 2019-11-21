@@ -38,10 +38,14 @@ typedef struct{
 #define StackPerm(P) (P).StackPermainan
 #define Graph(P) (P).G
 
-void BacaKonfigurasi(char NamaFile[],Permainan *Perm);
+void BacaKonfigurasi(char NamaFile[], Permainan *Perm, boolean load);
 /*  Membaca konfigurasi file dari 'NamaFile'
     I.S. = 'NamaFile' terdefinisi dan ada
     F.S. = Variabel Perm terinisialisasi */
+
+void SimpanKonfigurasi(char NamaFile[], Permainan Perm, int turn);
+/* Menyimpan konfigurasi permainan di file */
+
 
 void PrintKonfigurasiPermainan(Permainan Perm);
 /* Mencetak ke layar konfigurasi permainan hasil pembacaan dari file eksternal */

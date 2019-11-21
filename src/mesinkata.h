@@ -8,6 +8,7 @@
 #include "mesinkar.h"
 
 #define NMax 50
+#define NMaxStr 255
 #define BLANK ' '
 #define ENTER '\n'
 

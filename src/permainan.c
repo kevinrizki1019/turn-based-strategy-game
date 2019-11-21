@@ -4,12 +4,12 @@
 #include "permainan.h"
 #include <stdio.h>
 
-void BacaKonfigurasi(char NamaFile[],Permainan *Perm){
+void BacaKonfigurasi(char NamaFile[],Permainan *Perm, boolean load){
 /*  Membaca konfigurasi file dari 'NamaFile'
     I.S. = 'NamaFile' terdefinisi dan ada
     F.S. = Variabel Perm terinisialisasi */
     /* Kamus */
-    int i,j,x,y,n,m,b;
+    int i,j,x,y,n,m,b,pemilik;
     char tipe;
 
     /* Algoritma */
@@ -37,12 +37,21 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm){
         ADVKATA(); x=CKatatoInt();
         ADVKATA(); y=CKatatoInt();
         
-        if (i<=2){
-            Elmt(DaftarBangunan((*Perm)), i) = MakeBANGUNAN(tipe,MakePOINT(x,y),i);
-            InsVFirst(&ListBangunanPlayer(*Perm,i),i);
+        if (!load){
+            if (i<=2){
+                Elmt(DaftarBangunan((*Perm)), i) = MakeBANGUNAN(tipe,MakePOINT(x,y),i);
+                InsVFirst(&ListBangunanPlayer(*Perm,i),i);
+            }
+            else{
+                Elmt(DaftarBangunan((*Perm)), i) = MakeBANGUNAN(tipe,MakePOINT(x,y),0);
+            }
         }
         else{
-            Elmt(DaftarBangunan((*Perm)), i) = MakeBANGUNAN(tipe,MakePOINT(x,y),0);
+            ADVKATA(); pemilik = CKatatoInt();
+            Elmt(DaftarBangunan((*Perm)), i) = MakeBANGUNAN(tipe,MakePOINT(x,y),pemilik);
+            if ((pemilik==1) || (pemilik==2)){
+                InsVLast(&ListBangunanPlayer(*Perm,pemilik),i);
+            }
         }
 
         NeffTab(DaftarBangunan(*Perm))++;
@@ -62,6 +71,44 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm){
         }
     }
 }
+
+void SimpanKonfigurasi(char NamaFile[], Permainan Perm, int turn){
+    FILE *file = fopen(NamaFile,"w");
+    fprintf(file,"%d %d\n%d\n",TinggiPeta(Perm),LebarPeta(Perm),JumlahBangunan(Perm));
+    
+    for (int idB=IdxMin; idB<=JumlahBangunan(Perm); idB++){
+        POINT pos=Posisi(Elmt(DaftarBangunan(Perm),idB));
+        char jenis = JenisBangunan(Elmt(DaftarBangunan(Perm),idB));
+        int pemilik = Pemilik(Elmt(DaftarBangunan(Perm),idB));
+        fprintf(file,"%c %d %d %d\n",jenis,Absis(pos),Ordinat(pos),pemilik);
+    }
+    
+    adrver verNow = FirstVer(Graph(Perm));
+    for (int i=IdxMin; i<=JumlahBangunan(Perm); i++){
+        adradj adjNow = FirstAdj(verNow);
+        for (int j=IdxMin; j<=JumlahBangunan(Perm); j++){
+            if (adjNow==Nil){
+                fprintf(file,"0");
+            }
+            else{
+                if (InfoAdj(adjNow)==j){
+                    fprintf(file,"1");
+                    adjNow = NextAdj(adjNow);
+                }
+                else{
+                    fprintf(file,"0");
+                }
+            }
+            if (j<JumlahBangunan(Perm)){
+                fprintf(file," ");
+            }
+        }
+        fprintf(file,"\n");
+        verNow = NextVer(verNow);
+    }
+    fclose(file);
+}
+
 
 void PrintKonfigurasiPermainan(Permainan Perm) {
     int i;

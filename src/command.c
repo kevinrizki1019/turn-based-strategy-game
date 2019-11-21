@@ -221,7 +221,7 @@ void CommandMove(Permainan *perm, int turn,List *ListBangunanPlayerAvailableToMo
 
 void CommandSkill(Permainan *perm, int turn){
     if (IsQueueEmpty(SkillPlayer(*perm,turn))){
-        printf("You don\'t have any skill\n");
+        printf("Tidak ada skill yang tersedia\n");
         return;
     }
 
@@ -258,6 +258,28 @@ void CommandSkill(Permainan *perm, int turn){
     }
 }
 
+void CommandSave(Permainan perm, int turn){
+    char namafile[NMaxStr];
+    printf("Lokasi save file: ");
+    scanf("%s",namafile);
+    SimpanKonfigurasi(namafile,perm,turn);
+    printf("Game berhasil di save!\n");
+}
+
+void CommandExit(Permainan perm, int turn){
+    char pil;
+    printf("Apakah Anda ingin menyimpan permainannya dahulu?\n");
+    do{
+        printf("1. Ya\n");
+        printf("2. Tidak\n");
+        printf("Masukkan pilihan: ");
+        scanf(" %c",&pil);
+    }while (pil!='1' && pil!='2');
+    if (pil=='1'){
+        CommandSave(perm,turn);
+    }
+    printf("\nSampai Jumpa\n");
+}
 
 /* PROSEDUR PENUNJANG GAME LAINNYA */
 void TambahPasukanDiAwalGiliran(Permainan *perm, int turn) {
