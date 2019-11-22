@@ -27,6 +27,7 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm, boolean load){
     for (int player=1;player<=2;++player){
         CreateEmpty(&ListBangunanPlayer(*Perm,player));
         CreateEmptyQueue(&SkillPlayer(*Perm,player),10);
+        // Menambahkan skill Instant Upgrade ke kedua lawan
         Add(&SkillPlayer(*Perm,player),1);
     }
 

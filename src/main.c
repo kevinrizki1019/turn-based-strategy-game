@@ -135,7 +135,11 @@ int main(){
             }
             if (!finish) printf("\n");
         } while ( !finish && !end_turn );
-        
+        if (CanGetInstantReinforment(&Perm,turn)) {
+             Add(&SkillPlayer(Perm,turn),6);
+        }
+
+
         printf("\e[1;1H\e[2J");
 
         if (!finish){

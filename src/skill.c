@@ -95,6 +95,7 @@ void InstantReinforcement(Permainan *Perm, int player)
         Elmt(DaftarBangunan(*Perm),Info(P)) = B;
         P = Next(P);
     }
+    printf("Skill Instant Reinforcement telah digunakan\n");
 }
 
 void Barrage(Permainan *Perm,int player);

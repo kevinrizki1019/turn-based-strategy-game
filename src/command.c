@@ -129,6 +129,7 @@ void CommandAttack(Permainan *perm, int turn, List *ListBangunanPlayerAvailableT
             InsVLast(ListBangunanPlayerAvailableToAttack,idDiSerang);
             InsVLast(ListBangunanPlayerAvailableToMove,idDiSerang);
             if (JenisBangunan(Elmt(DaftarBangunan(*perm),idDiSerang))=='F'){
+                // Menambahkan skill Extra Turn ke lawan
                 Add(&SkillPlayer(*perm,(turn%2+1)),3);
             }
         }
@@ -282,7 +283,7 @@ void CommandSkill(Permainan *perm, int turn){
         break;
 
         case 6: // Instant Reinforcement
-        // InstantReinforcement(perm,turn);
+        InstantReinforcement(perm,turn);
         break;
 
         case 7: // Barrage
