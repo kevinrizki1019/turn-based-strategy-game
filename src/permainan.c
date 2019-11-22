@@ -131,11 +131,32 @@ void PrintKonfigurasiPermainan(Permainan Perm) {
     printf("\n");
 }
 
+void TulisLogoPermainan() {
+    printf("\n");
+    red();  
+    printf("   /|       /\\       |\\           \n");
+    printf("  / | |  / /  \\   |  | \\   |~~    \n");    
+    reset();
+    blue(); 
+    printf(" / ~| | / / ~ ~\\ ~|~ | ~\\  |      \n");
+    printf("/   | |/ /      \\ |/ |   \\ |      \n");       
+    printf("~~~~~~~~~WORLD WAR~~~~~~~~~~~~~     \n");
+    reset();
+    brightwhite();
+    printf("NEW GAME(1)      LOAD GAME(2)              \n");
+    reset();
+}
+
 void TulisPetaPermainan (Permainan Perm){
     for (int i=0;i<=TinggiPeta(Perm)+1;i++){
+        bgwhite();
+        printf(" ");
+        reset();
         for (int j=0;j<=LebarPeta(Perm)+1;j++){
             if (ElmtMat(Peta(Perm),i,j)==-1){
-                printf("*");
+                bgwhite();
+                printf(" ");
+                reset();
             }
             else if (ElmtMat(Peta(Perm),i,j)==0){
                 printf(" ");
@@ -153,9 +174,18 @@ void TulisPetaPermainan (Permainan Perm){
                     reset();
                 }
             }
+            if ((i==0 || i==TinggiPeta(Perm)+1)) {
+                bgwhite();    
+            }
+            if (j==LebarPeta(Perm)+1) {
+                bgwhite();
+            }
+            printf(" ");
+            reset();
         }
         printf("\n");
     }
+    reset();
 }
 
 void TulisDaftarBangunan(List ListPlayer,TabBANGUNAN tabBangunan,int *n){

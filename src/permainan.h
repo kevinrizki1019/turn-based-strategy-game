@@ -50,6 +50,8 @@ void SimpanKonfigurasi(char NamaFile[], Permainan Perm, int turn);
 void PrintKonfigurasiPermainan(Permainan Perm);
 /* Mencetak ke layar konfigurasi permainan hasil pembacaan dari file eksternal */
 
+void TulisLogoPermainan();
+
 void TulisPetaPermainan (Permainan Perm);
 /* Prosedur yang serupa seperti TulisMATRIKS namun mengganti memberikan output */
 /* berupa character sesuai integer yang ada pada konvensi sebagai berikut */

@@ -16,14 +16,16 @@ int main(){
     List ListBangunanPlayerAvailableToAttack, ListBangunanPlayerAvailableToMove;
 
     /* Algoritma */
+    TulisLogoPermainan();
+    
     /* Inisiasi Game */
     InitDaftarCommand();
     do{
-        printf("Opsi:\n");
-        printf("1. Baca konfigurasi\n");
-        printf("2. Load game\n");
-        printf("Masukkan pilihan: ");
+        printf("ENTER INPUT: ");
         scanf(" %c",&pil);
+        if ((pil != '1') && (pil != '2')) {
+            printf("Please input 1 or 2!\n");
+        }
     }while((pil!='1') && (pil!='2'));
     
     if (pil=='1'){

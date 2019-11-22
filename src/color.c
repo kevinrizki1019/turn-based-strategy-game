@@ -9,6 +9,34 @@ void blue(){
     printf("\033[1;34m");
 }
 
+void white(){
+    printf("\033[1;37m");
+}
+
+void brightwhite() {
+    printf("\033[1;97m");
+}
+
+void bgred(){
+    printf("\033[1;41m");
+}
+
+void bgblue(){
+    printf("\033[1;44m");
+}
+
+void bgwhite(){
+    printf("\033[1;47m");
+}
+
+void bgyellow(){
+    printf("\033[1;100m");
+}
+
+void bggreen(){
+    printf("\033[1;102m");
+}
+
 void reset(){
     printf("\033[0m");
 }
