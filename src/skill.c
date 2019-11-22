@@ -50,6 +50,19 @@ void PrintAvailableSkill(Permainan Perm,int player){
     printf("\n");
 }
 
+/* *********** Checker *********** */
+
+int CanGetInstantReinforment(Permainan *Perm, int player){
+    address P = First(ListBangunanPlayer(*Perm,player));
+    while (P != Nil){
+        if (Level(Elmt(DaftarBangunan(*Perm),Info(P))) < 4)
+            return 0;
+        P = Next(P);
+    }
+    return 1;
+}
+
+
 /* *********** Implementasi Skill *********** */
 void InstantUpgrade(Permainan *Perm,int player)
 /* Melakukan upgrade bangunan yang dimiliki oleh suatu player.
@@ -69,10 +82,20 @@ void InstantUpgrade(Permainan *Perm,int player)
     }
 }
 
-void InstantReinforcement(Permainan *Perm,int player);
+void InstantReinforcement(Permainan *Perm, int player)
 /* Melakukan penambahan 5 pasukan pada bangunan yang dimiliki oleh suatu player.
     Jika player = 1, berarti lakukan pada bangunan player 1.
     Jika player = 2, berarti lakukan pada bangunan player 2. */
+{
+    BANGUNAN B;
+    address P = First(ListBangunanPlayer(*Perm, player));
+    while (P != Nil){
+        B = Elmt(DaftarBangunan(*Perm),Info(P));
+        JumlahPasukan(B) += 5;
+        Elmt(DaftarBangunan(*Perm),Info(P)) = B;
+        P = Next(P);
+    }
+}
 
 void Barrage(Permainan *Perm,int player);
 /* Mengurangi jumlah pasukan sebanyak 10 pada bangunan player */

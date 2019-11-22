@@ -3,6 +3,7 @@
 #include "command.h"
 #include "skill.h"
 #include <stdio.h>
+#include "color.h"
 
 
 int main(){
@@ -21,7 +22,9 @@ int main(){
     /* Inisiasi Game */
     InitDaftarCommand();
     do{
+        red();
         printf("ENTER INPUT: ");
+        reset();
         scanf(" %c",&pil);
         if ((pil != '1') && (pil != '2')) {
             printf("Please input 1 or 2!\n");
@@ -65,11 +68,15 @@ int main(){
         if (Perm.ExtraTurn) Perm.ExtraTurn = false;
         do{ // command != "EXIT"
             TulisPetaPermainan(Perm);
+            green();
             printf("Player %d\n",turn);
+            reset();
             TulisDaftarBangunan(ListBangunanPlayer(Perm,turn),DaftarBangunan(Perm),&BanyakBangunan);
             PrintAvailableSkill(Perm,turn);
             printf("\n");
+            green();
             printf("ENTER COMMAND: ");
+            reset();
             STARTKATA("stdin",false);
             if (IsSamaKata(CKata,DaftarCommand[1])){ // command == "ATTACK"
                 if (!IsEmptyList(ListBangunanPlayerAvailableToAttack)) {

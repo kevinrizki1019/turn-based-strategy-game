@@ -1,6 +1,7 @@
 #include "graph.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "color.h"
 
 adrver AlokasiVer (infotype X) {
     adrver P;
@@ -135,12 +136,17 @@ void PrintKeterhubungan(GraphBANGUNAN G)
         // Iterasi adress vertice
         PVer = FirstVer(G);
         while (PVer != Nil) {
+            red();
             printf("%d",InfoVer(PVer));
+            reset();
             if (FirstAdj(PVer) != Nil) {
                 // Iterasi adress adjacent
                 PAdj = FirstAdj(PVer);
                 while (PAdj != Nil) {
-                    printf("->%d",InfoAdj(PAdj));
+                    printf("->");
+                    red();
+                    printf("%d",InfoAdj(PAdj));
+                    reset();
                     PAdj = NextAdj(PAdj);
                 }
             }

@@ -3,6 +3,7 @@
 
 #include "bangunan.h"
 #include <stdio.h>
+#include "color.h"
 
 /* ********** SELEKTOR ********** */
 void StringJenisBangunan(BANGUNAN B) {
@@ -174,7 +175,8 @@ void KurangJumlahPasukan (BANGUNAN *B, int jumlah_pengurangan)
 }
 
 void TulisBangunan (BANGUNAN B)
-{
+{   
+    cyan();
     if (JenisBangunan(B) == 'C') {
         printf("Castle ");
     } else if (JenisBangunan(B) == 'T') {
@@ -184,8 +186,13 @@ void TulisBangunan (BANGUNAN B)
     } else if (JenisBangunan(B) == 'V') {
         printf("Village ");
     }
+    red();
     TulisPOINT(Posisi(B));
-    printf(" %d lv. %d", JumlahPasukan(B), Level(B));
+    green();
+    printf(" %d ", JumlahPasukan(B));
+    yellow();
+    printf("lv. %d", Level(B));
+    reset();
     /* buat mempermudah ngedebug */
     printf(" Pemilik(%d) ",Pemilik(B));
     printf(((Pertahanan(B))? "(Pertahanan)":"()"));

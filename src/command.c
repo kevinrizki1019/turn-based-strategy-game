@@ -5,6 +5,7 @@
 #include "command.h"
 #include "skill.h"
 #include <stdio.h>
+#include "color.h"
 
 Kata DaftarCommand[9]; /* Berisi 8 daftar command yang bisa dilakukan. Indeks 0 tidak digunakan */
 
@@ -22,14 +23,39 @@ void InitDaftarCommand(){
 
 void ShowAvailableCommand() {
     printf("Daftar Command:\n");
-    printf("- ATTACK\n");
-    printf("- LEVEL_UP\n");
-    printf("- SKILL\n");
-    printf("- UNDO\n");
-    printf("- END_TURN\n");
-    printf("- SAVE\n");
-    printf("- MOVE\n");
-    printf("- EXIT\n");
+    
+    printf("- ");
+    green();
+    printf("ATTACK\n");
+    reset();
+    printf("- ");
+    green();
+    printf("LEVEL_UP\n");
+    reset();
+    printf("- ");
+    green();
+    printf("SKILL\n");
+    reset();
+    printf("- ");
+    green();
+    printf("UNDO\n");
+    reset();
+    printf("- ");
+    green();
+    printf("END_TURN\n");
+    reset();
+    printf("- ");
+    green();
+    printf("SAVE\n");
+    reset();
+    printf("- ");
+    green();
+    printf("MOVE\n");
+    reset();
+    printf("- ");
+    green();
+    printf("EXIT\n");
+    reset();
 }
     
 /* IMPLEMENTASI PROSEDUR-PROSEDUR COMMAND */

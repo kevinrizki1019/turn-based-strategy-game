@@ -14,6 +14,13 @@ void PrintSkill(int idx);
 void PrintAvailableSkill(Permainan Perm,int player);
 /* Mencetak skill terdepan player */
 
+/* *********** Checker *********** */
+
+int CanGetInstantReinforment(Permainan *Perm, int player);
+/* Mengecek apakah player berhak mendapatkan skill instant reinforment untuk ditambah ke queue di akhir turn
+    Jika player = 1, berarti lakukan pada bangunan player 1.
+    Jika player = 2, berarti lakukan pada bangunan player 2. */
+
 /* *********** Implementasi Skill *********** */
 void InstantUpgrade(Permainan *Perm,int player);
 /* Melakukan upgrade bangunan yang dimiliki oleh suatu player.
