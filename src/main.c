@@ -68,13 +68,32 @@ int main(){
         if (Perm.ExtraTurn) Perm.ExtraTurn = false;
         do{ // command != "EXIT"
             TulisPetaPermainan(Perm);
-            green();
-            printf("Player %d\n",turn);
+            blue();
+            printf("       Player %d ",1);
             reset();
+            printf("%d |",NbElmtList(ListBangunanPlayer(Perm,1)));
+            
+            printf(" %d ",NbElmtList(ListBangunanPlayer(Perm,2)));
+            red();
+            printf("Player %d\n",2);
+            reset();
+
+            if (turn == 1) {
+                blue();
+            } else {
+                red();
+            }
+            printf("Player %d Turn\n",turn);
+            reset();
+
             TulisDaftarBangunan(ListBangunanPlayer(Perm,turn),DaftarBangunan(Perm),&BanyakBangunan);
             PrintAvailableSkill(Perm,turn);
             printf("\n");
-            green();
+            if (turn == 1) {
+                blue();
+            } else {
+                red();
+            }
             printf("ENTER COMMAND: ");
             reset();
             STARTKATA("stdin",false);
@@ -117,6 +136,8 @@ int main(){
             if (!finish) printf("\n");
         } while ( !finish && !end_turn );
         
+        printf("\e[1;1H\e[2J");
+
         if (!finish){
             printf("\n");
             if (!Perm.ExtraTurn) turn = turn%2+1;

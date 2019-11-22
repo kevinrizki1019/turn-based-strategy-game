@@ -149,12 +149,24 @@ void TulisLogoPermainan() {
 
 void TulisPetaPermainan (Permainan Perm){
     for (int i=0;i<=TinggiPeta(Perm)+1;i++){
-        bgwhite();
+        if (NbElmtList(ListBangunanPlayer(Perm,1)) > NbElmtList(ListBangunanPlayer(Perm,2))) {
+            bgblue();
+        } else if ((NbElmtList(ListBangunanPlayer(Perm,1)) < NbElmtList(ListBangunanPlayer(Perm,2)))) {
+            bgred();
+        } else {
+            bgwhite();
+        }  
         printf(" ");
         reset();
         for (int j=0;j<=LebarPeta(Perm)+1;j++){
             if (ElmtMat(Peta(Perm),i,j)==-1){
-                bgwhite();
+                if (NbElmtList(ListBangunanPlayer(Perm,1)) > NbElmtList(ListBangunanPlayer(Perm,2))) {
+                    bgblue();
+                } else if ((NbElmtList(ListBangunanPlayer(Perm,1)) < NbElmtList(ListBangunanPlayer(Perm,2)))) {
+                    bgred();
+                } else {
+                    bgwhite();
+                }
                 printf(" ");
                 reset();
             }
@@ -174,11 +186,14 @@ void TulisPetaPermainan (Permainan Perm){
                     reset();
                 }
             }
-            if ((i==0 || i==TinggiPeta(Perm)+1)) {
-                bgwhite();    
-            }
-            if (j==LebarPeta(Perm)+1) {
-                bgwhite();
+            if ((i==0 || i==TinggiPeta(Perm)+1) || j==LebarPeta(Perm)+1) {
+                if (NbElmtList(ListBangunanPlayer(Perm,1)) > NbElmtList(ListBangunanPlayer(Perm,2))) {
+                    bgblue();
+                } else if ((NbElmtList(ListBangunanPlayer(Perm,1)) < NbElmtList(ListBangunanPlayer(Perm,2)))) {
+                    bgred();
+                } else {
+                    bgwhite();
+                }  
             }
             printf(" ");
             reset();

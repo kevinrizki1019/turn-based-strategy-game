@@ -73,13 +73,13 @@ void InstantUpgrade(Permainan *Perm,int player)
     address P = First(ListBangunanPlayer(*Perm,player));
     while (P != Nil){
         B = Elmt(DaftarBangunan(*Perm),Info(P));
-        if(IsLevelValid(Level(B)+1) && JumlahPasukan(B)>=GetMaksimumPenambahanPasukan(B)/2){
-			JumlahPasukan(B) -= GetMaksimumPenambahanPasukan(B)/2;
+        if(IsLevelValid(Level(B)+1)){
             Level(B)++;
             Elmt(DaftarBangunan(*Perm),Info(P)) = B;
 		}
         P = Next(P);
     }
+    printf("Skill Instant Upgrade telah digunakan\n");
 }
 
 void InstantReinforcement(Permainan *Perm, int player)
