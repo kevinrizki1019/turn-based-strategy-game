@@ -59,21 +59,21 @@ void ShowAvailableCommand() {
 }
     
 /* IMPLEMENTASI PROSEDUR-PROSEDUR COMMAND */
-void CommandAttack(Permainan *perm, int turn, List *ListBangunanPlayerAvailableToAttack,  List *ListBangunanPlayerAvailableToMove, int *NbBangunanAttackOff) {
+void CommandAttack(Permainan *perm, int turn) {
     IdxType idPenyerang,idDiSerang;
-    int idxPenyerang,idxDiSerang,BanyakBangunanPenyerang,BanyakBangunanDapatDiSerang, jumlahPasukanPenyerang, jumlahPasukanDiSerang,jumlahPasukanPenyerangEfektif;
+    int idxPenyerang,idxDiSerang,BanyakBangunanPenyerang,BanyakBangunanDapatDiSerang, jumlahPasukanPenyerang, 
+        jumlahPasukanDiSerang,jumlahPasukanPenyerangEfektif,n,n_move;
     BANGUNAN *bangunanPenyerang, *bangunanDiSerang;
 
     /* Mencetak daftar bangunan player */
     /* Satu bangunan cuman bisa nyerang sekali -> buat mark, jadi kalo udah nyerang gak ditampilin lagi di sini */
     printf("Daftar bangunan:\n");
-    TulisDaftarBangunan(*ListBangunanPlayerAvailableToAttack,DaftarBangunan(*perm),&BanyakBangunanPenyerang); 
+    TulisDaftarBangunan(ListBangunanPlayer(*perm,turn),DaftarBangunan(*perm),&n,&BanyakBangunanPenyerang,&n_move,'1'); 
 
     /* Input player bangunan mana yang digunakan untuk menyerang */
     /* Input pengguna bangunan mana yang ingin digunakan untuk menyerang */
     idxPenyerang = InputPenggunaValidDalamRange (1, BanyakBangunanPenyerang, "Bangunan yang akan digunakan untuk menyerang: ");
-    idxPenyerang += (*NbBangunanAttackOff);
-    idPenyerang = GetIdBaseOnTurn(perm,idxPenyerang,turn);
+    idPenyerang = GetIdBaseOnTurn(ListBangunanPlayer(*perm,turn),DaftarBangunan(*perm),idxPenyerang,true);;
 
     /* Mencetak daftar bangunan yang terhubung dengan bangunan player yang dipilih jika ada */
     printf("Daftar bangunan yang dapat diserang: \n");
@@ -89,8 +89,7 @@ void CommandAttack(Permainan *perm, int turn, List *ListBangunanPlayerAvailableT
         // Mengincrement idxDiSerang agar bangunan yang sudah dimiliki si penyerang tidak ditampilkan ke opsi
         do {
             idDiSerang = GetIdAdj(Graph(*perm),idPenyerang,i);
-            if (Pemilik(Elmt(DaftarBangunan(*perm),idDiSerang)) == turn){      
-            } else {
+            if (Pemilik(Elmt(DaftarBangunan(*perm),idDiSerang)) != turn){      
                 count++;
             }
             i++;
@@ -126,33 +125,30 @@ void CommandAttack(Permainan *perm, int turn, List *ListBangunanPlayerAvailableT
             JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenyerang)) -= jumlahPasukanPenyerang;
             JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang)) = jumlahPasukanPenyerangEfektif - JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang));
             AkuisisiBangunan(perm, idDiSerang, turn);
-            InsVLast(ListBangunanPlayerAvailableToAttack,idDiSerang);
-            InsVLast(ListBangunanPlayerAvailableToMove,idDiSerang);
             if (JenisBangunan(Elmt(DaftarBangunan(*perm),idDiSerang))=='F'){
                 // Menambahkan skill Extra Turn ke lawan
                 Add(&SkillPlayer(*perm,(turn%2+1)),3);
             }
         }
-        DelP(ListBangunanPlayerAvailableToAttack,idPenyerang);
-        (*NbBangunanAttackOff)++;
+        // set boolean sudah menyerang
+        SudahAttack(Elmt(DaftarBangunan(*perm),idPenyerang)) = true;
         /* Cek skill AttackUp dan CriticalHit */
     }
 }
 void CommandLevelUp(Permainan *perm,int turn) {  
-    IdxType idx;
-    int IdBangunan,BanyakBangunan;
+    int IdBangunan,BanyakBangunan,n_atck,n_move,idx;
     boolean success;
     BANGUNAN B_lama;
 
     /* Mencetak daftar bangunan player*/ 
     printf("Daftar bangunan:\n");
-    TulisDaftarBangunan(ListBangunanPlayer(*perm,turn),DaftarBangunan(*perm),&BanyakBangunan);
+    TulisDaftarBangunan(ListBangunanPlayer(*perm,turn),DaftarBangunan(*perm),&BanyakBangunan,&n_atck,&n_move,'0');
     
     /* Input pengguna bangunan mana yang ingin di level up */
     idx = InputPenggunaValidDalamRange(1,BanyakBangunan,"Bangunan yang akan di level up : ");
 
     /* Mendapatkan IdBangunan mana yang akan di level up */
-    IdBangunan = GetIdBaseOnTurn(perm,idx,turn);
+    IdBangunan = GetIdFromList(ListBangunanPlayer(*perm,turn),idx);
 
     /* Menambah level, evaluasi kevalidan penambahan pasukan ada di dalam prosedur  */
     TambahSatuLevel(&Elmt(DaftarBangunan(*perm),IdBangunan),&success,&B_lama);
@@ -196,22 +192,21 @@ void CommandUndo(Permainan *perm){
     }
 }
 
-void CommandMove(Permainan *perm, int turn,List *ListBangunanPlayerAvailableToMove, int *NbBangunanMoveOff) {
-    int idxPengirim, idxPenerima, BanyakBangunanPlayer, BanyakBangunanPlayerTerhubung, jumlahPasukanKiriman;
+void CommandMove(Permainan *perm, int turn) {
+    int idxPengirim, idxPenerima, BanyakBangunanPlayer, BanyakBangunanPlayerTerhubung, jumlahPasukanKiriman, n, n_atck;
     IdxType idPengirim, idPenerima;
     
     /* Mencetak daftar bangunan player */
     /* Satu bangunan cuman bisa move sekali -> buat mark, jadi kalo udah nyerang gak ditampilin lagi di sini */
     printf("Daftar bangunan:\n");
-    TulisDaftarBangunan(*ListBangunanPlayerAvailableToMove,DaftarBangunan(*perm),&BanyakBangunanPlayer); 
+    TulisDaftarBangunan(ListBangunanPlayer(*perm,turn),DaftarBangunan(*perm),&n,&n_atck,&BanyakBangunanPlayer,'2'); 
     
     /* Input player bangunan mana yang digunakan untuk move */
     idxPengirim = InputPenggunaValidDalamRange (1, BanyakBangunanPlayer, "Pilih bangunan: ");
-    idxPengirim+= (*NbBangunanMoveOff);
-    idPengirim = GetIdBaseOnTurn(perm,idxPengirim,turn);
+    idPengirim = GetIdBaseOnTurn(ListBangunanPlayer(*perm,turn),DaftarBangunan(*perm),idxPengirim,false);
 
     /* Mencetak daftar bangunan yang terhubung dengan bangunan player yang dipilih jika ada */
-    printf("Daftar bangunan yang terdekat: \n");
+    printf("Daftar bangunan yang terdekat:");
     TulisDaftarBangunanPlayerTerhubung(*perm,idPengirim,&BanyakBangunanPlayerTerhubung,turn);
     printf("\n");
 
@@ -239,6 +234,8 @@ void CommandMove(Permainan *perm, int turn,List *ListBangunanPlayerAvailableToMo
         if (JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenerima)) + jumlahPasukanKiriman < MAX_PASUKAN) {
             JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenerima)) += jumlahPasukanKiriman;
         }
+        // set boolean sudah move
+        SudahMove(Elmt(DaftarBangunan(*perm),idPengirim)) = true;
         printf("%d pasukan dari ",jumlahPasukanKiriman);
         StringJenisBangunan(Elmt(DaftarBangunan(*perm),idPengirim));
         printf(" ");
@@ -247,9 +244,6 @@ void CommandMove(Permainan *perm, int turn,List *ListBangunanPlayerAvailableToMo
         StringJenisBangunan(Elmt(DaftarBangunan(*perm),idPenerima));
         printf(" ");
         TulisPOINT (Posisi(Elmt(DaftarBangunan(*perm),idPenerima)));
-        
-        DelP(ListBangunanPlayerAvailableToMove,idPengirim);
-        (*NbBangunanMoveOff)++;
     }
 }
 
@@ -350,8 +344,21 @@ int InputPenggunaValidDalamRange (int l, int r, char *Pesan) {
     return input;
 }
 
-int GetIdBaseOnTurn (Permainan *perm,int index, int turn) {
-    return GetIdFromList(ListBangunanPlayer(*perm,turn),index);
+int GetIdBaseOnTurn (List L, TabBANGUNAN tabel, int idx, boolean attck) {
+    address P=Nil;
+    int i = 0;
+    while (i<idx){
+        if (P==Nil){
+            P = First(L);
+        }
+        else{
+            P = Next(P);
+        }
+        if (((attck) && (!SudahAttack(Elmt(tabel,Info(P))))) || ((!attck) && (!SudahMove(Elmt(tabel,Info(P)))))){
+            ++i;
+        }
+    }
+    return Info(P);
 }
 
 void AkuisisiBangunan(Permainan *perm, int id, int turn) {

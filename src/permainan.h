@@ -59,7 +59,10 @@ void TulisPetaPermainan (Permainan Perm);
 /* Elmt(Peta(Perm),i,j = 0 maka cetak ' ' */
 /* else maka TulisBANGUNAN(Elmt(Peta(Perm), i, j)) */
 
-void TulisDaftarBangunan(List ListPlayer,TabBANGUNAN tabBangunan,int *n);
+void InitListPlayer(List L,TabBANGUNAN *tabel);
+/* mengeset boolean bangunan player menjadi false */
+
+void TulisDaftarBangunan(List ListPlayer,TabBANGUNAN tabBangunan,int *n,int *n_atck,int *n_move,char tipe);
 /* Menuliskan daftar bangunan dari suatu player */
 
 void TulisDaftarBangunanTerhubung(Permainan Perm, int Id, int *n);

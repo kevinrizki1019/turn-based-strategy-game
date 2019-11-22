@@ -15,7 +15,7 @@ typedef struct {
     int JumlahPasukan;
     int Level;
     int Pemilik;  // tanda pemilik bangunan. 0(tidak ada yang punya), 1/2 (milik player)
-    boolean P; // Nilai atribut P yaitu Pertahanan
+    boolean P,attacked,moved; // Nilai atribut P yaitu Pertahanan
 } BANGUNAN;
 /* CATATAN:
 Setelah dipikir-pikir ada beberapa attribut yg bisa didrop disini
@@ -31,6 +31,8 @@ Setelah dipikir-pikir ada beberapa attribut yg bisa didrop disini
 #define Level(B)            (B).Level
 #define Pemilik(B)          (B).Pemilik
 #define Pertahanan(B)       (B).P
+#define SudahAttack(B)      (B).attacked
+#define SudahMove(B)        (B).moved
 
 /* ********** SELEKTOR Tambahan ********** */
 void StringJenisBangunan(BANGUNAN B);

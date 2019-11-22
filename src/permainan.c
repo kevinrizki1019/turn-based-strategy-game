@@ -141,7 +141,7 @@ void TulisLogoPermainan() {
     blue(); 
     printf(" / ~| | / / ~ ~\\ ~|~ | ~\\  |      \n");
     printf("/   | |/ /      \\ |/ |   \\ |      \n");       
-    printf("~~~~~~~~~WORLD WAR~~~~~~~~~~~~~     \n");
+    printf("~~~~~~~~~~WORLD WAR~~~~~~~~~~~     \n");
     reset();
     brightwhite();
     printf("NEW GAME(1)      LOAD GAME(2)              \n");
@@ -193,8 +193,8 @@ void TulisPetaPermainan (Permainan Perm){
                 } else if ((NbElmtList(ListBangunanPlayer(Perm,1)) < NbElmtList(ListBangunanPlayer(Perm,2)))) {
                     bgred();
                 } else {
-                    bgwhite();
-                }  
+                bgwhite();
+                }
             }
             printf(" ");
             reset();
@@ -204,14 +204,27 @@ void TulisPetaPermainan (Permainan Perm){
     reset();
 }
 
-void TulisDaftarBangunan(List ListPlayer,TabBANGUNAN tabBangunan,int *n){
+void InitListPlayer(List L,TabBANGUNAN *tabel){
+    address P = First(L);
+    while(P != Nil){
+        SudahAttack(Elmt(*tabel,Info(P))) = false;
+        SudahMove(Elmt(*tabel,Info(P))) = false;
+        P = Next(P);
+    }
+}
+
+void TulisDaftarBangunan(List ListPlayer,TabBANGUNAN tabBangunan,int *n,int *n_atck,int *n_move,char tipe){
     address P=First(ListPlayer);
 
-    *n = 0;
+    *n = 0; *n_atck = 0; *n_move = 0;
     while (P!=Nil){
-        printf("%d. ",++(*n));
-        TulisBangunan(Elmt(tabBangunan,Info(P)));
-        printf("\n");
+        if ((tipe=='0') || ((tipe=='1') && (!SudahAttack(Elmt(tabBangunan,Info(P))))) || ((tipe=='2') && (!SudahMove(Elmt(tabBangunan,Info(P)))))){
+            printf("%d. ",++(*n));
+            TulisBangunan(Elmt(tabBangunan,Info(P)));
+            printf("\n");
+        }
+        if (!SudahAttack(Elmt(tabBangunan,Info(P)))) ++(*n_atck);
+        if (!SudahMove(Elmt(tabBangunan,Info(P)))) ++(*n_move);
         P=Next(P);
     }
 }
@@ -288,12 +301,9 @@ void TulisDaftarBangunanPlayerTerhubung(Permainan Perm, int Id, int *n, int turn
             while (A != Nil) {
                 adj_id = InfoAdj(A);
                 if (Pemilik(Elmt(DB,adj_id)) == turn) {
-                    printf("%d.", ++(*n));
+                    printf("\n%d.", ++(*n));
                     TulisBangunan(Elmt(DB,adj_id));
                     
-                    if (NextAdj(A) != Nil) {
-                        printf("\n");
-                    }
                 }
                 A = NextAdj(A);
             }

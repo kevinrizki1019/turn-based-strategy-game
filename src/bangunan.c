@@ -99,6 +99,8 @@ BANGUNAN MakeBANGUNAN (char jenis_bangunan, POINT posisi,int pemilik)
     Level(B) = 1;
     Pemilik(B) = pemilik;
     SetPertahanan(&B);
+    SudahAttack(B) = false;
+    SudahMove(B) = false;
     return B;
 }
 
@@ -196,6 +198,7 @@ void TulisBangunan (BANGUNAN B)
     /* buat mempermudah ngedebug */
     printf(" Pemilik(%d) ",Pemilik(B));
     printf(((Pertahanan(B))? "(Pertahanan)":"()"));
+    printf(" %d %d",SudahAttack(B),SudahMove(B));
 }
 
 boolean IsBangunanSama(BANGUNAN A, BANGUNAN B){
