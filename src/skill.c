@@ -98,5 +98,18 @@ void InstantReinforcement(Permainan *Perm, int player)
     printf("Skill Instant Reinforcement telah digunakan\n");
 }
 
-void Barrage(Permainan *Perm,int player);
+void Barrage(Permainan *Perm,int player){
+    BANGUNAN B;
+    address P = First(ListBangunanPlayer(*Perm, player));
+    while (P != Nil){
+        B = Elmt(DaftarBangunan(*Perm),Info(P));
+        JumlahPasukan(B) -= 5;
+        if (JumlahPasukan(B)<10){
+            JumlahPasukan(B) = 0;
+        }
+        Elmt(DaftarBangunan(*Perm),Info(P)) = B;
+        P = Next(P);
+    }
+    printf("Skill Instant Reinforcement telah digunakan\n");
+}
 /* Mengurangi jumlah pasukan sebanyak 10 pada bangunan player */
