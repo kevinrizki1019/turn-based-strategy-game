@@ -1,10 +1,9 @@
-#include "permainan.h"
-#include "mesinkata.h"
-#include "command.h"
-#include "skill.h"
+#include "permainan/permainan.h"
+#include "mesinkata/mesinkata.h"
+#include "command/command.h"
+#include "skill/skill.h"
+#include "color/color.h"
 #include <stdio.h>
-#include "color.h"
-
 
 int main(){
     /* Silakan mencoba codingan di bawah ini */
@@ -138,9 +137,6 @@ int main(){
         if (CanGetInstantReinforment(&Perm,turn)) {
              Add(&SkillPlayer(Perm,turn),6);
         }
-
-
-        printf("\e[1;1H\e[2J");
 
         if (!finish){
             printf("\n");
