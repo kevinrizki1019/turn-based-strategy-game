@@ -135,6 +135,9 @@ int main(){
 
         if (!finish){
             printf("\n");
+            if (PlayerPerm(Perm,turn%2+1).Shield>0){
+                --PlayerPerm(Perm,turn%2+1).Shield;
+            }
             InitListPlayer(ListBangunanPlayer(Perm,turn),&DaftarBangunan(Perm)); // mengeset belum menyerang dan belum move
             if (!Perm.ExtraTurn) turn = turn%2+1;
             TambahPasukanDiAwalGiliran(&Perm,turn); // menambah pasukan, ditaruh disini biar tidak menambah pasukan ketika load game

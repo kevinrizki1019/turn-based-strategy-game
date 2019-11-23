@@ -51,9 +51,10 @@ void DeAlokasi(Queue * Q){
 /* *** Primitif Add/Delete *** */
 void Add (Queue * Q, infoQueue X){
 /* Proses: Menambahkan X pada Q dengan aturan FIFO */
-/* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
+/* I.S. Q mungkin kosong, tabel penampung elemen Q mungkin penuh */
 /* F.S. X menjadi TAIL yang baru, TAIL "maju" dengan mekanisme circular buffer */
-    if (IsQueueEmpty(*Q)){	
+    if (IsQueueFull(*Q)) return;
+	if (IsQueueEmpty(*Q)){	
 		Tail(*Q) = 1;
 		Head(*Q) = 1;
 	} else{		

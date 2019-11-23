@@ -58,7 +58,7 @@ void DeAlokasi(Queue * Q);
 /* *** Primitif Add/Delete *** */
 void Add (Queue * Q, infoQueue X);
 /* Proses: Menambahkan X pada Q dengan aturan FIFO */
-/* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
+/* I.S. Q mungkin kosong, tabel penampung elemen Q mungkin penuh */
 /* F.S. X menjadi TAIL yang baru, TAIL "maju" dengan mekanisme circular buffer */
 void Del (Queue * Q, infoQueue * X);
 /* Proses: Menghapus X pada Q dengan aturan FIFO */

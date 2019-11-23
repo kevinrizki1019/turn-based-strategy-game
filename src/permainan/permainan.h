@@ -18,6 +18,7 @@
 typedef struct{
     List ListBangunan;
     Queue QueueSkill;
+    int Shield;
 } Player;
 
 typedef struct{
@@ -35,6 +36,7 @@ typedef struct{
 #define JumlahBangunan(P) (P).DaftarBangunan.Neff
 #define DaftarBangunan(P) (P).DaftarBangunan
 #define Peta(P) (P).Peta
+#define PlayerPerm(P,idPlayer) (P).Player[idPlayer]
 #define ListBangunanPlayer(P,idPlayer) (P).Player[idPlayer].ListBangunan
 #define SkillPlayer(P,idPlayer) (P).Player[idPlayer].QueueSkill
 #define StackPerm(P) (P).StackPermainan
