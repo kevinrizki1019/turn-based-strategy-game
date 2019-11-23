@@ -76,7 +76,7 @@ void CommandAttack(Permainan *perm, int turn) {
     idPenyerang = GetIdBaseOnTurn(ListBangunanPlayer(*perm,turn),DaftarBangunan(*perm),idxPenyerang,true);;
 
     /* Mencetak daftar bangunan yang terhubung dengan bangunan player yang dipilih jika ada */
-    printf("Daftar bangunan yang dapat diserang: \n");
+    printf("Daftar bangunan yang dapat diserang:");
     TulisDaftarBangunanMusuhTerhubung(*perm,idPenyerang,&BanyakBangunanDapatDiSerang,turn);
     printf("\n");
     
@@ -115,14 +115,17 @@ void CommandAttack(Permainan *perm, int turn) {
         } else {
             printf("Bangunan menjadi milikmu! \n");
             Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idPenyerang),idPenyerang,-2));
-            if (Pemilik(Elmt(DaftarBangunan(*perm),idDiSerang))==turn%2+1){
-                int id = GetIdxFromList(ListBangunanPlayer(*perm,(turn%2+1)),idDiSerang);
-                Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idDiSerang),idDiSerang,id));    
+            if (Pemilik(Elmt(DaftarBangunan(*perm),idDiSerang))==turn%2+1){     // apabila milik player lain maka dipush idx nya
+                int idx = GetIdxFromList(ListBangunanPlayer(*perm,(turn%2+1)),idDiSerang);
+                Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idDiSerang),idDiSerang,idx));    
             }
             else{
                 Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idDiSerang),idDiSerang,-2));
             }
             JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenyerang)) -= jumlahPasukanPenyerang;
+            if (Pertahanan(Elmt(DaftarBangunan(*perm),idDiSerang))) {
+                jumlahPasukanPenyerangEfektif = jumlahPasukanPenyerang - JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang))/3;
+            }
             JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang)) = jumlahPasukanPenyerangEfektif - JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang));
             AkuisisiBangunan(perm, idDiSerang, turn);
             if (JenisBangunan(Elmt(DaftarBangunan(*perm),idDiSerang))=='F'){
@@ -258,6 +261,7 @@ void CommandSkill(Permainan *perm, int turn){
     switch(x){
         case 1: // Instant Upgrade
         InstantUpgrade(perm,turn);
+        printf("Skill Instant Upgrade telah digunakan\n");
         break;
 
         case 2: // Shield
@@ -266,6 +270,7 @@ void CommandSkill(Permainan *perm, int turn){
 
         case 3: // Extra Turn
         (*perm).ExtraTurn = true;
+        printf("Skill Extra Turn telah digunakan\n");
         break;
 
         case 4: // Attack Up
@@ -278,10 +283,12 @@ void CommandSkill(Permainan *perm, int turn){
 
         case 6: // Instant Reinforcement
         InstantReinforcement(perm,turn);
+        printf("Skill Instant Reinforcement telah digunakan\n");
         break;
 
         case 7: // Barrage
-        // Barrage(perm,turn);
+        Barrage(perm,turn);
+        printf("Skill Barrage telah digunakan\n");
         break;
     }
 }

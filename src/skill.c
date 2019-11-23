@@ -79,7 +79,6 @@ void InstantUpgrade(Permainan *Perm,int player)
 		}
         P = Next(P);
     }
-    printf("Skill Instant Upgrade telah digunakan\n");
 }
 
 void InstantReinforcement(Permainan *Perm, int player)
@@ -95,7 +94,6 @@ void InstantReinforcement(Permainan *Perm, int player)
         Elmt(DaftarBangunan(*Perm),Info(P)) = B;
         P = Next(P);
     }
-    printf("Skill Instant Reinforcement telah digunakan\n");
 }
 
 void Barrage(Permainan *Perm,int player){
@@ -110,6 +108,5 @@ void Barrage(Permainan *Perm,int player){
         Elmt(DaftarBangunan(*Perm),Info(P)) = B;
         P = Next(P);
     }
-    printf("Skill Instant Reinforcement telah digunakan\n");
 }
 /* Mengurangi jumlah pasukan sebanyak 10 pada bangunan player */

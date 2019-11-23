@@ -4,7 +4,7 @@
 #include "permainan.h"
 #include <stdio.h>
 
-void BacaKonfigurasi(char NamaFile[],Permainan *Perm, boolean load){
+void BacaKonfigurasi(char NamaFile[],Permainan *Perm, boolean load, int *turn){
 /*  Membaca konfigurasi file dari 'NamaFile'
     I.S. = 'NamaFile' terdefinisi dan ada
     F.S. = Variabel Perm terinisialisasi */
@@ -27,8 +27,6 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm, boolean load){
     for (int player=1;player<=2;++player){
         CreateEmpty(&ListBangunanPlayer(*Perm,player));
         CreateEmptyQueue(&SkillPlayer(*Perm,player),10);
-        // Menambahkan skill Instant Upgrade ke kedua lawan
-        Add(&SkillPlayer(*Perm,player),1);
     }
 
 
@@ -42,6 +40,8 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm, boolean load){
             if (i<=2){
                 Elmt(DaftarBangunan((*Perm)), i) = MakeBANGUNAN(tipe,MakePOINT(x,y),i);
                 InsVFirst(&ListBangunanPlayer(*Perm,i),i);
+                // Menambahkan skill Instant Upgrade ke kedua lawan
+                Add(&SkillPlayer(*Perm,i),1);
             }
             else{
                 Elmt(DaftarBangunan((*Perm)), i) = MakeBANGUNAN(tipe,MakePOINT(x,y),0);
@@ -49,10 +49,19 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm, boolean load){
         }
         else{
             ADVKATA(); pemilik = CKatatoInt();
-            Elmt(DaftarBangunan((*Perm)), i) = MakeBANGUNAN(tipe,MakePOINT(x,y),pemilik);
-            if ((pemilik==1) || (pemilik==2)){
-                InsVLast(&ListBangunanPlayer(*Perm,pemilik),i);
-            }
+            Elmt(DaftarBangunan(*Perm), i) = MakeBANGUNAN(tipe,MakePOINT(x,y),pemilik);
+
+            ADVKATA();
+            JumlahPasukan(Elmt(DaftarBangunan(*Perm),i)) = CKatatoInt(); // pasukan
+
+            ADVKATA();
+            Level(Elmt(DaftarBangunan(*Perm),i)) = CKatatoInt(); // level
+
+            ADVKATA();
+            SudahAttack(Elmt(DaftarBangunan(*Perm),i)) = CKatatoInt(); // SudahAttack
+
+            ADVKATA();
+            SudahMove(Elmt(DaftarBangunan(*Perm),i)) = CKatatoInt(); // SudahMove
         }
 
         NeffTab(DaftarBangunan(*Perm))++;
@@ -71,6 +80,21 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm, boolean load){
             }
         }
     }
+
+    *turn = 1;
+    if (load){
+        ADVKATA();
+        *turn = CKatatoInt(); // turn
+        for (int player=1; player<=2; ++player){
+            ADVKATA();
+            int NbList = CKatatoInt(); // nblist player
+            for (int i=0; i<NbList; ++i){
+                ADVKATA();
+                InsVLast(&ListBangunanPlayer(*Perm,player),CKatatoInt());
+            }
+        }
+    }
+
 }
 
 void SimpanKonfigurasi(char NamaFile[], Permainan Perm, int turn){
@@ -78,10 +102,12 @@ void SimpanKonfigurasi(char NamaFile[], Permainan Perm, int turn){
     fprintf(file,"%d %d\n%d\n",TinggiPeta(Perm),LebarPeta(Perm),JumlahBangunan(Perm));
     
     for (int idB=IdxMin; idB<=JumlahBangunan(Perm); idB++){
-        POINT pos=Posisi(Elmt(DaftarBangunan(Perm),idB));
-        char jenis = JenisBangunan(Elmt(DaftarBangunan(Perm),idB));
-        int pemilik = Pemilik(Elmt(DaftarBangunan(Perm),idB));
-        fprintf(file,"%c %d %d %d\n",jenis,Absis(pos),Ordinat(pos),pemilik);
+        BANGUNAN B = Elmt(DaftarBangunan(Perm),idB);
+        POINT pos=Posisi(B);
+        char jenis = JenisBangunan(B);
+        int pemilik = Pemilik(B), pasukan = JumlahPasukan(B), level = Level(B);
+        fprintf(file,"%c %d %d %d %d %d %d %d\n",
+            jenis,Absis(pos),Ordinat(pos),pemilik,pasukan,level,SudahAttack(B),SudahMove(B));
     }
     
     adrver verNow = FirstVer(Graph(Perm));
@@ -106,6 +132,23 @@ void SimpanKonfigurasi(char NamaFile[], Permainan Perm, int turn){
         }
         fprintf(file,"\n");
         verNow = NextVer(verNow);
+    }
+
+    // tulis turn dan bangunan player
+    fprintf(file,"%d\n",turn);
+    for (int i=1;i<=2;++i){
+        fprintf(file,"%d\n",NbElmtList(ListBangunanPlayer(Perm,i)));
+        address P = First(ListBangunanPlayer(Perm,i));
+        while (P!=Nil){
+            fprintf(file,"%d",Info(P));
+            if (Next(P)!=Nil){
+                fprintf(file," ");
+            }
+            else{
+                fprintf(file,"\n");
+            }
+            P = Next(P);
+        }
     }
     fclose(file);
 }
@@ -229,33 +272,6 @@ void TulisDaftarBangunan(List ListPlayer,TabBANGUNAN tabBangunan,int *n,int *n_a
     }
 }
 
-void TulisDaftarBangunanTerhubung(Permainan Perm, int Id, int *n)
-{
-    int adj_id;
-    TabBANGUNAN DB;
-    adrver V;
-    adradj A;
-
-    DB = DaftarBangunan(Perm);
-    *n = 0;
-    if (FirstVer(Graph(Perm)) != Nil) {
-        V = SearchVer(Graph(Perm),Id);
-        if (FirstAdj(V) != Nil) {
-            A = FirstAdj(V);
-            while (A != Nil) {
-                printf("%d.", ++(*n));
-                adj_id = InfoAdj(A);
-                TulisBangunan(Elmt(DB,adj_id));
-                if (NextAdj(A) != Nil) {
-                    printf("\n");
-                }
-
-                A = NextAdj(A);
-            }
-        }
-    }
-}
-
 void TulisDaftarBangunanMusuhTerhubung(Permainan Perm, int Id, int *n, int turn) {
     int adj_id;
     TabBANGUNAN DB;
@@ -272,12 +288,8 @@ void TulisDaftarBangunanMusuhTerhubung(Permainan Perm, int Id, int *n, int turn)
             while (A != Nil) {
                 adj_id = InfoAdj(A);
                 if (Pemilik(Elmt(DB,adj_id)) != turn) {
-                    printf("%d.", ++(*n));
+                    printf("\n%d.", ++(*n));
                     TulisBangunan(Elmt(DB,adj_id));
-                    
-                    if (NextAdj(A) != Nil) {
-                        printf("\n");
-                    }
                 }
                 A = NextAdj(A);
             }

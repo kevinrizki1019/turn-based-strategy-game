@@ -38,7 +38,7 @@ typedef struct{
 #define StackPerm(P) (P).StackPermainan
 #define Graph(P) (P).G
 
-void BacaKonfigurasi(char NamaFile[], Permainan *Perm, boolean load);
+void BacaKonfigurasi(char NamaFile[], Permainan *Perm, boolean load, int *turn);
 /*  Membaca konfigurasi file dari 'NamaFile'
     I.S. = 'NamaFile' terdefinisi dan ada
     F.S. = Variabel Perm terinisialisasi */
@@ -64,9 +64,6 @@ void InitListPlayer(List L,TabBANGUNAN *tabel);
 
 void TulisDaftarBangunan(List ListPlayer,TabBANGUNAN tabBangunan,int *n,int *n_atck,int *n_move,char tipe);
 /* Menuliskan daftar bangunan dari suatu player */
-
-void TulisDaftarBangunanTerhubung(Permainan Perm, int Id, int *n);
-/* Menuliskan daftar bangunan yang terhubung dengan bangunan tersebut sesuai ADT Graph */
 
 void TulisDaftarBangunanMusuhTerhubung(Permainan Perm, int Id, int *n, int turn);
 /* Menuliskan daftar bangunan yang terhubung dengan bangunan tersebut sesuai ADT Graph */

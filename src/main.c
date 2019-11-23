@@ -31,12 +31,12 @@ int main(){
     }while((pil!='1') && (pil!='2'));
     
     if (pil=='1'){
-        BacaKonfigurasi("config_map.txt",&Perm,false);
+        BacaKonfigurasi("config_map.txt",&Perm,false,&turn);
     }
     else{
         printf("Lokasi load file: ");
         scanf("%s",s);
-        BacaKonfigurasi(s,&Perm,true);
+        BacaKonfigurasi(s,&Perm,true,&turn);
     }
 
     /* Tampilan awal game hasil load dari file */
@@ -47,7 +47,6 @@ int main(){
 
 
     /* Looping Command */
-    turn = 1;
     finish = false;
     Perm.ExtraTurn = false;
     do{
@@ -103,6 +102,7 @@ int main(){
             }
             else if (IsSamaKata(CKata,DaftarCommand[3])){ // command == "SKILL"
                 CommandSkill(&Perm, turn);
+                CreateEmptyStack(&StackPerm(Perm));
             } 
             else if (IsSamaKata(CKata,DaftarCommand[4])){ // command == "UNDO"
                 CommandUndo(&Perm);
