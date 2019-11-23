@@ -250,18 +250,16 @@ void TulisPetaPermainan (Permainan Perm){
                     reset();
                 }
             }
-            if ((i==0 || i==TinggiPeta(Perm)+1) || j==LebarPeta(Perm)+1) {
-                if (NbElmtList(ListBangunanPlayer(Perm,1)) > NbElmtList(ListBangunanPlayer(Perm,2))) {
-                    bgblue();
-                } else if ((NbElmtList(ListBangunanPlayer(Perm,1)) < NbElmtList(ListBangunanPlayer(Perm,2)))) {
-                    bgred();
-                } else {
-                bgwhite();
-                }
-            }
-            printf(" ");
-            reset();
         }
+        if (NbElmtList(ListBangunanPlayer(Perm,1)) > NbElmtList(ListBangunanPlayer(Perm,2))) {
+            bgblue();
+        } else if ((NbElmtList(ListBangunanPlayer(Perm,1)) < NbElmtList(ListBangunanPlayer(Perm,2)))) {
+            bgred();
+        } else {
+        bgwhite();
+        }
+        printf(" ");
+        reset();
         printf("\n");
     }
     reset();
