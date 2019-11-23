@@ -135,8 +135,7 @@ void CommandAttack(Permainan *perm, int turn) {
             // mengatur pengurangan pasukan
             JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenyerang)) -= jumlahPasukanPenyerang;
             if (pertahanan) {
-                int x = JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang));
-                jumlahPasukanPenyerangEfektif = x + jumlahPasukanPenyerang - (x*4+2)/3;
+                jumlahPasukanPenyerangEfektif = jumlahPasukanPenyerang - (JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang))+2)/3;
             }
             JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang)) = jumlahPasukanPenyerangEfektif - JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang));
             AkuisisiBangunan(perm, idDiSerang, turn);
