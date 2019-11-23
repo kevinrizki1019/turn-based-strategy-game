@@ -2,8 +2,6 @@
 /* Copyright: Kelompok 11 K-1 IF2110 2019/2020 */
 
 #include "bangunan.h"
-#include <stdio.h>
-#include "color.h"
 
 /* ********** SELEKTOR ********** */
 void StringJenisBangunan(BANGUNAN B) {
@@ -99,6 +97,8 @@ BANGUNAN MakeBANGUNAN (char jenis_bangunan, POINT posisi,int pemilik)
     Level(B) = 1;
     Pemilik(B) = pemilik;
     SetPertahanan(&B);
+    SudahAttack(B) = false;
+    SudahMove(B) = false;
     return B;
 }
 
@@ -196,6 +196,7 @@ void TulisBangunan (BANGUNAN B)
     /* buat mempermudah ngedebug */
     printf(" Pemilik(%d) ",Pemilik(B));
     printf(((Pertahanan(B))? "(Pertahanan)":"()"));
+    printf(" %d %d",SudahAttack(B),SudahMove(B));
 }
 
 boolean IsBangunanSama(BANGUNAN A, BANGUNAN B){

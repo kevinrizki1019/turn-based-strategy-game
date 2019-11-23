@@ -1,4 +1,6 @@
-#include <stdio.h>
+/* Nama file: color.c */
+/* Copyright: Kelompok 11 K-1 IF2110 2019/2020 */
+
 #include "color.h"
 
 void red(){

@@ -4,14 +4,15 @@
 #ifndef __PERMAINAN_H__
 #define __PERMAINAN_H__
 
-#include "mesinkata.h"
-#include "tabbangunan.h"
-#include "matriks.h"
-#include "listbangunan.h"
-#include "graph.h"
-#include "queueofskill.h"
-#include "stackt.h"
-#include "color.h"
+#include "../mesinkata/mesinkata.h"
+#include "../tabbangunan/tabbangunan.h"
+#include "../matriks/matriks.h"
+#include "../listbangunan/listbangunan.h"
+#include "../graph/graph.h"
+#include "../queueofskill/queueofskill.h"
+#include "../stackt/stackt.h"
+#include "../color/color.h"
+#include <stdio.h>
 
 typedef struct{
     List ListBangunan;
@@ -38,7 +39,7 @@ typedef struct{
 #define StackPerm(P) (P).StackPermainan
 #define Graph(P) (P).G
 
-void BacaKonfigurasi(char NamaFile[], Permainan *Perm, boolean load);
+void BacaKonfigurasi(char NamaFile[], Permainan *Perm, boolean load, int *turn);
 /*  Membaca konfigurasi file dari 'NamaFile'
     I.S. = 'NamaFile' terdefinisi dan ada
     F.S. = Variabel Perm terinisialisasi */
@@ -59,11 +60,11 @@ void TulisPetaPermainan (Permainan Perm);
 /* Elmt(Peta(Perm),i,j = 0 maka cetak ' ' */
 /* else maka TulisBANGUNAN(Elmt(Peta(Perm), i, j)) */
 
-void TulisDaftarBangunan(List ListPlayer,TabBANGUNAN tabBangunan,int *n);
-/* Menuliskan daftar bangunan dari suatu player */
+void InitListPlayer(List L,TabBANGUNAN *tabel);
+/* mengeset boolean bangunan player menjadi false */
 
-void TulisDaftarBangunanTerhubung(Permainan Perm, int Id, int *n);
-/* Menuliskan daftar bangunan yang terhubung dengan bangunan tersebut sesuai ADT Graph */
+void TulisDaftarBangunan(List ListPlayer,TabBANGUNAN tabBangunan,int *n,int *n_atck,int *n_move,char tipe);
+/* Menuliskan daftar bangunan dari suatu player */
 
 void TulisDaftarBangunanMusuhTerhubung(Permainan Perm, int Id, int *n, int turn);
 /* Menuliskan daftar bangunan yang terhubung dengan bangunan tersebut sesuai ADT Graph */

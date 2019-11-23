@@ -2,8 +2,6 @@
 /* Copyright: Kelompok 11 K-1 IF2110 2019/2020 */
 
 #include "listbangunan.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 boolean IsEmptyList (List L){
     return (First(L) ==  Nil);

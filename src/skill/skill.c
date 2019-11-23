@@ -2,8 +2,6 @@
 /* Copyright: Kelompok 11 K-1 IF2110 2019/2020 */
 
 #include "skill.h"
-#include "bangunan.h"
-#include <stdio.h>
 
 /* *********** OUTPUT *********** */
 void PrintSkill(int idx){
@@ -79,7 +77,6 @@ void InstantUpgrade(Permainan *Perm,int player)
 		}
         P = Next(P);
     }
-    printf("Skill Instant Upgrade telah digunakan\n");
 }
 
 void InstantReinforcement(Permainan *Perm, int player)
@@ -95,12 +92,13 @@ void InstantReinforcement(Permainan *Perm, int player)
         Elmt(DaftarBangunan(*Perm),Info(P)) = B;
         P = Next(P);
     }
-    printf("Skill Instant Reinforcement telah digunakan\n");
 }
 
-void Barrage(Permainan *Perm,int player){
+void Barrage(Permainan *Perm,int player)
+/* Mengurangi jumlah pasukan sebanyak 10 pada bangunan musuh */
+{
     BANGUNAN B;
-    address P = First(ListBangunanPlayer(*Perm, player));
+    address P = First(ListBangunanPlayer(*Perm, (player%2)+1)); // milik musuh
     while (P != Nil){
         B = Elmt(DaftarBangunan(*Perm),Info(P));
         JumlahPasukan(B) -= 5;
@@ -110,6 +108,4 @@ void Barrage(Permainan *Perm,int player){
         Elmt(DaftarBangunan(*Perm),Info(P)) = B;
         P = Next(P);
     }
-    printf("Skill Instant Reinforcement telah digunakan\n");
 }
-/* Mengurangi jumlah pasukan sebanyak 10 pada bangunan player */

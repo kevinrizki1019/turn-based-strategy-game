@@ -1,9 +1,12 @@
-/* File : queue.h */
+/* Nama file: queueofskill.h */
+/* Copyright: Kelompok 11 K-1 IF2110 2019/2020 */
 
 #ifndef queueofskill_H
 #define queueofskill_H
 
 #include "boolean.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 /* Konstanta untuk mendefinisikan address tak terdefinisi */
 
@@ -35,6 +38,8 @@ boolean IsQueueEmpty (Queue Q);
 boolean IsQueueFull (Queue Q);
 /* Mengirim true jika tabel penampung elemen Q sudah penuh */
 /* yaitu mengandung elemen sebanyak MaxElQueue */
+int NBElmtQueue (Queue Q);
+/* Mengirim banyak elemen dalam queue */
 
 /* *** Kreator *** */
 void CreateEmptyQueue (Queue * Q, int Max);

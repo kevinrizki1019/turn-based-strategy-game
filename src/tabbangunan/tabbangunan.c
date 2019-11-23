@@ -2,8 +2,6 @@
 /* Copyright: Kelompok 11 K-1 IF2110 2019/2020 */
 
 #include "tabbangunan.h"
-#include <stdlib.h>
-
 
 void MakeEmptyTab(TabBANGUNAN *T,int maxel){
     TB(*T) = (ElType*) malloc((maxel+1)*sizeof(ElType));

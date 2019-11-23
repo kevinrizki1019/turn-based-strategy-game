@@ -5,9 +5,12 @@
 #ifndef __COMMAND_H__
 #define __COMMAND_H__
 
-#include "mesinkata.h"
-#include "listbangunan.h"
-#include "permainan.h"
+#include "../mesinkata/mesinkata.h"
+#include "../listbangunan/listbangunan.h"
+#include "../permainan/permainan.h"
+#include "../skill/skill.h"
+#include "../color/color.h"
+#include <stdio.h>
 
 extern Kata DaftarCommand[9]; /* Berisi 8 daftar command yang bisa dilakukan. Indeks 0 tidak digunakan */
 
@@ -21,7 +24,7 @@ boolean IsInRange(int x,int l,int r);
 /* Fungsi untuk membantu pengecekan nilai. Mengirimkan true jika x di antara l dan r */
 
 /* **** PROSEDUR YANG DIJALANKAN KETIKA PLAYER MENGETIKKAN COMMAND DI LAYAR *** */
-void CommandAttack(Permainan *perm, int turn, List *ListBangunanPlayerAvailableToAttack,  List *ListBangunanPlayerAvailableToMove, int *NbBangunanAttackOff);
+void CommandAttack(Permainan *perm, int turn);
 /* Menjalankan mekanisme attack yang dilakukan oleh pemain turn */
 
 void CommandLevelUp(Permainan *perm, int turn);
@@ -39,7 +42,7 @@ void CommandEndTurn(Permainan *perm, int turn);
 void CommandSave(Permainan perm, int turn);
 /* Menjalankan mekanisme save yang dilakukan oleh pemain turn */
 
-void CommandMove(Permainan *perm, int turn,List *ListBangunanPlayerAvailableToMove, int *NbBangunanMoveOff);
+void CommandMove(Permainan *perm, int turn);
 /* Menjalankan mekanisme move yang dilakukan oleh pemain turn */
 
 void CommandExit(Permainan perm, int turn);
@@ -59,7 +62,7 @@ int InputPenggunaValidDalamRange (int l, int r, char *Pesan);
     yang berada dalam range l <= n <= r. Fungsi akan terus meminta
     input hingga masukkan benar. Kalimat meminta berupa string Pesan */
 
-int GetIdBaseOnTurn (Permainan *perm,int index, int turn);
+int GetIdBaseOnTurn (List L, TabBANGUNAN tabel, int idx, boolean attck);
 /*  Mengembalikan id bangunan ke-index, 
     nilai id diambil berdasarkan listbangunan player berdasarkan turn */
 

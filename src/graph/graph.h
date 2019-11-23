@@ -1,10 +1,13 @@
-/* Nama file: bangunan.h */
+/* Nama file: graph.h */
 /* Copyright: Kelompok 11 K-1 IF2110 2019/2020 */
 
 #ifndef __GRAPH_H__
 #define __GRAPH_H__
 
 #include "boolean.h"
+#include "../color/color.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 #define Nil NULL
 

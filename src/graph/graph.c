@@ -1,7 +1,7 @@
+/* Nama file: graph.c */
+/* Copyright: Kelompok 11 K-1 IF2110 2019/2020 */
+
 #include "graph.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include "color.h"
 
 adrver AlokasiVer (infotype X) {
     adrver P;

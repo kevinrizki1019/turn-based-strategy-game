@@ -4,8 +4,9 @@
 #ifndef __SKILL_H__
 #define __SKILL_H__
 
-#include "permainan.h"
-
+#include "../permainan/permainan.h"
+#include "../bangunan/bangunan.h"
+#include <stdio.h>
 
 /* *********** OUTPUT *********** */
 void PrintSkill(int idx);
@@ -33,7 +34,7 @@ void InstantReinforcement(Permainan *Perm,int player);
     Jika player = 2, berarti lakukan pada bangunan player 2. */
 
 void Barrage(Permainan *Perm,int player);
-/* Mengurangi jumlah pasukan sebanyak 10 pada bangunan player */
+/* Mengurangi jumlah pasukan sebanyak 10 pada bangunan musuh */
 
 /* Skill yang lain diaplikasikan di program saja seperti dengan menggunakan boolean
     untuk mengetahui apakah player menggunakan skill tersebut */

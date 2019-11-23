@@ -2,7 +2,6 @@
 /* Realisasi Mesin Karakter */
 
 #include "mesinkar.h"
-#include <stdio.h>
 
 char CC;
 boolean EndPita;

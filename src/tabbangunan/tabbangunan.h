@@ -5,7 +5,8 @@
 #ifndef __TABBANGUNAN_H__
 #define __TABBANGUNAN_H__
 
-#include "bangunan.h"
+#include "../bangunan/bangunan.h"
+#include <stdlib.h>
 
 // Banyaknya bangunan, angka disesuain sama spek
 #define IdxMin 1 

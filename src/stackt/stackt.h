@@ -5,7 +5,7 @@
 #define stackt_H
 
 #include "boolean.h"
-#include "bangunan.h"
+#include "../bangunan/bangunan.h"
 
 #define MaxElStack 100
 /* Nil adalah stack dengan elemen kosong . */

@@ -1,6 +1,7 @@
+/* Nama file: queueofskill.c */
+/* Copyright: Kelompok 11 K-1 IF2110 2019/2020 */
+
 #include "queueofskill.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 boolean IsQueueEmpty (Queue Q){
     return(Head(Q)==0 && Tail(Q)==0);
@@ -9,7 +10,15 @@ boolean IsQueueEmpty (Queue Q){
 boolean IsQueueFull (Queue Q){
     return ( ((Tail(Q)%MaxElQueue(Q))+1) == Head(Q));
 }
-
+int NBElmtQueue (Queue Q){
+    if (IsQueueEmpty(Q)) return 0;
+    if (Head(Q)<=Tail(Q)){
+        return (Tail(Q)-Head(Q)+1);
+    }
+    else{
+        return (MaxElQueue(Q)-(Head(Q)-Tail(Q)-1));
+    }
+}
 
 /* *** Kreator *** */
 void CreateEmptyQueue (Queue * Q, int Max){

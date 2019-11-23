@@ -7,6 +7,8 @@
 #define __LIST_LINIER_BANGUNAN__
 
 #include "boolean.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 #define Nil NULL
 

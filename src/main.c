@@ -1,3 +1,6 @@
+/* Nama file: main.c */
+/* Copyright: Kelompok 11 K-1 IF2110 2019/2020 */
+
 #include "permainan/permainan.h"
 #include "mesinkata/mesinkata.h"
 #include "command/command.h"
@@ -11,9 +14,8 @@ int main(){
     /* Kamus */
     Permainan Perm;
     char s[NMaxStr],pil;
-    int i,turn,NbBangunanAttackOff,NbBangunanMoveOff,BanyakBangunan;
+    int i,turn,NbBangunanAttack,NbBangunanMove,BanyakBangunan;
     boolean finish,end_turn;
-    List ListBangunanPlayerAvailableToAttack, ListBangunanPlayerAvailableToMove;
 
     /* Algoritma */
     TulisLogoPermainan();
@@ -31,12 +33,12 @@ int main(){
     }while((pil!='1') && (pil!='2'));
     
     if (pil=='1'){
-        BacaKonfigurasi("config_map.txt",&Perm,false);
+        BacaKonfigurasi("config_map.txt",&Perm,false,&turn);
     }
     else{
         printf("Lokasi load file: ");
         scanf("%s",s);
-        BacaKonfigurasi(s,&Perm,true);
+        BacaKonfigurasi(s,&Perm,true,&turn);
     }
 
     /* Tampilan awal game hasil load dari file */
@@ -47,7 +49,6 @@ int main(){
 
 
     /* Looping Command */
-    turn = 1;
     finish = false;
     Perm.ExtraTurn = false;
     do{
@@ -55,13 +56,8 @@ int main(){
 
         CreateEmptyStack(&StackPerm(Perm));
         end_turn = false;
+        InitListPlayer(ListBangunanPlayer(Perm,turn),&DaftarBangunan(Perm));
 
-        CreateEmpty(&ListBangunanPlayerAvailableToAttack);
-        CreateEmpty(&ListBangunanPlayerAvailableToMove);
-        CopyList(ListBangunanPlayer(Perm,turn),&ListBangunanPlayerAvailableToAttack);
-        CopyList(ListBangunanPlayer(Perm,turn),&ListBangunanPlayerAvailableToMove);
-        NbBangunanAttackOff = 0;
-        NbBangunanMoveOff = 0;
         
         /* boolean skill */
         if (Perm.ExtraTurn) Perm.ExtraTurn = false;
@@ -85,7 +81,7 @@ int main(){
             printf("Player %d Turn\n",turn);
             reset();
 
-            TulisDaftarBangunan(ListBangunanPlayer(Perm,turn),DaftarBangunan(Perm),&BanyakBangunan);
+            TulisDaftarBangunan(ListBangunanPlayer(Perm,turn),DaftarBangunan(Perm),&BanyakBangunan,&NbBangunanAttack,&NbBangunanMove,'0');
             PrintAvailableSkill(Perm,turn);
             printf("\n");
             if (turn == 1) {
@@ -97,8 +93,9 @@ int main(){
             reset();
             STARTKATA("stdin",false);
             if (IsSamaKata(CKata,DaftarCommand[1])){ // command == "ATTACK"
-                if (!IsEmptyList(ListBangunanPlayerAvailableToAttack)) {
-                    CommandAttack(&Perm,turn,&ListBangunanPlayerAvailableToAttack,&ListBangunanPlayerAvailableToMove,&NbBangunanAttackOff);
+                if (NbBangunanAttack>0) {
+                    CommandAttack(&Perm,turn);
+                    if (IsEmptyList(ListBangunanPlayer(Perm,(turn%2)+1))) finish = true;
                 } else {
                     printf("Tidak ada lagi bangunan yang dapat menyerang!\n");
                 }
@@ -108,6 +105,7 @@ int main(){
             }
             else if (IsSamaKata(CKata,DaftarCommand[3])){ // command == "SKILL"
                 CommandSkill(&Perm, turn);
+                CreateEmptyStack(&StackPerm(Perm));
             } 
             else if (IsSamaKata(CKata,DaftarCommand[4])){ // command == "UNDO"
                 CommandUndo(&Perm);
@@ -119,8 +117,8 @@ int main(){
                 CommandSave(Perm, turn);
             }
             else if (IsSamaKata(CKata,DaftarCommand[7])){ // command == "MOVE"
-                if (!IsEmptyList(ListBangunanPlayerAvailableToMove)) {
-                    CommandMove(&Perm, turn, &ListBangunanPlayerAvailableToMove,&NbBangunanMoveOff);
+                if (NbBangunanMove>0) {
+                    CommandMove(&Perm, turn);
                 } else {
                     printf("Tidak ada lagi bangunan yang dapat memindahkan pasukan!\n");
                 }
@@ -144,4 +142,16 @@ int main(){
         }
         
     }while(!finish);
+
+    if (IsEmptyList(ListBangunanPlayer(Perm,(turn%2)+1))){
+        printf("Selamat!!!\n");
+        if (turn == 1) {
+            blue();
+        } else {
+            red();
+        }
+        printf("Player %d",turn);
+        reset();
+        printf(" telah memenangkan permainan!\n");
+    }
 }

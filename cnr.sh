@@ -1,5 +1,5 @@
 #!/bin/sh
 # Script buat compile trus run karna gw males ngetik
 
-gcc -o main src/*.c
+gcc -o main src/*/*.c *.c
 ./main

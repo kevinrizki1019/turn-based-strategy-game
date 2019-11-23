@@ -1,5 +1,7 @@
-#include "stackt.h"
+/* Nama file: stackt.c */
+/* Copyright: Kelompok 11 K-1 IF2110 2019/2020 */
 
+#include "stackt.h"
 
 /* ************ Prototype ************ */
 /* *** Konstruktor/Kreator *** */

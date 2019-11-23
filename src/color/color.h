@@ -1,5 +1,10 @@
+/* Nama file: color.h */
+/* Copyright: Kelompok 11 K-1 IF2110 2019/2020 */
+
 #ifndef  __printcolor__
 #define __printcolor__
+
+#include <stdio.h>
 
 #define GREEN "\x1B[32m"
 
