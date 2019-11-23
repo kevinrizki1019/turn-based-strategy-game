@@ -9,7 +9,15 @@ boolean IsQueueEmpty (Queue Q){
 boolean IsQueueFull (Queue Q){
     return ( ((Tail(Q)%MaxElQueue(Q))+1) == Head(Q));
 }
-
+int NBElmtQueue (Queue Q){
+    if (IsQueueEmpty(Q)) return 0;
+    if (Head(Q)<=Tail(Q)){
+        return (Tail(Q)-Head(Q)+1);
+    }
+    else{
+        return (MaxElQueue(Q)-(Head(Q)-Tail(Q)-1));
+    }
+}
 
 /* *** Kreator *** */
 void CreateEmptyQueue (Queue * Q, int Max){

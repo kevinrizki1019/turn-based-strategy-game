@@ -82,15 +82,22 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm, boolean load, int *turn){
     }
 
     *turn = 1;
-    if (load){
+    if (load){  // melanjutkan baca file jika melalui proses load
         ADVKATA();
         *turn = CKatatoInt(); // turn
         for (int player=1; player<=2; ++player){
+            int Nb;
             ADVKATA();
-            int NbList = CKatatoInt(); // nblist player
-            for (int i=0; i<NbList; ++i){
+            Nb = CKatatoInt(); // Nb bangunan player
+            for (int i=0; i<Nb; ++i){
                 ADVKATA();
                 InsVLast(&ListBangunanPlayer(*Perm,player),CKatatoInt());
+            }
+            ADVKATA();
+            Nb = CKatatoInt(); // Nb skill player
+            for (int i=0; i<Nb; ++i){
+                ADVKATA();
+                Add(&SkillPlayer(*Perm,player),CKatatoInt());
             }
         }
     }
@@ -134,7 +141,7 @@ void SimpanKonfigurasi(char NamaFile[], Permainan Perm, int turn){
         verNow = NextVer(verNow);
     }
 
-    // tulis turn dan bangunan player
+    // tulis turn dan atribut player
     fprintf(file,"%d\n",turn);
     for (int i=1;i<=2;++i){
         fprintf(file,"%d\n",NbElmtList(ListBangunanPlayer(Perm,i)));
@@ -148,6 +155,20 @@ void SimpanKonfigurasi(char NamaFile[], Permainan Perm, int turn){
                 fprintf(file,"\n");
             }
             P = Next(P);
+        }
+        int n = NBElmtQueue(SkillPlayer(Perm,i));
+        fprintf(file,"%d\n",n);
+        for (int k=0; k<n; ++k){
+            infoQueue x;
+            Del(&SkillPlayer(Perm,i),&x);
+            fprintf(file,"%d",x);
+            if (k==n-1){
+                fprintf(file,"\n");
+            }
+            else{
+                fprintf(file," ");
+            }
+            Add(&SkillPlayer(Perm,i),x);
         }
     }
     fclose(file);

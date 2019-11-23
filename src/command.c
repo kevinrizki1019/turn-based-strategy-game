@@ -62,13 +62,13 @@ void ShowAvailableCommand() {
 void CommandAttack(Permainan *perm, int turn) {
     IdxType idPenyerang,idDiSerang;
     int idxPenyerang,idxDiSerang,BanyakBangunanPenyerang,BanyakBangunanDapatDiSerang, jumlahPasukanPenyerang, 
-        jumlahPasukanDiSerang,jumlahPasukanPenyerangEfektif,n,n_move;
+        jumlahPasukanDiSerang,jumlahPasukanPenyerangEfektif,n_bangunan,n_move;
     BANGUNAN *bangunanPenyerang, *bangunanDiSerang;
 
     /* Mencetak daftar bangunan player */
     /* Satu bangunan cuman bisa nyerang sekali -> buat mark, jadi kalo udah nyerang gak ditampilin lagi di sini */
     printf("Daftar bangunan:\n");
-    TulisDaftarBangunan(ListBangunanPlayer(*perm,turn),DaftarBangunan(*perm),&n,&BanyakBangunanPenyerang,&n_move,'1'); 
+    TulisDaftarBangunan(ListBangunanPlayer(*perm,turn),DaftarBangunan(*perm),&n_bangunan,&BanyakBangunanPenyerang,&n_move,'1'); 
 
     /* Input player bangunan mana yang digunakan untuk menyerang */
     /* Input pengguna bangunan mana yang ingin digunakan untuk menyerang */
@@ -115,7 +115,7 @@ void CommandAttack(Permainan *perm, int turn) {
         } else {
             printf("Bangunan menjadi milikmu! \n");
             Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idPenyerang),idPenyerang,-2));
-            if (Pemilik(Elmt(DaftarBangunan(*perm),idDiSerang))==turn%2+1){     // apabila milik player lain maka dipush idx nya
+            if (Pemilik(Elmt(DaftarBangunan(*perm),idDiSerang))==turn%2+1){     // apabila milik player lain maka dipush idx list nya
                 int idx = GetIdxFromList(ListBangunanPlayer(*perm,(turn%2+1)),idDiSerang);
                 Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idDiSerang),idDiSerang,idx));    
             }
@@ -131,6 +131,10 @@ void CommandAttack(Permainan *perm, int turn) {
             if (JenisBangunan(Elmt(DaftarBangunan(*perm),idDiSerang))=='F'){
                 // Menambahkan skill Extra Turn ke lawan
                 Add(&SkillPlayer(*perm,(turn%2+1)),3);
+            }
+            if (n_bangunan==9){
+                // Menambahkan skill Barage ke lawan
+                Add(&SkillPlayer(*perm,(turn%2+1)),7);
             }
         }
         // set boolean sudah menyerang

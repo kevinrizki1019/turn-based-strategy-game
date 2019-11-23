@@ -96,9 +96,11 @@ void InstantReinforcement(Permainan *Perm, int player)
     }
 }
 
-void Barrage(Permainan *Perm,int player){
+void Barrage(Permainan *Perm,int player)
+/* Mengurangi jumlah pasukan sebanyak 10 pada bangunan musuh */
+{
     BANGUNAN B;
-    address P = First(ListBangunanPlayer(*Perm, player));
+    address P = First(ListBangunanPlayer(*Perm, (player%2)+1)); // milik musuh
     while (P != Nil){
         B = Elmt(DaftarBangunan(*Perm),Info(P));
         JumlahPasukan(B) -= 5;
@@ -109,4 +111,3 @@ void Barrage(Permainan *Perm,int player){
         P = Next(P);
     }
 }
-/* Mengurangi jumlah pasukan sebanyak 10 pada bangunan player */

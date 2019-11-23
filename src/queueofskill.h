@@ -35,6 +35,8 @@ boolean IsQueueEmpty (Queue Q);
 boolean IsQueueFull (Queue Q);
 /* Mengirim true jika tabel penampung elemen Q sudah penuh */
 /* yaitu mengandung elemen sebanyak MaxElQueue */
+int NBElmtQueue (Queue Q);
+/* Mengirim banyak elemen dalam queue */
 
 /* *** Kreator *** */
 void CreateEmptyQueue (Queue * Q, int Max);
