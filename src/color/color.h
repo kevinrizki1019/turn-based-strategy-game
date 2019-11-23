@@ -6,8 +6,6 @@
 
 #include <stdio.h>
 
-#define GREEN "\x1B[32m"
-
 void red();
 // Fungsi untuk mengubah output print ke merah
 void blue();

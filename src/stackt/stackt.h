@@ -4,7 +4,7 @@
 #ifndef stackt_H
 #define stackt_H
 
-#include "boolean.h"
+#include "../boolean.h"
 #include "../bangunan/bangunan.h"
 
 #define MaxElStack 100

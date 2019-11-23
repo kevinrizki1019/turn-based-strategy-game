@@ -52,11 +52,9 @@ int main(){
     finish = false;
     Perm.ExtraTurn = false;
     do{
-        TambahPasukanDiAwalGiliran(&Perm,turn);
 
         CreateEmptyStack(&StackPerm(Perm));
         end_turn = false;
-        InitListPlayer(ListBangunanPlayer(Perm,turn),&DaftarBangunan(Perm));
 
         
         /* boolean skill */
@@ -105,7 +103,6 @@ int main(){
             }
             else if (IsSamaKata(CKata,DaftarCommand[3])){ // command == "SKILL"
                 CommandSkill(&Perm, turn);
-                CreateEmptyStack(&StackPerm(Perm));
             } 
             else if (IsSamaKata(CKata,DaftarCommand[4])){ // command == "UNDO"
                 CommandUndo(&Perm);
@@ -138,7 +135,9 @@ int main(){
 
         if (!finish){
             printf("\n");
+            InitListPlayer(ListBangunanPlayer(Perm,turn),&DaftarBangunan(Perm)); // mengeset belum menyerang dan belum move
             if (!Perm.ExtraTurn) turn = turn%2+1;
+            TambahPasukanDiAwalGiliran(&Perm,turn); // menambah pasukan, ditaruh disini biar tidak menambah pasukan ketika load game
         }
         
     }while(!finish);

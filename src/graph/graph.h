@@ -4,7 +4,7 @@
 #ifndef __GRAPH_H__
 #define __GRAPH_H__
 
-#include "boolean.h"
+#include "../boolean.h"
 #include "../color/color.h"
 #include <stdio.h>
 #include <stdlib.h>

@@ -12,6 +12,7 @@
 #include "../queueofskill/queueofskill.h"
 #include "../stackt/stackt.h"
 #include "../color/color.h"
+#include "../boolean.h"
 #include <stdio.h>
 
 typedef struct{

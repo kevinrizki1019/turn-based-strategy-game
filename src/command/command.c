@@ -257,6 +257,7 @@ void CommandSkill(Permainan *perm, int turn){
         return;
     }
 
+    CreateEmptyStack(&StackPerm(*perm));
     infoQueue x;
     Del(&SkillPlayer(*perm,turn),&x);
     switch(x){

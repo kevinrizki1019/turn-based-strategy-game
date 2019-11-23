@@ -4,7 +4,7 @@
 #ifndef queueofskill_H
 #define queueofskill_H
 
-#include "boolean.h"
+#include "../boolean.h"
 #include <stdio.h>
 #include <stdlib.h>
 

@@ -4,7 +4,7 @@
 #ifndef __BANGUNAN_H__
 #define __BANGUNAN_H__
 
-#include "boolean.h"
+#include "../boolean.h"
 #include "../point/point.h"
 #include "../color/color.h"
 #include <stdio.h>
