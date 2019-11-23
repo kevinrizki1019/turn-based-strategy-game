@@ -93,6 +93,7 @@ int main(){
             if (IsSamaKata(CKata,DaftarCommand[1])){ // command == "ATTACK"
                 if (NbBangunanAttack>0) {
                     CommandAttack(&Perm,turn);
+                    if (IsEmptyList(ListBangunanPlayer(Perm,(turn%2)+1))) finish = true;
                 } else {
                     printf("Tidak ada lagi bangunan yang dapat menyerang!\n");
                 }
@@ -142,4 +143,16 @@ int main(){
         }
         
     }while(!finish);
+
+    if (IsEmptyList(ListBangunanPlayer(Perm,(turn%2)+1))){
+        printf("Selamat!!!\n");
+        if (turn == 1) {
+            blue();
+        } else {
+            red();
+        }
+        printf("Player %d",turn);
+        reset();
+        printf(" telah memenangkan permainan!\n");
+    }
 }
