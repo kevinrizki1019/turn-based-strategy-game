@@ -1,9 +1,10 @@
 /* Nama file: matriks.h */
 /* Copyright: Kelompok 11 K-1 IF2110 2019/2020 */
 /* ADT Matriks of integer digunakan untuk dua kegunaan: */
-/* 1. Merepresentasikan keterhubungan tiap bangunan, ukuran matriks B x B, elemennya integer 1 atau 0 */
-/* 2. Merepresentasikan peta (sementara sebelum menggunakan ADT Graph */
-/*    konvensinya: -1 pagar, 0 tidak ada bangunan, id bangunan jika ada bangunan */
+/* Merepresentasikan peta  */
+/* konvensinya: -1 pagar, 0 tidak ada bangunan, id bangunan jika ada bangunan */
+/* ADT Matriks didefinisikan sesuai yang ada pada Diktat Struktur Data */
+/* Pada modul kali ini hanya digunakan primitif seperlunya*/
 
 #ifndef __MATRIKS_H__
 #define __MATRIKS_H__
