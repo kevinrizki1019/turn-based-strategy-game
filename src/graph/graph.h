@@ -59,48 +59,47 @@ typedef struct {
 /* Elemen terakhir vertice : jika addressnya Last, maka NextVer(Last)=Nil */
 /* Elemen terakhir adjacent : jika addressnya Last, maka NextAdj(Last)=Nil */
 
+/* **** Alokasi dan Dealokasi **** */
 adrver AlokasiVer (infotype X);
 /* Melakukan alokasi sebesar infotype */
 /* Jika berhasil, maka dihasilkan P yaitu adrver */
 /* dengan InfoVer(P) = X, NextVer = Nil, NextAdj = Nil */
-
 adradj AlokasiAdj (infotype X);
 /* Melakukan alokasi sebesar infotype */
 /* Jika berhasil, maka dihasilkan P yaitu adradj */
 /* dengan InfoAdj(P) = X, NextAdj = Nil */
-
 void DealokasiVer (adrver *P);
-
+/* Melakukan dealokasi untuk sebuah adrver P */
 void DealokasiAdj (adradj *P);
+/* Melakukan dealokasi untuk sebuah adradj P */
 
+/* **** KONSTRUKTOR ***** */
 void CreateGraph(GraphBANGUNAN *G, int V);
 /* Membuat graph kosong sesuai definisi diatas */
 /* Jumlah vertice pada G adalah V */
 
+/* **** SETTER ***** */
 void MakeTerhubung(GraphBANGUNAN *G, int V1, int V2);
 /* Menambahkan V2 sebagai adjacent dari V1, dan V1 sebagai adjacent dari V2 */
 
+/* **** Kelompok Pencarian **** */
 adrver SearchVer (GraphBANGUNAN G, infotype X);
 /* Mengirinkan adrver, misal v,  dimana InfoVer(V) == X */
 /* Jika X tidak ada pada G mengirimkan Nil */
 /* prekondisi: G terdefinisi*/
-
 adradj SearchAdj (adrver V, infotype X);
 /* Mengirinkan adradj, misal a,  dimana InfoAdj(a) == X */
 /* Jika X tidak ada pada G mengirimkan Nil */
 /* prekondisi: G terdefinisi*/
-
 infotype GetIdAdj (GraphBANGUNAN G, infotype infoV, int idx);
 /* Mengirimkan info dari adjecent ke-idx dari sebuah vertix v dengan info infoV */
 
-void InsVLastVer (GraphBANGUNAN *G, infotype X);
-/* Melakukan alokasi P, jika berhasil maka */
-/* menambahkan elemen alamat P, dengan InfoVer(P) = X, diakhir list vertice */
-
+/* **** Insert **** */
 void InsVLastAdj (adrver v, infotype X);
 /* Melakukan alokasi P, jika berhasil maka */
 /* menambahkan elemen alamat P, dengan InfoAdj(P) = X, diakhir list adjacent */
 
+/* **** Kelompok Tulis **** */
 void PrintKeterhubungan(GraphBANGUNAN G);
 /* Mencetak ke layar semua vertice dan adjacentnya */
 /* Format penulisan: vi -> adj1 -> adj2 -> ... -> adjn */
