@@ -1,5 +1,7 @@
 /* File: point.h */
 /* *** Definisi ABSTRACT DATA TYPE POINT *** */
+/* ADT Point didefinisikan sesuai yang ada pada Diktat Struktur Data */
+/* Pada modul kali ini hanya digunakan primitif seperlunya*/
 
 #ifndef POINT_H
 #define POINT_H
