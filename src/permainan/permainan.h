@@ -23,11 +23,11 @@ typedef struct{
 
 typedef struct{
     TabBANGUNAN DaftarBangunan; // Menyimpan daftar bangunan
-    MATRIKS Peta;
-    Player Player[3];
-    Stack StackPermainan;
-    GraphBANGUNAN G;
-    boolean ExtraTurn, AttackUp, CriticalHit;
+    MATRIKS Peta; // Menyimpan posisi bangunan pada peta
+    Player Player[3]; // Menyimpan array of Player
+    Stack StackPermainan; // Menyimpan stack untuk menjalankan mekanisme UNDO
+    GraphBANGUNAN G; // Menyimpan keterhubungan bangunan
+    boolean ExtraTurn, AttackUp, CriticalHit; // Menyimpan status beberapa skill
 } Permainan;
 
 /* ********** SELEKTOR ********** */
@@ -42,41 +42,38 @@ typedef struct{
 #define StackPerm(P) (P).StackPermainan
 #define Graph(P) (P).G
 
+/* **** Kelompok load dan save **** */
 void BacaKonfigurasi(char NamaFile[], Permainan *Perm, boolean load, int *turn);
 /*  Membaca konfigurasi file dari 'NamaFile'
     I.S. = 'NamaFile' terdefinisi dan ada
     F.S. = Variabel Perm terinisialisasi */
-
 void SimpanKonfigurasi(char NamaFile[], Permainan Perm, int turn);
 /* Menyimpan konfigurasi permainan di file */
 
+/* **** Inisasi **** */
+void InitListPlayer(List L,TabBANGUNAN *tabel);
+/* mengeset boolean bangunan player menjadi false */
 
+/* **** Kelompok Tulis **** */
 void PrintKonfigurasiPermainan(Permainan Perm);
 /* Mencetak ke layar konfigurasi permainan hasil pembacaan dari file eksternal */
-
 void TulisLogoPermainan();
-
+/* Mencetak tampilan logo permainan */
 void TulisPetaPermainan (Permainan Perm);
 /* Prosedur yang serupa seperti TulisMATRIKS namun mengganti memberikan output */
 /* berupa character sesuai integer yang ada pada konvensi sebagai berikut */
 /* Elmt(Peta(Perm),i,j) = -1 maka cetak '*' */
 /* Elmt(Peta(Perm),i,j = 0 maka cetak ' ' */
 /* else maka TulisBANGUNAN(Elmt(Peta(Perm), i, j)) */
-
 void TulisSkorPermainan (Permainan Perm);
-
-void InitListPlayer(List L,TabBANGUNAN *tabel);
-/* mengeset boolean bangunan player menjadi false */
-
+/* Mencetak skor permainan saat ini*/
 void TulisDaftarBangunan(List ListPlayer,TabBANGUNAN tabBangunan,int *n,int *n_atck,int *n_move,char tipe);
 /* Menuliskan daftar bangunan dari suatu player */
-
 void TulisDaftarBangunanMusuhTerhubung(Permainan Perm, int Id, int *n, int turn);
 /* Menuliskan daftar bangunan yang terhubung dengan bangunan tersebut sesuai ADT Graph */
 /* dengan aturan bangunan milik pemain tidak termasuk tertulis*/
-
 void TulisDaftarBangunanPlayerTerhubung(Permainan Perm, int Id, int *n, int turn);
-
-
+/* Menuliskan daftar bangunan yang terhubung dengan bangunan tersebut sesuai ADT Graph */
+/* dengan aturan bangunan selain milik pemain tidak termasuk tertulis*/
 
 #endif
