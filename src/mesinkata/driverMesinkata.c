@@ -5,6 +5,7 @@
 #include <stdio.h>
 
 int main(){
+    /* Algoritma */
     printf("Masukkan kata bebas: ");
     STARTKATA("stdin",false);
     printf("Berikut kata yang Anda masukkan: ");

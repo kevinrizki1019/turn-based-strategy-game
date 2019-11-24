@@ -1,10 +1,10 @@
 /* File: driverGraph.c */
-/* Digunakan untuk mengetes semua primitif pada ADT List Bangunan */
+/* Digunakan untuk mengetes semua primitif pada ADT Graph */
 #include "graph.h"
 #include "stdio.h"
 
 int main() {
-    /* KAMUS LOKAL */
+    /* KAMUS */
     GraphBANGUNAN G;
     int X;
     /* ALGORITMA */

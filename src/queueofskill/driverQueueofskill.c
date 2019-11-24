@@ -4,7 +4,7 @@
 #include "stdio.h"
 
 int main() {
-    /* KAMUS LOKAL */
+    /* KAMUS */
     int M;
     Queue Q;
     /* AGORITMA */

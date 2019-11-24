@@ -5,7 +5,7 @@
 #include "stdio.h"
 
 int main() {
-    /* KAMUS LOKAL */
+    /* KAMUS */
     int X;
     int Y;
     POINT P;
