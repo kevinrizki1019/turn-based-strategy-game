@@ -14,4 +14,6 @@ int main() {
     Y = -1;
     P = MakePOINT(X,Y);
     TulisPOINT(P);
+
+    return 0;
 }

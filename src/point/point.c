@@ -3,7 +3,6 @@
 #include "point.h"
 #include <stdio.h>
 
-
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
 /* *** Konstruktor membentuk POINT *** */
 POINT MakePOINT (int X, int Y)

@@ -31,9 +31,13 @@ typedef struct {
 void MakeEmptyTab(TabBANGUNAN *T, int maxel);
 /* I.S. T sembarang, maxel > 0 */
 /* F.S. Terbentuk tabel T kosong dengan kapasitas maxel + 1 */
-
 void DealokasiTab(TabBANGUNAN *T);
 /* I.S. T terdefinisi; */
 /* F.S. TI(T) dikembalikan ke system, MaxEl(T)=0; Neff(T)=0 */
+
+/* Kelompok Tulis */
+void TulisIsiTab(TabBANGUNAN T);
+/* I.S. T terdefinisi */
+/* F.S. Mencetak semua isi dari T dengan bantuan ADT Bangunan */
 
 #endif
