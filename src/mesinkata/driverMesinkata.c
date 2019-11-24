@@ -1,3 +1,6 @@
+/* File: driverMesinKata.c */
+/* Digunakan untuk mengetes semua primitif pada ADT Mesin Kata */
+
 #include "mesinkata.h"
 #include <stdio.h>
 
@@ -26,4 +29,6 @@ int main(){
         printf("\n");
         ADVKATA();
     }
+
+    return 0;
 }
