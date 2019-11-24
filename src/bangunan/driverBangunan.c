@@ -1,10 +1,13 @@
+/* File: driverBangunan.c */
+/* Digunakan untuk mengetes semua primitif pada ADT Bangunan */
 #include "bangunan.h"
 #include "stdio.h"
 
 int main() {
+    /* Kamus */
     BANGUNAN B1;
     POINT P;
-
+    /* Algoritma */
     Absis(P) = 13;
     Ordinat(P) = 2;
     B1 = MakeBANGUNAN('V', P,0);
