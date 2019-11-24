@@ -84,6 +84,12 @@ void BacaKonfigurasi(char NamaFile[],Permainan *Perm, boolean load, int *turn){
     if (load){  // melanjutkan baca file jika melalui proses load
         ADVKATA();
         *turn = CKatatoInt(); // turn
+        ADVKATA();
+        (*Perm).ExtraTurn = CKatatoInt(); // ExtraTurn
+        ADVKATA();
+        (*Perm).AttackUp = CKatatoInt(); // AttackUp
+        ADVKATA();
+        (*Perm).CriticalHit = CKatatoInt(); // CriticalHit
         for (int player=1; player<=2; ++player){
             int Nb;
             ADVKATA();
@@ -142,8 +148,9 @@ void SimpanKonfigurasi(char NamaFile[], Permainan Perm, int turn){
         verNow = NextVer(verNow);
     }
 
-    // tulis turn dan atribut player
+    // tulis turn dan atribut player/ permainan
     fprintf(file,"%d\n",turn);
+    fprintf(file,"%d %d %d\n",(Perm).ExtraTurn,(Perm).AttackUp,(Perm).CriticalHit);
     for (int i=1;i<=2;++i){
         fprintf(file,"%d\n",PlayerPerm(Perm,i).Shield);
         fprintf(file,"%d\n",NbElmtList(ListBangunanPlayer(Perm,i)));

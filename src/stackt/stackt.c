@@ -9,11 +9,12 @@ void CreateEmptyStack(Stack *S){
     Top(*S) =  0;
 }
 
-infoStack MakeInfoStack(BANGUNAN B, int id, int jenis){
+infoStack MakeInfoStack(BANGUNAN B, int id, int jenis, boolean CH){
     infoStack res;
     res.bangunan = B;
     res.idBangunan = id;
     res.jenis = jenis;
+    res.CH = CH;
     return res;
 }
 

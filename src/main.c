@@ -59,7 +59,8 @@ int main(){
         
         /* boolean skill */
         if (Perm.ExtraTurn) Perm.ExtraTurn = false;
-        do{ // command != "EXIT"
+        if (Perm.AttackUp) Perm.AttackUp = false;
+        do{ // looping memasukkan command
             TulisPetaPermainan(Perm);
             blue();
             printf("       Player %d ",1);
@@ -129,12 +130,12 @@ int main(){
             }
             if (!finish) printf("\n");
         } while ( !finish && !end_turn );
-        if (CanGetInstantReinforment(&Perm,turn)) {
-             Add(&SkillPlayer(Perm,turn),6);
-        }
 
         if (!finish){
             printf("\n");
+            if (CanGetInstantReinforment(&Perm,turn)) {
+                Add(&SkillPlayer(Perm,turn),6);
+            }
             if (PlayerPerm(Perm,turn%2+1).Shield>0){
                 --PlayerPerm(Perm,turn%2+1).Shield;
             }

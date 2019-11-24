@@ -17,10 +17,12 @@ void PrintAvailableSkill(Permainan Perm,int player);
 
 /* *********** Checker *********** */
 
-int CanGetInstantReinforment(Permainan *Perm, int player);
+boolean CanGetInstantReinforment(Permainan *Perm, int player);
 /* Mengecek apakah player berhak mendapatkan skill instant reinforment untuk ditambah ke queue di akhir turn
     Jika player = 1, berarti lakukan pada bangunan player 1.
     Jika player = 2, berarti lakukan pada bangunan player 2. */
+boolean CanGetAttackUp(Permainan *Perm, int player, int idDiSerang);
+/* Mengecek apakah player berhak mendapatkan skill attack up untuk ditambah ke queue player */
 
 /* *********** Implementasi Skill *********** */
 void InstantUpgrade(Permainan *Perm,int player);

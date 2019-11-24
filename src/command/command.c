@@ -99,9 +99,12 @@ void CommandAttack(Permainan *perm, int turn) {
         jumlahPasukanPenyerang = InputPenggunaValidDalamRange (0, JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenyerang)),"Jumlah pasukan: ");
         jumlahPasukanDiSerang = JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang));
         /* Cek pertahanan, Pertahanan(B) */
-        boolean pertahanan = Pertahanan(Elmt(DaftarBangunan(*perm),idDiSerang)) || (PlayerPerm(*perm,turn%2+1).Shield>0);
+        boolean pertahanan = (Pertahanan(Elmt(DaftarBangunan(*perm),idDiSerang)) || (PlayerPerm(*perm,turn%2+1).Shield>0)) &&
+                                (!((*perm).AttackUp)) && (!((*perm).CriticalHit));
         if (pertahanan) {
             jumlahPasukanPenyerangEfektif = jumlahPasukanPenyerang * 3 / 4;
+        } else if ((*perm).CriticalHit) {
+            jumlahPasukanPenyerangEfektif = 2*jumlahPasukanPenyerang;
         } else {
             jumlahPasukanPenyerangEfektif = jumlahPasukanPenyerang;
         }
@@ -109,17 +112,17 @@ void CommandAttack(Permainan *perm, int turn) {
         /* Melakukan pembandingan jumlah pasukan bangunan penyerang dan diserang */
         if (jumlahPasukanPenyerangEfektif < jumlahPasukanDiSerang) {
             printf("Bangunan gagal direbut. \n");
-            Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idPenyerang),idPenyerang,-1));
-            Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idDiSerang),idDiSerang,-1));
+            Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idPenyerang),idPenyerang,-1,(*perm).CriticalHit));
+            Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idDiSerang),idDiSerang,-1,(*perm).CriticalHit));
             JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenyerang)) -= jumlahPasukanPenyerang;
             JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang)) -= jumlahPasukanPenyerangEfektif;
         } else {
             printf("Bangunan menjadi milikmu! \n");
             // mengatur stack
-            Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idPenyerang),idPenyerang,-2));
+            Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idPenyerang),idPenyerang,-2,(*perm).CriticalHit));
             if (Pemilik(Elmt(DaftarBangunan(*perm),idDiSerang))==turn%2+1){     // apabila milik player lain maka dipush idx list nya
                 int idx = GetIdxFromList(ListBangunanPlayer(*perm,(turn%2+1)),idDiSerang);
-                Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idDiSerang),idDiSerang,idx));
+                Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idDiSerang),idDiSerang,idx,(*perm).CriticalHit));
                 if (JenisBangunan(Elmt(DaftarBangunan(*perm),idDiSerang))=='F'){
                     // Menambahkan skill Extra Turn ke lawan
                     Add(&SkillPlayer(*perm,(turn%2+1)),3);
@@ -128,14 +131,22 @@ void CommandAttack(Permainan *perm, int turn) {
                     // Menambahkan skill Shield ke lawan
                     Add(&SkillPlayer(*perm,(turn%2+1)),2);
                 }
+                if (CanGetAttackUp(perm,turn,idDiSerang)){
+                    // Menambahkan skill Attack Up ke player
+                    Add(&SkillPlayer(*perm,turn),4);
+                }
             }
             else{
-                Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idDiSerang),idDiSerang,-2));
+                Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idDiSerang),idDiSerang,-2,(*perm).CriticalHit));
             }
             // mengatur pengurangan pasukan
             JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenyerang)) -= jumlahPasukanPenyerang;
             if (pertahanan) {
                 jumlahPasukanPenyerangEfektif = jumlahPasukanPenyerang - (JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang))+2)/3;
+            }
+            else if ((*perm).CriticalHit){
+                jumlahPasukanPenyerangEfektif = jumlahPasukanPenyerang + (JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang))+1)/2;
+                (*perm).CriticalHit = false;
             }
             JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang)) = jumlahPasukanPenyerangEfektif - JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang));
             AkuisisiBangunan(perm, idDiSerang, turn);
@@ -168,7 +179,7 @@ void CommandLevelUp(Permainan *perm,int turn) {
     TambahSatuLevel(&Elmt(DaftarBangunan(*perm),IdBangunan),&success,&B_lama);
     
     if (success){
-        Push(&StackPerm(*perm),MakeInfoStack(B_lama,IdBangunan,0));
+        Push(&StackPerm(*perm),MakeInfoStack(B_lama,IdBangunan,0,(*perm).CriticalHit));
     }
 }
 
@@ -185,6 +196,7 @@ void CommandUndo(Permainan *perm){
 
         // mengganti elemen di daftar bangunan
         Elmt(DaftarBangunan(*perm),s.idBangunan) = s.bangunan;
+        (*perm).CriticalHit = s.CH;
         if (s.jenis==-1){  // merupakan command ATTACK gagal atau MOVE
             Pop(&StackPerm(*perm),&s);
             TulisBangunan(s.bangunan);
@@ -242,8 +254,8 @@ void CommandMove(Permainan *perm, int turn) {
         /* Meminta input jumlah pasukan untuk menyerang */
         jumlahPasukanKiriman = InputPenggunaValidDalamRange (0, JumlahPasukan(Elmt(DaftarBangunan(*perm),idPengirim)),"Jumlah pasukan: ");
         /* Melakukan pembandingan jumlah pasukan bangunan penyerang dan diserang */
-        Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idPengirim),idPengirim,-1));
-        Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idPenerima),idPenerima,-1));
+        Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idPengirim),idPengirim,-1,(*perm).CriticalHit));
+        Push(&StackPerm(*perm),MakeInfoStack(Elmt(DaftarBangunan(*perm),idPenerima),idPenerima,-1,(*perm).CriticalHit));
         JumlahPasukan(Elmt(DaftarBangunan(*perm),idPengirim)) -= jumlahPasukanKiriman;
         if (JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenerima)) + jumlahPasukanKiriman < MAX_PASUKAN) {
             JumlahPasukan(Elmt(DaftarBangunan(*perm),idPenerima)) += jumlahPasukanKiriman;
@@ -283,14 +295,18 @@ void CommandSkill(Permainan *perm, int turn){
         case 3: // Extra Turn
         (*perm).ExtraTurn = true;
         printf("Skill Extra Turn telah digunakan\n");
+        // Menambahkan skill Critical Hit ke lawan
+        Add(&SkillPlayer(*perm,(turn%2)+1),5);
         break;
 
         case 4: // Attack Up
-        
+        (*perm).AttackUp = true;
+        printf("Skill Attack Up telah digunakan\n");
         break;
 
         case 5: // Critical Hit
-
+        (*perm).CriticalHit = true;
+        printf("Skill Critical Hit telah digunakan\n");
         break;
 
         case 6: // Instant Reinforcement
