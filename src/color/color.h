@@ -10,27 +10,24 @@ void red();
 // Fungsi untuk mengubah output print ke merah
 void blue();
 // Fungsi untuk mengubah output print ke biru
-
 void yellow();
-
+// Fungsi untuk mengubah output print ke kuning
 void green();
-
+// Fungsi untuk mengubah output print ke hijau
 void cyan();
-
-void white();
-
+// Fungsi untuk mengubah output print ke cyan
 void brightwhite();
-
+// Fungsi untuk mengubah output print ke putih terang
 void bgred();
-
+// Fungsi untuk mengubah latar output print ke merah
 void bgblue();
-
+// Fungsi untuk mengubah latar output print ke biru terang
 void bgwhite();
-
+// Fungsi untuk mengubah latar output print ke putih
 void bgyellow();
-
+// Fungsi untuk mengubah latar output print ke kuning
 void bggreen();
-
+// Fungsi untuk mengubah latar output print ke hijau
 void reset();
 // Reset Warna
 
