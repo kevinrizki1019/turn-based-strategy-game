@@ -4,14 +4,20 @@
 #include "queueofskill.h"
 
 boolean IsQueueEmpty (Queue Q){
+	/* KAMUS LOKAL */
+	/* ALGORITMA */
     return(Head(Q)==0 && Tail(Q)==0);
 }
 
 boolean IsQueueFull (Queue Q){
+	/* KAMUS LOKAL */
+	/* ALGORITMA */
     return ( ((Tail(Q)%MaxElQueue(Q))+1) == Head(Q));
 }
 int NBElmtQueue (Queue Q){
-    if (IsQueueEmpty(Q)) return 0;
+    /* KAMUS LOKAL */
+	/* ALGORITMA */
+	if (IsQueueEmpty(Q)) return 0;
     if (Head(Q)<=Tail(Q)){
         return (Tail(Q)-Head(Q)+1);
     }
@@ -22,11 +28,8 @@ int NBElmtQueue (Queue Q){
 
 /* *** Kreator *** */
 void CreateEmptyQueue (Queue * Q, int Max){
-/* I.S. sembarang */
-/* F.S. Sebuah Q kosong terbentuk dan salah satu kondisi sbb: */
-/* Jika alokasi berhasil, Tabel memori dialokasi berukuran Max+1 */
-/* atau : jika alokasi gagal, Q kosong dg MaxEl=0 */
-/* Proses : Melakukan alokasi, membuat sebuah Q kosong */    
+	/* KAMUS LOKAL */
+	/* ALGORITMA */
 	(*Q).T = (infoQueue *) malloc ((Max+1)*sizeof(infoQueue));
     if ((*Q).T != NULL) {
 	    MaxElQueue(*Q) = Max;
@@ -40,9 +43,8 @@ void CreateEmptyQueue (Queue * Q, int Max){
 
 /* *** Destruktor *** */
 void DeAlokasi(Queue * Q){
-/* Proses: Mengembalikan memori Q */
-/* I.S. Q pernah dialokasi */
-/* F.S. Q menjadi tidak terdefinisi lagi, MaxElQueue(Q) diset 0 */    
+	/* KAMUS LOKAL */
+	/* ALGORITMA */
 	MaxElQueue(*Q) = 0;
 	free((*Q).T);
 }
@@ -50,9 +52,8 @@ void DeAlokasi(Queue * Q){
 
 /* *** Primitif Add/Delete *** */
 void Add (Queue * Q, infoQueue X){
-/* Proses: Menambahkan X pada Q dengan aturan FIFO */
-/* I.S. Q mungkin kosong, tabel penampung elemen Q mungkin penuh */
-/* F.S. X menjadi TAIL yang baru, TAIL "maju" dengan mekanisme circular buffer */
+	/* KAMUS LOKAL */
+	/* ALGORITMA */
     if (IsQueueFull(*Q)) return;
 	if (IsQueueEmpty(*Q)){	
 		Tail(*Q) = 1;
@@ -65,10 +66,8 @@ void Add (Queue * Q, infoQueue X){
 }
 
 void Del (Queue * Q, infoQueue * X){
-/* Proses: Menghapus X pada Q dengan aturan FIFO */
-/* I.S. Q tidak mungkin kosong */
-/* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer; 
-        Q mungkin kosong */
+	/* KAMUS LOKAL */
+	/* ALGORITMA */
     (*X) = InfoHead(*Q);
 	if (Head(*Q) == Tail(*Q)){
 		Head(*Q) = 0;
