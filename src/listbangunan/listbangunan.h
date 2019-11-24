@@ -2,6 +2,8 @@
 /* Copyright: Kelompok 11 K-1 IF2110 2019/2020 */
 /* List yang elemennya bertipa integer yang menunjukkan indeks pada DaftarBangunan yang 
  merepresentasikan kepemilikan dari suatu player*/
+/* Implementasi ADT List ini sama dengan list linier pada diktat struktur data
+ dengan pemakaian primitif seperlunya */
 
 #ifndef __LIST_LINIER_BANGUNAN__
 #define __LIST_LINIER_BANGUNAN__

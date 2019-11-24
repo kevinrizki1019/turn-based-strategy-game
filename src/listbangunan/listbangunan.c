@@ -99,7 +99,6 @@ void InsVatIdx (List *L, int X, int idx){
     else{
         P = Alokasi(X);
         if (P==Nil) return;
-        printf("jancuk\n");
         now = First(*L);
         --idx;
         while (--idx){
