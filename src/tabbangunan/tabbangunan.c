@@ -19,13 +19,3 @@ void DealokasiTab(TabBANGUNAN *T){
     NeffTab(*T)=0;
 }
 
-void TulisIsiTab(TabBANGUNAN T) {
-    /* KAMUS LOKAL */
-    IdxType i;
-
-    for (i=IdxMin;i<=NeffTab(T);i++){
-        printf("%d. ",i);
-        TulisBangunan(Elmt(T,i));
-        printf("\n");
-    }
-}
