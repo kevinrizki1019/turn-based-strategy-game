@@ -50,7 +50,7 @@ void PrintAvailableSkill(Permainan Perm,int player){
 
 /* *********** Checker *********** */
 
-int CanGetInstantReinforment(Permainan *Perm, int player){
+boolean CanGetInstantReinforment(Permainan *Perm, int player){
     address P = First(ListBangunanPlayer(*Perm,player));
     while (P != Nil){
         if (Level(Elmt(DaftarBangunan(*Perm),Info(P))) < 4)
@@ -58,6 +58,22 @@ int CanGetInstantReinforment(Permainan *Perm, int player){
         P = Next(P);
     }
     return 1;
+}
+
+
+boolean CanGetAttackUp(Permainan *Perm, int player, int idDiSerang){
+    if (JenisBangunan(Elmt(DaftarBangunan(*Perm),idDiSerang))=='T'){
+        address P = First(ListBangunanPlayer(*Perm,player));
+        int cnt = 0;
+        while (P!=Nil){
+            if (JenisBangunan(Elmt(DaftarBangunan(*Perm),Info(P)))=='T'){
+                ++cnt;
+            }
+            P = Next(P);
+        }
+        return (cnt==2);
+    }
+    return false;
 }
 
 

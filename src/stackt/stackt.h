@@ -19,6 +19,7 @@ typedef struct {
     -1 : ATTACK yang tidak berpindah kepemilikan atau MOVE (dapat dijadikan sama)
     0 : LEVEL_UP
     >0 : ATTACK yang berpindah kepemilikan (merepresentasikan posisi dalam list) */ 
+  boolean CH; // Critical Hit
 } infoStack;
 
 /* Contoh deklarasi variabel bertype stack dengan ciri TOP : */
@@ -45,7 +46,7 @@ void CreateEmptyStack (Stack *S);
 /* jadi indeksnya antara 1.. MaxElStack+1 karena 0 tidak dipakai */
 /* Ciri stack kosong : TOP bernilai Nil */
 
-infoStack MakeInfoStack(BANGUNAN B, int id, int jenis);
+infoStack MakeInfoStack(BANGUNAN B, int id, int jenis, boolean CH);
 /* Membuat infoStack */
 
 /* ************ Predikat Untuk test keadaan KOLEKSI ************ */

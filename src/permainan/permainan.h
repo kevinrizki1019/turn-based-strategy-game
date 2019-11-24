@@ -27,7 +27,7 @@ typedef struct{
     Player Player[3];
     Stack StackPermainan;
     GraphBANGUNAN G;
-    boolean ExtraTurn;
+    boolean ExtraTurn, AttackUp, CriticalHit;
 } Permainan;
 
 /* ********** SELEKTOR ********** */
