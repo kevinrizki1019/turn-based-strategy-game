@@ -268,6 +268,19 @@ void TulisPetaPermainan (Permainan Perm){
     reset();
 }
 
+void TulisSkorPermainan (Permainan Perm) {
+    TulisPetaPermainan(Perm);
+    blue();
+    printf("Player %d ",1);
+    reset();
+    printf("%d |",NbElmtList(ListBangunanPlayer(Perm,1)));
+            
+    printf(" %d ",NbElmtList(ListBangunanPlayer(Perm,2)));
+    red();
+    printf("Player %d\n",2);
+    reset();
+}
+
 void InitListPlayer(List L,TabBANGUNAN *tabel){
     address P = First(L);
     while(P != Nil){

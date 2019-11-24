@@ -63,6 +63,8 @@ void TulisPetaPermainan (Permainan Perm);
 /* Elmt(Peta(Perm),i,j = 0 maka cetak ' ' */
 /* else maka TulisBANGUNAN(Elmt(Peta(Perm), i, j)) */
 
+void TulisSkorPermainan (Permainan Perm);
+
 void InitListPlayer(List L,TabBANGUNAN *tabel);
 /* mengeset boolean bangunan player menjadi false */
 
@@ -74,5 +76,7 @@ void TulisDaftarBangunanMusuhTerhubung(Permainan Perm, int Id, int *n, int turn)
 /* dengan aturan bangunan milik pemain tidak termasuk tertulis*/
 
 void TulisDaftarBangunanPlayerTerhubung(Permainan Perm, int Id, int *n, int turn);
+
+
 
 #endif

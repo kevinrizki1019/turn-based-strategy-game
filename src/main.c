@@ -9,8 +9,6 @@
 #include <stdio.h>
 
 int main(){
-    /* Silakan mencoba codingan di bawah ini */
-    /* Jangan mengahapus codingan dibawah karena untuk main program */
     /* Kamus */
     Permainan Perm;
     char s[NMaxStr],pil;
@@ -18,9 +16,8 @@ int main(){
     boolean finish,end_turn;
 
     /* Algoritma */
-    TulisLogoPermainan();
-    
     /* Inisiasi Game */
+    TulisLogoPermainan();
     InitDaftarCommand();
     do{
         red();
@@ -33,44 +30,37 @@ int main(){
     }while((pil!='1') && (pil!='2'));
     
     if (pil=='1'){
+        /* Baca konfigurasi permainan dari file config_map.txt */
         BacaKonfigurasi("config_map.txt",&Perm,false,&turn);
     }
     else{
+        /* Baca konfigurasi permainan dari file game yang sudah pernah dimainkan */
         printf("Lokasi load file: ");
         scanf("%s",s);
         BacaKonfigurasi(s,&Perm,true,&turn);
     }
 
     /* Tampilan awal game hasil load dari file */
-    printf("\n~~~~~~~~~~~~~~~");
     PrintKonfigurasiPermainan(Perm);
     ShowAvailableCommand();
-    printf("~~~~~~~~~~~~~~~\n\n");
-
 
     /* Looping Command */
     finish = false;
     Perm.ExtraTurn = false;
+    /* Looping satu player */
     do{
 
+        /* Inisiasi stack diawal turn pemain*/
         CreateEmptyStack(&StackPerm(Perm));
         end_turn = false;
 
-        
-        /* boolean skill */
+        /* boolean skill extra turn */
         if (Perm.ExtraTurn) Perm.ExtraTurn = false;
-        do{ // command != "EXIT"
-            TulisPetaPermainan(Perm);
-            blue();
-            printf("       Player %d ",1);
-            reset();
-            printf("%d |",NbElmtList(ListBangunanPlayer(Perm,1)));
-            
-            printf(" %d ",NbElmtList(ListBangunanPlayer(Perm,2)));
-            red();
-            printf("Player %d\n",2);
-            reset();
 
+        /* Looping satu command */
+        do{ // command != "EXIT"
+            /* Mencetak informasi dan kondisi permainan */
+            TulisSkorPermainan(Perm);
             if (turn == 1) {
                 blue();
             } else {
@@ -82,6 +72,7 @@ int main(){
             TulisDaftarBangunan(ListBangunanPlayer(Perm,turn),DaftarBangunan(Perm),&BanyakBangunan,&NbBangunanAttack,&NbBangunanMove,'0');
             PrintAvailableSkill(Perm,turn);
             printf("\n");
+
             if (turn == 1) {
                 blue();
             } else {
@@ -89,8 +80,10 @@ int main(){
             }
             printf("ENTER COMMAND: ");
             reset();
+            
             STARTKATA("stdin",false);
-            if (IsSamaKata(CKata,DaftarCommand[1])){ // command == "ATTACK"
+            /* command == "ATTACK" */
+            if (IsSamaKata(CKata,DaftarCommand[1])){ 
                 if (NbBangunanAttack>0) {
                     CommandAttack(&Perm,turn);
                     if (IsEmptyList(ListBangunanPlayer(Perm,(turn%2)+1))) finish = true;
@@ -98,29 +91,36 @@ int main(){
                     printf("Tidak ada lagi bangunan yang dapat menyerang!\n");
                 }
             }
-            else if (IsSamaKata(CKata,DaftarCommand[2])){ // command == "LEVEL_UP"
+            /* command == "LEVEL_UP" */
+            else if (IsSamaKata(CKata,DaftarCommand[2])){ 
                 CommandLevelUp(&Perm, turn);
             }
-            else if (IsSamaKata(CKata,DaftarCommand[3])){ // command == "SKILL"
+            /* command == "SKILL" */
+            else if (IsSamaKata(CKata,DaftarCommand[3])){ 
                 CommandSkill(&Perm, turn);
             } 
-            else if (IsSamaKata(CKata,DaftarCommand[4])){ // command == "UNDO"
+            /* command == "UNDO" */
+            else if (IsSamaKata(CKata,DaftarCommand[4])){ 
                 CommandUndo(&Perm);
             }
-            else if (IsSamaKata(CKata,DaftarCommand[5])){ // command == "END_TURN"
+            /* command == "END_TURN" */
+            else if (IsSamaKata(CKata,DaftarCommand[5])){ 
                 end_turn = true;
             }
-            else if (IsSamaKata(CKata,DaftarCommand[6])){ // command == "SAVE"
+            /* command == "SAVE" */
+            else if (IsSamaKata(CKata,DaftarCommand[6])){ 
                 CommandSave(Perm, turn);
             }
-            else if (IsSamaKata(CKata,DaftarCommand[7])){ // command == "MOVE"
+            /* command == "MOVE" */
+            else if (IsSamaKata(CKata,DaftarCommand[7])){ 
                 if (NbBangunanMove>0) {
                     CommandMove(&Perm, turn);
                 } else {
                     printf("Tidak ada lagi bangunan yang dapat memindahkan pasukan!\n");
                 }
             }
-            else if (IsSamaKata(CKata,DaftarCommand[8])){ // command == "EXIT"
+            /* command == "EXIT" */
+            else if (IsSamaKata(CKata,DaftarCommand[8])){ 
                 CommandExit(Perm,turn);
                 finish = true;
             }
@@ -129,18 +129,23 @@ int main(){
             }
             if (!finish) printf("\n");
         } while ( !finish && !end_turn );
-        if (CanGetInstantReinforment(&Perm,turn)) {
-             Add(&SkillPlayer(Perm,turn),6);
-        }
 
         if (!finish){
             printf("\n");
+            /* Cek untuk mendapatkan skill IR */
+            if (CanGetInstantReinforment(&Perm,turn)) {
+                 Add(&SkillPlayer(Perm,turn),6);
+            }
+            /* Mengurangi jumlah pemakaian shield untuk lawan */ 
             if (PlayerPerm(Perm,turn%2+1).Shield>0){
                 --PlayerPerm(Perm,turn%2+1).Shield;
             }
-            InitListPlayer(ListBangunanPlayer(Perm,turn),&DaftarBangunan(Perm)); // mengeset belum menyerang dan belum move
+            /* /mengeset semua bangunan menjadi belum menyerang dan belum move*/ 
+            InitListPlayer(ListBangunanPlayer(Perm,turn),&DaftarBangunan(Perm)); 
+            /* Mengganti turn */
             if (!Perm.ExtraTurn) turn = turn%2+1;
-            TambahPasukanDiAwalGiliran(&Perm,turn); // menambah pasukan, ditaruh disini biar tidak menambah pasukan ketika load game
+            /* menambah pasukan, ditaruh disini biar tidak menambah pasukan ketika load game */
+            TambahPasukanDiAwalGiliran(&Perm,turn);
         }
         
     }while(!finish);
