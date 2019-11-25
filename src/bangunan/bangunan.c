@@ -194,9 +194,9 @@ void TulisBangunan (BANGUNAN B)
     printf("lv. %d", Level(B));
     reset();
     /* buat mempermudah ngedebug */
-    printf(" Pemilik(%d) ",Pemilik(B));
-    printf(((Pertahanan(B))? "(Pertahanan)":"()"));
-    printf(" %d %d",SudahAttack(B),SudahMove(B));
+    // printf(" Pemilik(%d) ",Pemilik(B));
+    // printf(((Pertahanan(B))? "(Pertahanan)":"()"));
+    // printf(" %d %d",SudahAttack(B),SudahMove(B));
 }
 
 boolean IsBangunanSama(BANGUNAN A, BANGUNAN B){
