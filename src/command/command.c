@@ -191,16 +191,16 @@ void CommandUndo(Permainan *perm){
         infoStack s;
         Pop(&StackPerm(*perm),&s);
         // mencetak elemen stack yang di delete untuk di debug
-        TulisBangunan(s.bangunan);
-        printf("\n%d %d\n",s.idBangunan,s.jenis);
+        // TulisBangunan(s.bangunan);
+        // printf("\n%d %d\n",s.idBangunan,s.jenis);
 
         // mengganti elemen di daftar bangunan
         Elmt(DaftarBangunan(*perm),s.idBangunan) = s.bangunan;
         (*perm).CriticalHit = s.CH;
         if (s.jenis==-1){  // merupakan command ATTACK gagal atau MOVE
             Pop(&StackPerm(*perm),&s);
-            TulisBangunan(s.bangunan);
-            printf("\n%d %d\n",s.idBangunan,s.jenis);
+            // TulisBangunan(s.bangunan);
+            // printf("\n%d %d\n",s.idBangunan,s.jenis);
             Elmt(DaftarBangunan(*perm),s.idBangunan) = s.bangunan;
         }
         else if(s.jenis!=0){   // merupakan command ATTACK berhasil
@@ -211,10 +211,11 @@ void CommandUndo(Permainan *perm){
                 InsVatIdx(&ListBangunanPlayer(*perm,(pemilikSekarang%2+1)),s.idBangunan,s.jenis);
             }
             Pop(&StackPerm(*perm),&s);
-            TulisBangunan(s.bangunan);
-            printf("\n%d %d\n",s.idBangunan,s.jenis);
+            // TulisBangunan(s.bangunan);
+            // printf("\n%d %d\n",s.idBangunan,s.jenis);
             Elmt(DaftarBangunan(*perm),s.idBangunan) = s.bangunan;
         }
+        printf("Command terakhir telah di-undo\n");
     }
 }
 
