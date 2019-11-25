@@ -278,7 +278,7 @@ void TulisPetaPermainan (Permainan Perm){
 void TulisSkorPermainan (Permainan Perm) {
     TulisPetaPermainan(Perm);
     blue();
-    printf("Player %d ",1);
+    printf("    Player %d ",1);
     reset();
     printf("%d |",NbElmtList(ListBangunanPlayer(Perm,1)));
             
