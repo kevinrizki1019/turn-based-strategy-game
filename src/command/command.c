@@ -146,7 +146,6 @@ void CommandAttack(Permainan *perm, int turn) {
             }
             else if ((*perm).CriticalHit){
                 jumlahPasukanPenyerangEfektif = jumlahPasukanPenyerang + (JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang))+1)/2;
-                (*perm).CriticalHit = false;
             }
             JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang)) = jumlahPasukanPenyerangEfektif - JumlahPasukan(Elmt(DaftarBangunan(*perm),idDiSerang));
             AkuisisiBangunan(perm, idDiSerang, turn);
@@ -157,6 +156,7 @@ void CommandAttack(Permainan *perm, int turn) {
         }
         // set boolean sudah menyerang
         SudahAttack(Elmt(DaftarBangunan(*perm),idPenyerang)) = true;
+        if ((*perm).CriticalHit) (*perm).CriticalHit = false;
         /* Cek skill AttackUp dan CriticalHit */
     }
 }
