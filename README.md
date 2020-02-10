@@ -1,4 +1,6 @@
 # Algorithm and Data Structure Big Assignment
+* Avatar World War Game is a turn-based strategy game that stimulate world war in Avatar world. This game is played by entering the command through command line interface with each commands will be explained in  the game features. This game made in C language.
+
 * Use gcc compiler and linux terminal
 * Command to run the main program is like this, run in outer directory:
 ```
